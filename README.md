@@ -1,5 +1,12 @@
 # the-black-book
 
+## To init the project
+```
+npx @vue/cli create the-black-book
+npm install vue-router --save
+npm install vuex --save
+```
+
 ## Project setup
 ```
 npm install
