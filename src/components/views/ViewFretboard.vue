@@ -1,5 +1,5 @@
 <template>
-  <h1>View Fretboard</h1>
+  <h1>Fretboard</h1>
 </template>
 
 <script>

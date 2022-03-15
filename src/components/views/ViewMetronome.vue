@@ -1,5 +1,5 @@
 <template>
-  <h1>View Metronome</h1>
+  <h1>Metronome</h1>
 </template>
 
 <script>
