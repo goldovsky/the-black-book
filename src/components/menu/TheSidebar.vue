@@ -7,7 +7,7 @@
   <div class="sidebar" :class="{open: sideBarOpened}">
     <div class="logo-details" @click="openMenu">
       <!-- <i class="bx bxl-c-plus-plus icon"></i> -->
-      <img class="logo-png" src="./../../assets/blackPickIcon.png"> 
+      <img class="logo-png" src="./../../assets/images/blackPickIcon.png"> 
       <div class="logo_name">{{ appTitle }}</div>
       <i class="bx" :class="iconMenu" id="btn"></i>
     </div>
@@ -127,7 +127,7 @@ export default {
   top: 0;
   height: 100%;
   width: 78px;
-  background: #11101d;
+  background: var(--sidebar-background);
   padding: 6px 14px;
   z-index: 99;
   transition: all 0.5s ease;
@@ -262,10 +262,10 @@ export default {
   align-items: center;
   text-decoration: none;
   transition: all 0.4s ease;
-  background: #11101d;
+  background: var(--sidebar-icon);
 }
 .sidebar li a:hover {
-  background: #fff;
+  background: var(--sidebar-icon-hover);
 }
 .sidebar li a .links_name {
   color: #fff;

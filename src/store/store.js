@@ -10,6 +10,7 @@ const store = createStore({
   state() {
     return {
       appTitle: "TheBlackBook",
+      darkMode: false,
       leftDexterity: true,
       nbStrings: 6,
       chordDiagramWidth: 16, // TODO base 20
@@ -19,6 +20,9 @@ const store = createStore({
     appTitle(state) {
       return state.appTitle;
     },
+    darkMode(state) {
+      return state.darkMode;
+    },
     leftDexterity(state) {
       return state.leftDexterity;
     },
@@ -26,6 +30,16 @@ const store = createStore({
       return state.nbStrings;
     },
   },
+  mutations: {
+    switchTheme() {
+      this.darkMode = !this.darkMode;
+    }
+  },
+  actions: {
+    switchTheme(context) {
+      context.commit('switchTheme');
+    }
+  }
 });
 
 export default store;

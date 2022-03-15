@@ -1,6 +1,6 @@
 <template>
 <!-- TODO this is not wide enough : it doesn't align with frettednotes -->
-  <svg :width="width" :height="height">
+  <svg :width="width" :height="height"  stroke="var(--diagram-finger)" fill="var(--diagram-finger)">
     <rect x="0" y="0" :width="width - 7" :height="height" rx="5" ry="5" />
 
     <base-finger

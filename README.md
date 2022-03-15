@@ -5,6 +5,7 @@
 npx @vue/cli create the-black-book
 npm install vue-router --save
 npm install vuex --save
+npm install -D sass-loader node-sass
 ```
 
 ## Project setup

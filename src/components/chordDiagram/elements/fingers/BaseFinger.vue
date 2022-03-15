@@ -1,6 +1,6 @@
 <template>
   <svg viewBox="0 0 100 100">
-    <circle cx="50" cy="50" r="49" stroke="black" fill="black" />
+    <circle cx="50" cy="50" r="49" stroke="var(--diagram-finger)" fill="var(--diagram-finger)" />
     <text class="fingerLabel" x="50" y="70">
       {{ label }}
     </text>

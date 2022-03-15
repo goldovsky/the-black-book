@@ -10,7 +10,7 @@
     <text
       y="8"
       :x="chordNameXPosition"
-      fill="black"
+      fill="var(--diagram-stroke)"
       font-size="10"
       font-weight="bold"
       text-anchor="middle"
@@ -109,7 +109,7 @@ export default {
 <style scoped>
 .nut {
   fill: none;
-  stroke: #000;
+  stroke: var(--diagram-stroke);
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 0.5;

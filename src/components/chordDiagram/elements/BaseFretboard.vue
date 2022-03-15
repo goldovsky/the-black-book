@@ -45,14 +45,15 @@ export default {
 
 <style scoped>
 .topDiagram {
-  stroke: rgba(0, 0, 0, 0.1);
+  stroke: var(--diagram-stroke);
+  /* stroke: rgba(0, 0, 0, 0.1); */
   stroke-width: 4;
   stroke-dasharray: 4, 3;
 }
 
 .bottomDiagram {
   fill: none;
-  stroke: #000;
+  stroke: var(--diagram-stroke);
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 0.5;
@@ -64,7 +65,7 @@ export default {
   stroke-width: 4;
 }
 .lastFret {
-  stroke: black;
+  stroke: var(--diagram-stroke);
   stroke-width: 0.5;
 }
 </style>

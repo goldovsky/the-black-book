@@ -6,6 +6,8 @@ import store from './store/store.js';
 import BaseCard from './components/ui/BaseCard.vue'
 import BaseButton from './components/ui/BaseButton.vue'
 
+import './assets/css/styles.scss' // custom styles
+
 const app = createApp(App)
 app.use(router)
 app.use(store)

@@ -1,0 +1,88 @@
+// light to dark
+// D8E3E7
+// 51C4D3
+// 126E82
+// 132C33
+
+:root {
+    --app-background-color: #D8E3E7;
+    /**
+    * SIDEBAR
+    */
+    --sidebar-background: #132C33;
+    --sidebar-icon: #126E82;
+    --sidebar-icon-hover: #D8E3E7;
+    --sidebar-text: #D8E3E7;
+    /**
+    * DIAGRAMS
+    */
+    --diagram-stroke: #126E82;
+    --diagram-finger: #126E82;
+
+    /**
+    * TITLES
+    */
+    --dynamic-h1-color: #363636;
+    --dynamic-h2-color: #363636;
+    --dynamic-h3-color: #363636;
+    --dynamic-h4-color: #363636;
+    --dynamic-h5-color: #363636;
+    --dynamic-h6-color: #363636;
+    --dynamic-subtitle-color: #4a4a4a;
+}
+
+[theme="dark"] {
+    --app-background-color: #132C33;
+    /**
+    * SIDEBAR
+    */
+    --sidebar-background: #132C33;
+    --sidebar-icon: #126E82;
+    --sidebar-icon-hover: #132C33;
+    --sidebar-text: #132C33;
+    /**
+    * DIAGRAMS
+    */
+    --diagram-stroke: #D8E3E7;
+    --diagram-finger: #D8E3E7;
+    /**
+    * TITLES
+    */
+    --dynamic-h1-color: #D8E3E7;
+    --dynamic-h2-color: #D8E3E7;
+    --dynamic-h3-color: #D8E3E7;
+    --dynamic-h4-color: #D8E3E7;
+    --dynamic-h5-color: #D8E3E7;
+    --dynamic-h6-color: #D8E3E7;
+    --dynamic-subtitle-color: cyan;
+}
+
+// :root {
+//     --app-background-color: #FFFFFF;
+//     --sidebar-background: #000000;
+//     --sidebar-icon: #333333;
+//     --sidebar-icon-hover: #FFFFFF;
+//     --sidebar-text: #FFFFFF;
+//     --dynamic-h1-color: #363636;
+//     --dynamic-h2-color: #363636;
+//     --dynamic-h3-color: #363636;
+//     --dynamic-h4-color: #363636;
+//     --dynamic-h5-color: #363636;
+//     --dynamic-h6-color: #363636;
+//     --dynamic-subtitle-color: #4a4a4a;
+// }
+
+// [theme="dark"] {
+//     --app-background-color: #091A28;
+//     --sidebar-background: #000000;
+//     --sidebar-icon: #091A28;
+//     --sidebar-icon-hover: #000000;
+//     --sidebar-text: #000000;
+//     --dynamic-h1-color: #FFFFFF;
+//     --dynamic-h2-color: #03DAC6;
+//     --dynamic-h3-color: #FFFFFF;
+//     --dynamic-h4-color: #FFFFFF;
+//     --dynamic-h5-color: #FFFFFF;
+//     --dynamic-h6-color: #FFFFFF;
+//     --dynamic-subtitle-color: cyan;
+// }
