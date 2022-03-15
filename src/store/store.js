@@ -20,11 +20,9 @@ const store = createStore({
       return state.appTitle;
     },
     leftDexterity(state) {
-      // useful?
       return state.leftDexterity;
     },
     nbStrings(state) {
-      // useful?
       return state.nbStrings;
     },
   },

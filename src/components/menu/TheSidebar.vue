@@ -7,7 +7,7 @@
   <div class="sidebar" :class="{open: sideBarOpened}">
     <div class="logo-details" @click="openMenu">
       <!-- <i class="bx bxl-c-plus-plus icon"></i> -->
-      <img class="logo-details" src="./../../assets/blackPickIcon.png"> 
+      <img class="logo-png" src="./../../assets/blackPickIcon.png"> 
       <div class="logo_name">{{ appTitle }}</div>
       <i class="bx" :class="iconMenu" id="btn"></i>
     </div>
@@ -76,14 +76,14 @@
   </div>
   <section class="home-section">
     <slot> </slot>
-    <!-- <div class="text">Dashboard</div> -->
   </section>
 </template>
 
 <script>
 /**
  * TODO
- * blah blah
+ * - Cleanup unused CSS properties
+ * - Modify generic Icons to definitive ones
  * @1) remove this link as it is for icons from the template
  */
 // import { useStore } from "vuex";
@@ -137,6 +137,12 @@ export default {
 }
 .sidebar .logo-details {
   height: 60px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.logo-png {
+  height: 55px;
   display: flex;
   align-items: center;
   position: relative;
@@ -339,7 +345,7 @@ export default {
 }
 .home-section {
   position: relative;
-  background: #e4e9f7;
+  /* background: #e4e9f7; */
   min-height: 100vh;
   top: 0;
   left: 78px;

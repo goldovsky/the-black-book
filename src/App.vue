@@ -1,20 +1,22 @@
 <template>
   <sidebar>
     <router-view></router-view>
-    <!-- <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
   </sidebar>
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld.vue'
+/**
+ * * INFORMATION 
+ *  CSS background via this website!
+ * ? https://csshero.org/mesher/
+ */
 import Sidebar from './components/menu/TheSidebar.vue'
 
 
 export default {
   name: 'App',
   components: {
-    //HelloWorld,
     Sidebar
   }
 }
