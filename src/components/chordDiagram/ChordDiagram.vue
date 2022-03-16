@@ -43,7 +43,14 @@
     <!-- Fretboard -->
     <svg viewBox="0 0 100 100" x="5" y="20" width="95" height="80">
       <!-- Top Diagram | @1.w -->
-      <line v-if="nutline" x1="0" y1="0" :x2="x2DiagramWidth" y2="0" class="topDiagram" />
+      <line
+        v-if="nutline"
+        x1="0"
+        y1="0"
+        :x2="x2DiagramWidth"
+        y2="0"
+        class="topDiagram"
+      />
 
       <!-- Frets -->
       <line x1="0" y1="20" :x2="x2DiagramWidth" y2="20" class="fret" />
@@ -51,17 +58,17 @@
       <line x1="0" y1="60" :x2="x2DiagramWidth" y2="60" class="fret" />
       <line x1="0" y1="80" :x2="x2DiagramWidth" y2="80" class="fret" />
 
-      <!-- Bottom diagram -->
-      <path class="bottomDiagram" :d="bottomDiagramPath"></path>
+      <!-- STRINGS -->
+      <line  v-for="n in nbStrings" :key="n - 1"
+        class="string"
+        :x1="arrayStringXIndex[n-1]"
+        y1="0"
+        :x2="arrayStringXIndex[n-1]"
+        :y2="(n-1) === 0 || (n-1) === nbStrings - 1 ? 95 : 99"
+        :style="{ strokeWidth: stringStrokeWidth }"
+      />
 
-      <!-- Finger placement -->
-      <base-string
-        v-for="n in nbStrings"
-        :key="n - 1"
-        :i="n - 1"
-        :nbStrings="nbStrings"
-        :leftDexterity="leftDexterity"
-      ></base-string>
+      <!-- Fingers -->
       <base-fingering
         v-for="note in dexterityCorrectedChord"
         :key="note"
@@ -69,6 +76,9 @@
         :fret="note.fret"
         :finger="note.finger"
       ></base-fingering>
+
+      <!-- Bottom diagram -->
+      <path class="bottomDiagram" :d="bottomDiagramPath"></path>
     </svg>
   </svg>
 </template>
@@ -101,15 +111,19 @@
  *
  *
  *  * @1.w) TODO : use his if nut isn't part of the diagram
+ * 
+ * 
+ * 
+ * 
+ * * @1)  add option in store data to not differenciate the string size
+ * - if we differenciate the string size, calculate the placement for the last string to match the width of the string
  */
 import BaseFingering from "./elements/BaseFingering.vue";
-import BaseString from "./elements/BaseString.vue";
 import { useStore } from "vuex";
 
 export default {
   components: {
     BaseFingering,
-    BaseString,
   },
   props: ["name", "chord", "nutPosition"],
   data() {
@@ -125,7 +139,8 @@ export default {
       nutPath: null,
       bottomDiagramPath: null, // from baseFretboard
       x2DiagramWidth: 100, // Diagram width, from a string to another
-      nutline: false, // todo calculate if nut isn't part of diagram
+      nutline: false, // todo calculate if nut isn't part of diagram,
+      arrayStringXIndex: [],
       // else
       chordNameXPosition: null,
     };
@@ -188,6 +203,16 @@ export default {
        v0
        h-70`; // h(-)90 when chordDiagramWidth = 20
     this.x2DiagramWidth = this.$store.state.chordDiagramWidth * 5;
+
+    /**
+     * Calculate arrayStringXIndex
+     * X position for earch string
+     */
+    // do it better than a for loop
+    for (var i = 0; i < this.nbStrings; i++) {
+      this.arrayStringXIndex.push(this.$store.state.chordDiagramWidth * i);
+    //this.$store.state.chordDiagramWidth * stringIndex
+    }
   },
   computed: {
     splitTuning() {
@@ -201,6 +226,17 @@ export default {
         }
       } while (match && tuning.length < 6);
       return tuning;
+    },
+    // from base string
+    stringStrokeWidth() {
+      // @1
+      const activateDifferentStringSize = false;
+      if (!activateDifferentStringSize) {
+        return 0.5;
+      }
+
+      // return calculated Width based on the selected dexterity
+      return this.leftDexterity ? (1 / (this.i + 1)) * 2 : (this.i + 1) * 2;
     },
   },
 };
@@ -233,7 +269,11 @@ export default {
   stroke: var(--diagram-fret);
   stroke-width: 4;
 }
-
+.string {
+  stroke: var(--diagram-string);
+  /* stroke-width: 0.5; */
+  /* stroke-dasharray: 1, 0.2; */
+}
 .bottomDiagram {
   fill: none;
   stroke: var(--diagram-stroke);
