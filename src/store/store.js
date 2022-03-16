@@ -12,7 +12,7 @@ const store = createStore({
       appTitle: "TheBlackBook",
       darkMode: false,
       leftDexterity: true,
-      nbStrings: 6,
+      nbStrings: 7,
       chordDiagramWidth: 16, // TODO base 20
     };
   },
@@ -32,6 +32,15 @@ const store = createStore({
   },
   mutations: {
     switchTheme() {
+      // todo maybe move this somewhere else?
+      // add/remove class to/from html tag
+      let htmlElement = document.documentElement;
+      
+      if (this.darkMode) {
+        htmlElement.setAttribute("theme", "light");
+      } else {
+        htmlElement.setAttribute("theme", "dark");
+      }
       this.darkMode = !this.darkMode;
     }
   },

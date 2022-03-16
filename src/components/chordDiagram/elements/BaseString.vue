@@ -45,7 +45,7 @@ export default {
 
 <style>
 .string {
-  stroke: black;
+  stroke: var(--diagram-string);
   /* stroke-width: 0.5; */
   /* stroke-dasharray: 1, 0.2; */
 }

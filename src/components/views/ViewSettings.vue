@@ -14,7 +14,7 @@
             v-model="darkMode"
           />
           <label for="theme-switch" @click="switchTheme">
-            <span v-if="!darkMode">
+            <span v-if="darkMode">
               <img alt="logo" src="./../../assets/images/sun.png" width="40" />
             </span>
             <span v-else>
@@ -30,7 +30,7 @@
 <script>
 /**
  * TODO
- * - When switching theme, it take a few clicks before being active
+ * at first page loading, icon get set to dark whatever the current theme is. check created method
  */
 export default {
   data() {
@@ -39,23 +39,12 @@ export default {
     };
   },
   name: "ViewSettings",
-  mounted() {
+  created() {
     this.darkMode = this.$store.getters.darkMode;
   },
   methods: {
     switchTheme() {
-      console.log("switch theme!");
       this.$store.dispatch("switchTheme");
-      // add/remove class to/from html tag
-      let htmlElement = document.documentElement;
-
-      if (this.darkMode) {
-        localStorage.setItem("theme", "dark");
-        htmlElement.setAttribute("theme", "dark");
-      } else {
-        localStorage.setItem("theme", "light");
-        htmlElement.setAttribute("theme", "light");
-      }
     },
   },
 };

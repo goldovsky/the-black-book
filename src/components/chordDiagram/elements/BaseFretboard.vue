@@ -61,7 +61,7 @@ export default {
 }
 
 .fret {
-  stroke: rgba(0, 0, 0, 0.1);
+  stroke: var(--diagram-fret);
   stroke-width: 4;
 }
 .lastFret {

@@ -14,7 +14,7 @@ export default {
 </script>
 <style scoped>
 .fingerLabel {
-  fill: white;
+  fill: var(--diagram-finger-indication);
   font-size: 65px;
   font-weight: 500;
   text-anchor: middle;

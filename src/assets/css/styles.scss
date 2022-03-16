@@ -24,6 +24,33 @@ html, body {
   padding-top: 10px;
 }
 
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+h1 {
+  color: var(--dynamic-h1-color)
+}
+h2 {
+  color: var(--dynamic-h2-color)
+}
+h3 {
+  color: var(--dynamic-h3-color)
+}
+h4 {
+  color: var(--dynamic-h4-color)
+}
+h5 {
+  color: var(--dynamic-h5-color)
+}
+h6 {
+  color: var(--dynamic-h6-color)
+}
+
 /*
 * === THEME SWITCH ===
 */

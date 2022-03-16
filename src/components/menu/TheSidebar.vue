@@ -142,7 +142,7 @@ export default {
   position: relative;
 }
 .logo-png {
-  height: 55px;
+  height: 54px;
   display: flex;
   align-items: center;
   position: relative;
