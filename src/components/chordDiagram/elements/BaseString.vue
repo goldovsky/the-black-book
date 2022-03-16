@@ -1,20 +1,10 @@
 <template>
   <line
-    v-if="i === 0 || i === nbStrings - 1"
-    class="string test"
-    :x1="x"
-    y1="0"
-    :x2="x"
-    y2="95"
-    :style="{ strokeWidth: strokeWidth }"
-  />
-  <line
-    v-else
     class="string"
-    :x1="x"
+    :x1="stringX"
     y1="0"
-    :x2="x"
-    y2="99"
+    :x2="stringX"
+    :y2="i === 0 || i === nbStrings - 1 ? 95 : 99"
     :style="{ strokeWidth: strokeWidth }"
   />
 </template>
@@ -28,7 +18,7 @@
 export default {
   props: ["i", "nbStrings", "leftDexterity"],
   computed: {
-    x() {
+    stringX() {
       return this.$store.state.chordDiagramWidth * this.i;
     },
     strokeWidth() {

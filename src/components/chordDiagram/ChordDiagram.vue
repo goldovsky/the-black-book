@@ -41,7 +41,20 @@
     </svg>
 
     <!-- Fretboard -->
-    <base-fretboard :nutline="false" x="5" y="20" width="95" height="80">
+    <svg viewBox="0 0 100 100" x="5" y="20" width="95" height="80">
+      <!-- Top Diagram | @1.w -->
+      <line v-if="nutline" x1="0" y1="0" :x2="x2DiagramWidth" y2="0" class="topDiagram" />
+
+      <!-- Frets -->
+      <line x1="0" y1="20" :x2="x2DiagramWidth" y2="20" class="fret" />
+      <line x1="0" y1="40" :x2="x2DiagramWidth" y2="40" class="fret" />
+      <line x1="0" y1="60" :x2="x2DiagramWidth" y2="60" class="fret" />
+      <line x1="0" y1="80" :x2="x2DiagramWidth" y2="80" class="fret" />
+
+      <!-- Bottom diagram -->
+      <path class="bottomDiagram" :d="bottomDiagramPath"></path>
+
+      <!-- Finger placement -->
       <base-string
         v-for="n in nbStrings"
         :key="n - 1"
@@ -56,7 +69,7 @@
         :fret="note.fret"
         :finger="note.finger"
       ></base-fingering>
-    </base-fretboard>
+    </svg>
   </svg>
 </template>
 
@@ -81,34 +94,46 @@
  * @4) optimize Rotate way to do it
  * @5) check which should be calculated, do the positioning on the Y axis
  * @6) do a v-if to check if it need to be displayed or not
+ *
+ *
+ *
+ *
+ *
+ *
+ *  * @1.w) TODO : use his if nut isn't part of the diagram
  */
-//import BaseChord from "./elements/BaseChord.vue";
 import BaseFingering from "./elements/BaseFingering.vue";
 import BaseString from "./elements/BaseString.vue";
-import BaseFretboard from "./elements/BaseFretboard.vue";
 import { useStore } from "vuex";
 
 export default {
   components: {
-    //BaseChord,
     BaseFingering,
     BaseString,
-    BaseFretboard,
   },
   props: ["name", "chord", "nutPosition"],
   data() {
     return {
-      dexterityCorrectedChord: null,
+      // store
       nbStrings: null,
       leftDexterity: null,
+      // chord data
+      dexterityCorrectedChord: null,
+      // computed graphical properties
       rotationLeft: null,
       rotationRight: null,
       nutPath: null,
+      bottomDiagramPath: null, // from baseFretboard
+      x2DiagramWidth: 100, // Diagram width, from a string to another
+      nutline: false, // todo calculate if nut isn't part of diagram
+      // else
       chordNameXPosition: null,
     };
   },
   created() {
-    // @2) WIP
+    /**
+     * STORE
+     */
     const store = useStore();
     this.leftDexterity = store.getters.leftDexterity;
     if (!this.leftDexterity) {
@@ -116,32 +141,34 @@ export default {
     }
     this.nbStrings = store.getters.nbStrings;
 
-    let tmpFretted = JSON.parse(JSON.stringify(this.chord));
+    /**
+     * Modify CHORD DATA based on Dexterity
+     * WIP
+     */
+    let tmpChord = JSON.parse(JSON.stringify(this.chord));
     // loop for each fingering
-    for (const idx in tmpFretted) {
+    for (const idx in tmpChord) {
       // fingering is type 'barre'
-      if (typeof tmpFretted[idx].string === "object") {
-        for (const arrayIdx in tmpFretted[idx].string) {
+      if (typeof tmpChord[idx].string === "object") {
+        for (const arrayIdx in tmpChord[idx].string) {
           console.log(arrayIdx);
-          // tmpFretted[idx].string[arrayIdx] =
+          // tmpChord[idx].string[arrayIdx] =
         }
         // fingering is type standard
       } else {
-        // tmpFretted[idx] = tmpFretted[idx] - store.getters.nbStrings;
-        tmpFretted[idx] = 1 - this.nbStrings;
+        // tmpChord[idx] = tmpChord[idx] - store.getters.nbStrings;
+        tmpChord[idx] = 1 - this.nbStrings;
       }
     }
+    this.dexterityCorrectedChord = this.chord; // TODO when code above is ok, replace with tmpChord
 
-    this.dexterityCorrectedChord = this.chord;
-
-    /**------------------------- */
-    // created from baseChord
+    /**
+     * PATH
+     */
     // @3.5
     this.rotationLeft = false;
     this.rotationRight = false;
-
-    this.chordNameXPosition = 45; // 53 when chordDiagramWidth is at 20
-
+    this.chordNameXPosition = 45; // 53 when chordDiagramWidth = 20
     this.nutWidth = 56.9; // 72.9 when chordDiagramWidth is at 20 | (729 * (this.$store.state.chordDiagramWidth / 20)) / 10
     this.nutPath = `M12.55,15
        q 0,-3.5 3.5,-3.5
@@ -149,6 +176,18 @@ export default {
        q 3.5,0 3.5,3.5
        v0
        z`;
+
+    /**
+     * Calculate Paths
+     */
+    this.bottomDiagramPath = `M0,94
+       q 0,5 5,5
+       h70
+       q 5,0 5,-5
+       q 0,5 -5,5
+       v0
+       h-70`; // h(-)90 when chordDiagramWidth = 20
+    this.x2DiagramWidth = this.$store.state.chordDiagramWidth * 5;
   },
   computed: {
     splitTuning() {
@@ -168,6 +207,13 @@ export default {
 </script>
 
 <style scoped>
+.rotateLeft {
+  transform: rotate(-90deg);
+}
+.rotateRight {
+  transform: rotate(90deg);
+}
+
 .nut {
   fill: none;
   stroke: var(--diagram-stroke);
@@ -176,10 +222,24 @@ export default {
   stroke-width: 0.5;
 }
 
-.rotateLeft {
-  transform: rotate(-90deg);
+.topDiagram {
+  stroke: var(--diagram-stroke);
+  /* stroke: rgba(0, 0, 0, 0.1); */
+  stroke-width: 4;
+  stroke-dasharray: 4, 3;
 }
-.rotateRight {
-  transform: rotate(90deg);
+
+.fret {
+  stroke: var(--diagram-fret);
+  stroke-width: 4;
+}
+
+.bottomDiagram {
+  fill: none;
+  stroke: var(--diagram-stroke);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 0.5;
+  /* transition: 0.2s; */
 }
 </style>
