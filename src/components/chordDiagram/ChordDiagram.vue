@@ -53,8 +53,8 @@ export default {
     if (!leftDexterity) {
       return;
     }
-
     this.nbStrings = store.getters.nbStrings;
+    
     let tmpFretted = JSON.parse(JSON.stringify(this.fretted));
     // loop for each fingering
     for (const idx in tmpFretted) {

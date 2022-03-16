@@ -12,7 +12,7 @@ const store = createStore({
       appTitle: "TheBlackBook",
       darkMode: false,
       leftDexterity: true,
-      nbStrings: 7,
+      nbStrings: 6,
       chordDiagramWidth: 16, // TODO base 20
     };
   },

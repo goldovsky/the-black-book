@@ -20,7 +20,7 @@
       <li>
         <a href="#">
           <router-link to="/home">
-            <i class="bx bx-pie-chart-alt-2"></i>
+            <i class="bx bx-home"></i>
             <span class="links_name">Home</span>
           </router-link>
         </a>
@@ -29,7 +29,7 @@
       <li>
         <a href="#">
           <router-link to="/chordsdiagrams">
-            <i class="bx bx-folder"></i>
+            <i class="bx bx-abacus"></i>
             <span class="links_name">Chords Diagrams</span>
           </router-link>
         </a>
@@ -38,7 +38,7 @@
       <li>
         <a href="#">
           <router-link to="/fretboard">
-            <i class="bx bx-cart-alt"></i>
+            <i class="bx bx-meteor"></i>
             <span class="links_name">Fretboard</span>
           </router-link>
         </a>
@@ -47,11 +47,20 @@
       <li>
         <a href="#">
           <router-link to="/metronome">
-            <i class="bx bx-heart"></i>
+            <i class="bx bx-tachometer"></i>
             <span class="links_name">Metronome</span>
           </router-link>
         </a>
         <span class="tooltip">Metronome</span>
+      </li>
+       <li>
+        <a href="#">
+          <router-link to="/playback">
+            <i class="bx bx-equalizer"></i>
+            <span class="links_name">Playback</span>
+          </router-link>
+        </a>
+        <span class="tooltip">Playback</span>
       </li>
       <li>
         <a href="#">
@@ -85,6 +94,7 @@
  * - Cleanup unused CSS properties
  * - Modify generic Icons to definitive ones
  * @1) remove this link as it is for icons from the template
+ * goo icons : hive, atom, brain, box, chalkboard
  */
 // import { useStore } from "vuex";
 export default {
@@ -105,7 +115,6 @@ export default {
   },
   methods: {
       openMenu() {
-          console.log("menu opened");
           this.sideBarOpened = !this.sideBarOpened;
       }
   },

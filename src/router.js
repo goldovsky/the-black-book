@@ -4,6 +4,7 @@ import ViewChordsDiagrams from './components/views/ViewChordsDiagrams.vue';
 import ViewFretboard from './components/views/ViewFretboard.vue';
 import ViewMetronome from './components/views/ViewMetronome.vue';
 import ViewSettings from './components/views/ViewSettings.vue';
+import ViewPlayback from './components/views/ViewPlayback.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -13,6 +14,7 @@ const router = createRouter({
     { path: '/chordsdiagrams', component: ViewChordsDiagrams },
     { path: '/fretboard', component: ViewFretboard },
     { path: '/metronome', component: ViewMetronome },
+    { path: '/playback', component: ViewPlayback },
     { path: '/settings', component: ViewSettings },
   ],
 });
