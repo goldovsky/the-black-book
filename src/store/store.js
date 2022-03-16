@@ -13,7 +13,7 @@ const store = createStore({
       darkMode: false,
       leftDexterity: true,
       nbStrings: 6,
-      chordDiagramWidth: 16, // TODO base 20
+      chordDiagramWidth: 16, // de base à 20
     };
   },
   getters: {

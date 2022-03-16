@@ -1,14 +1,15 @@
 <template>
-<!-- TODO 6 change by nmStrings global variable -->
-  <line v-if="i === 0 || i === 6 -1"
-    class="string"
+  <line
+    v-if="i === 0 || i === nbStrings - 1"
+    class="string test"
     :x1="x"
     y1="0"
     :x2="x"
     y2="95"
     :style="{ strokeWidth: strokeWidth }"
   />
-  <line v-else
+  <line
+    v-else
     class="string"
     :x1="x"
     y1="0"
@@ -19,25 +20,26 @@
 </template>
 
 <script>
+/**
+ * TODO
+ * @1)  add option in store data to not differenciate the string size
+ * - if we differenciate the string size, calculate the placement for the last string to match the width of the string
+ */
 export default {
-  props: ["i"],
+  props: ["i", "nbStrings", "leftDexterity"],
   computed: {
     x() {
       return this.$store.state.chordDiagramWidth * this.i;
     },
     strokeWidth() {
-        const standardStrokeWith = 0.5;
-        
-      // todo get leftDexterity store data
-      const notRealLeftDexterity = false;
-      const calculatedWidth = notRealLeftDexterity
-        ? (1 / (this.i + 1)) * 2
-        : (this.i + 1) * 2;
+      // @1
+      const activateDifferentStringSize = false;
+      if (!activateDifferentStringSize) {
+        return 0.5;
+      }
 
-      // todo 2 add option in store data to not differenciate the string size
-      const notRealActivateStringSize = false;
-      return notRealActivateStringSize ? calculatedWidth : standardStrokeWith;
-    //   return (1 / (this.i + 1)) * 2;
+      // return calculated Width based on the selected dexterity
+      return this.leftDexterity ? (1 / (this.i + 1)) * 2 : (this.i + 1) * 2;
     },
   },
 };

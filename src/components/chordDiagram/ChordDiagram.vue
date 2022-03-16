@@ -1,13 +1,9 @@
 <template>
   <base-chord :name="name" :nut-position="nutPosition">
     <!-- @1 -->
-    <base-string
-      v-for="n in nbStrings"
-      :key="n - 1"
-      :i="n - 1"
-    ></base-string>
+    <base-string v-for="n in nbStrings" :key="n - 1" :i="n - 1" :nbStrings="nbStrings" :leftDexterity="leftDexterity"></base-string>
     <base-fingering
-      v-for="note in calculatedFretted"
+      v-for="note in dexterityCorrectedChord"
       :key="note"
       :string="note.string"
       :fret="note.fret"
@@ -39,29 +35,30 @@ export default {
     BaseFingering,
     BaseString,
   },
-  props: ["name", "fretted", "nutPosition"],
+  props: ["name", "chord", "nutPosition"],
   data() {
-      return {
-          calculatedFretted : null,
-          nbStrings: null
-      }
+    return {
+      dexterityCorrectedChord: null,
+      nbStrings: null,
+      leftDexterity: null
+    };
   },
   created() {
     // @2) WIP
     const store = useStore();
-    const leftDexterity = store.getters.leftDexterity;
-    if (!leftDexterity) {
+    this.leftDexterity = store.getters.leftDexterity;
+    if (!this.leftDexterity) {
       return;
     }
     this.nbStrings = store.getters.nbStrings;
-    
-    let tmpFretted = JSON.parse(JSON.stringify(this.fretted));
+
+    let tmpFretted = JSON.parse(JSON.stringify(this.chord));
     // loop for each fingering
     for (const idx in tmpFretted) {
       // fingering is type 'barre'
       if (typeof tmpFretted[idx].string === "object") {
         for (const arrayIdx in tmpFretted[idx].string) {
-            console.log(arrayIdx);
+          console.log(arrayIdx);
           // tmpFretted[idx].string[arrayIdx] =
         }
         // fingering is type standard
@@ -71,7 +68,7 @@ export default {
       }
     }
 
-    this.calculatedFretted = this.fretted;
+    this.dexterityCorrectedChord = this.chord;
   },
 };
 </script>

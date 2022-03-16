@@ -6,7 +6,7 @@
         <chord-diagram
           name="G"
           nut-position="0"
-          :fretted="gChordNotes"
+          :chord="gChordNotes"
         ></chord-diagram>
       </div>
     </base-card>
@@ -16,7 +16,7 @@
         <chord-diagram
           name="A blahblah7"
           nut-position="0"
-          :fretted="aChordNotes"
+          :chord="aChordNotes"
         ></chord-diagram>
       </div>
     </base-card>
@@ -26,7 +26,7 @@
         <chord-diagram
           name="D"
           nut-position="0"
-          :fretted="dChordNotes"
+          :chord="dChordNotes"
         ></chord-diagram>
       </div>
     </base-card>
