@@ -8,6 +8,10 @@
 </template>
 
 <script>
+/**
+ * TODO
+ * Merge base finger and base fingering here
+ */
 import BarredFinger from './fingers/BarredFinger.vue';
 import BaseFinger from './fingers/BaseFinger.vue';
 

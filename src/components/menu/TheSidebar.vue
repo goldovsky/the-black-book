@@ -38,7 +38,7 @@
       <li>
         <a href="#">
           <router-link to="/fretboard">
-            <i class="bx bx-meteor"></i>
+            <i class="bx bx-chalkboard"></i>
             <span class="links_name">Fretboard</span>
           </router-link>
         </a>
@@ -61,6 +61,15 @@
           </router-link>
         </a>
         <span class="tooltip">Playback</span>
+      </li>
+      <li>
+        <a href="#">
+          <router-link to="/signalchainsketches">
+            <i class="bx bx-box"></i>
+            <span class="links_name">Signal Chain Sketches</span>
+          </router-link>
+        </a>
+        <span class="tooltip">Signal Chain Sketches</span>
       </li>
       <li>
         <a href="#">
@@ -94,7 +103,7 @@
  * - Cleanup unused CSS properties
  * - Modify generic Icons to definitive ones
  * @1) remove this link as it is for icons from the template
- * goo icons : hive, atom, brain, box, chalkboard
+ * goo icons : hive, atom, brain, box, chalkboard, meteor
  */
 // import { useStore } from "vuex";
 export default {

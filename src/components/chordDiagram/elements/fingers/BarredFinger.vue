@@ -16,7 +16,7 @@
 <script>
 /**
  * TODO
- * Check why labl on barreFinger is smaller than the regural
+ * Check why label on barreFinger is smaller than the regural
  * the round part isn't perfect, specially on the left side
  */
 import BaseFinger from "./BaseFinger.vue";
