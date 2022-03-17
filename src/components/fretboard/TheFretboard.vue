@@ -10,18 +10,73 @@
     <!-- <template v-for="ref in referenceRendering">
 			<circle :key="ref" role="presentation" :cx="ref.cx" :cy="ref.cy" :r="ref.radius" :stroke="ref.stroke" :fill="ref.fill" />
 		</template> -->
+    <circle
+      v-for="ref in referenceRendering"
+      :key="ref"
+      role="presentation"
+      :cx="ref.cx"
+      :cy="ref.cy"
+      :r="ref.radius"
+      :stroke="ref.stroke"
+      :fill="ref.fill"
+    />
+
     <!-- <template v-for="fret in fretRenderings">
 			<rect :key="fret" role="presentation" :x="fret.x" :y="fret.y" :height="fret.height" :width="fret.width" :fill="fret.color" />
 		</template> -->
+    <rect
+      v-for="fret in fretRenderings"
+      :key="fret"
+      role="presentation"
+      :x="fret.x"
+      :y="fret.y"
+      :height="fret.height"
+      :width="fret.width"
+      :fill="fret.color"
+    />
+
     <!-- <template v-for="string in stringRenderings">
 			<rect :key="string" role="presentation" :x="string.x" :y="string.y" :height="string.height" :width="string.width" :fill="string.color" />
 		</template> -->
+    <rect
+      v-for="string in stringRenderings"
+      :key="string"
+      role="presentation"
+      :x="string.x"
+      :y="string.y"
+      :height="string.height"
+      :width="string.width"
+      :fill="string.color"
+    />
+
     <!-- <template v-for="note in scaleRendering">
 			<circle :key="note" role="presentation" :cx="note.cx" :cy="note.cy" :r="note.radius" :stroke="note.stroke" :fill="note.fill" />
 		</template> -->
+    <circle
+      v-for="note in scaleRendering"
+      :key="note"
+      role="presentation"
+      :cx="note.cx"
+      :cy="note.cy"
+      :r="note.radius"
+      :stroke="note.stroke"
+      :fill="note.fill"
+    />
+
     <!-- <template v-for="text in scaleText">
 			<text :key="text" text-anchor="middle" dominant-baseline="middle" :x="text.x" :y="text.y" :fill="text.fill">{{text.text}}</text>
 		</template> -->
+    <text
+      v-for="text in scaleText"
+      :key="text"
+      text-anchor="middle"
+      dominant-baseline="middle"
+      :x="text.x"
+      :y="text.y"
+      :fill="text.fill"
+    >
+      {{ text.text }}
+    </text>
   </svg>
 </template>
 
@@ -29,7 +84,6 @@
 export default {
   data() {
     return {
-      //validNoteList: (list) => list.match(/^\s*[A-F][#b]*(\s+[A-F][#b]*)*\s*$/)
       ariaUid: 0,
       noteNames: [
         "C",
@@ -219,179 +273,201 @@ export default {
       return Math.max(1, Math.min(30, this.frets));
     },
 
-    // fretRenderings: function () {
-    // 	let renderings = [];
-    // 	let oy = this.start == 0 ? this.noteRadius * 2 : 0;
-    // 	for (let fret = 0, length = this.fretsNormalized + 1; fret <= length; fret++) {
-    // 		let rendering = {
-    // 			height: fret == 0 && this.hasNut ? this.nutSize * 1 : this.fretSize * 1,
-    // 			width: (this.isHorizontal ? this.height : this.width) - this.noteRadius * 2,
-    // 			y: oy,
-    // 			x: this.noteRadius * 1,
-    // 			color: this.fretColor,
-    // 		};
-    // 		if (this.isHorizontal) {
-    // 			rendering = {
-    // 				height: rendering.width,
-    // 				width: rendering.height,
-    // 				y: rendering.x,
-    // 				x: rendering.y,
-    // 				color: rendering.color,
-    // 			};
-    // 			if (this.hasLeftStrummingHand) {
-    // 				rendering.x = this.width - rendering.x - rendering.width;
-    // 			}
-    // 		}
-    // 		renderings.push(rendering);
-    // 		oy += (fret == 0 && this.hasNut ? this.nutSize * 1 : this.fretSize * 1);
-    // 		oy += this.fretSpace * 1;
-    // 	}
-    // 	return renderings;
-    // },
+    fretRenderings: function () {
+      let renderings = [];
+      let oy = this.start == 0 ? this.noteRadius * 2 : 0;
+      for (
+        let fret = 0, length = this.fretsNormalized + 1;
+        fret <= length;
+        fret++
+      ) {
+        let rendering = {
+          height:
+            fret == 0 && this.hasNut ? this.nutSize * 1 : this.fretSize * 1,
+          width:
+            (this.isHorizontal ? this.height : this.width) -
+            this.noteRadius * 2,
+          y: oy,
+          x: this.noteRadius * 1,
+          color: this.fretColor,
+        };
+        if (this.isHorizontal) {
+          rendering = {
+            height: rendering.width,
+            width: rendering.height,
+            y: rendering.x,
+            x: rendering.y,
+            color: rendering.color,
+          };
+          if (this.hasLeftStrummingHand) {
+            rendering.x = this.width - rendering.x - rendering.width;
+          }
+        }
+        renderings.push(rendering);
+        oy += fret == 0 && this.hasNut ? this.nutSize * 1 : this.fretSize * 1;
+        oy += this.fretSpace * 1;
+      }
+      return renderings;
+    },
 
-    // referenceRendering: function () {
-    // 	if (!(this.reference + '').length) {
-    // 		return [];
-    // 	}
-    // 	let neck = {};
-    // 	let referenceDots = this.reference.trim().split(/\s+/);
-    // 	referenceDots.forEach(function (referenceDot) {
-    // 		if (!neck.hasOwnProperty(referenceDot)) {
-    // 			neck[referenceDot] = 0;
-    // 		}
-    // 		++neck[referenceDot];
-    // 	});
+    referenceRendering: function () {
+      if (!(this.reference + "").length) {
+        return [];
+      }
+      let neck = {};
+      let referenceDots = this.reference.trim().split(/\s+/);
+      referenceDots.forEach(function (referenceDot) {
+        // if (!neck.hasOwnProperty(referenceDot)) { // !neck.hasOwnProperty(referenceDot)
+        //   neck[referenceDot] = 0;
+        // }
+        ++neck[referenceDot];
+      });
 
-    // 	let ox = 0;
-    // 	let oy = 0;
-    // 	let renderings = [];
-    // 	Object.entries(neck).forEach((referenceDot) => {
-    // 		if (referenceDot[0] < this.startNormalized || referenceDot[0] > (this.frets - this.startNormalized)) return;
-    // 		for (let dot = 0; dot < referenceDot[1]; ++dot) {
-    // 			let rendering = {};
-    // 			rendering.radius = this.referenceRadius * 1;
-    // 			rendering.fill = this.referenceColor;
-    // 			let mid = Math.floor(this.strings / 2);
-    // 			rendering.cx = 1
-    // 					+ (mid > 0 ? this.stringSizeNormalized.slice(0, mid ).reduce((r, n) => r + n) : 0)
-    // 					+ this.stringSpace * (mid - 0.5)
-    // 					+ this.noteRadius / 2
-    // 					+ this.referenceRadius / 2
-    // 					+ ox;
-    // 			if (referenceDot[1] > 1) {
-    // 				rendering.cx += (this.stringSizeNormalized[mid + (dot === 0 ? -1 : 0)] + this.stringSpace * 1) * (dot === 0 ? -1 : 1);
-    // 			}
-    // 			let cy = 0;
-    // 			if (this.startNormalized === 0) cy += this.noteRadius * 2;
-    // 			let offset = referenceDot[0] - (this.startNormalized || 1);
-    // 			cy += this.hasNut ? this.nutSize * 1 : this.fretSize * 1;
-    // 			cy += this.fretSize * offset;
-    // 			cy += this.fretSpace * offset;
-    // 			cy += this.fretSpace / 2;
-    // 			rendering.cy = cy;
-    // 			renderings.push(rendering);
-    // 			if (this.isHorizontal) {
-    // 				let temp = rendering.cx;
-    // 				rendering.cx = rendering.cy;
-    // 				rendering.cy = temp;
-    // 				if (this.hasLeftStrummingHand) {
-    // 					rendering.cx = this.width - rendering.cx;
-    // 				}
-    // 			}
-    // 		}
-    // 	});
-    // 	return renderings;
-    // },
+      let ox = 0;
+      //let oy = 0;
+      let renderings = [];
+      Object.entries(neck).forEach((referenceDot) => {
+        if (
+          referenceDot[0] < this.startNormalized ||
+          referenceDot[0] > this.frets - this.startNormalized
+        )
+          return;
+        for (let dot = 0; dot < referenceDot[1]; ++dot) {
+          let rendering = {};
+          rendering.radius = this.referenceRadius * 1;
+          rendering.fill = this.referenceColor;
+          let mid = Math.floor(this.strings / 2);
+          rendering.cx =
+            1 +
+            (mid > 0
+              ? this.stringSizeNormalized.slice(0, mid).reduce((r, n) => r + n)
+              : 0) +
+            this.stringSpace * (mid - 0.5) +
+            this.noteRadius / 2 +
+            this.referenceRadius / 2 +
+            ox;
+          if (referenceDot[1] > 1) {
+            rendering.cx +=
+              (this.stringSizeNormalized[mid + (dot === 0 ? -1 : 0)] +
+                this.stringSpace * 1) *
+              (dot === 0 ? -1 : 1);
+          }
+          let cy = 0;
+          if (this.startNormalized === 0) cy += this.noteRadius * 2;
+          let offset = referenceDot[0] - (this.startNormalized || 1);
+          cy += this.hasNut ? this.nutSize * 1 : this.fretSize * 1;
+          cy += this.fretSize * offset;
+          cy += this.fretSpace * offset;
+          cy += this.fretSpace / 2;
+          rendering.cy = cy;
+          renderings.push(rendering);
+          if (this.isHorizontal) {
+            let temp = rendering.cx;
+            rendering.cx = rendering.cy;
+            rendering.cy = temp;
+            if (this.hasLeftStrummingHand) {
+              rendering.cx = this.width - rendering.cx;
+            }
+          }
+        }
+      });
+      return renderings;
+    },
 
-    // scaleInfo: function () {
-    // 	if (!this.scaleNormalized.length || !this.tuningNormalized.length) {
-    // 		return [];
-    // 	}
+    scaleInfo() {
+      if (!this.scaleNormalized.length || !this.tuningNormalized.length) {
+        return [];
+      }
 
-    // 	let renderings = [];
-    // 	let start = this.startNormalized;
-    // 	let frets = this.fretsNormalized;
-    // 	let ox = 0;
-    // 	for (let string = 0; string < this.stringsNormalized; ++string) {
-    // 		let oy = start > 0 ? (start === 1 ? this.nutSize : this.fretSize) * 1 : 0;
-    // 		for (let fret = start; fret <= frets; ++fret) {
-    // 			let rendering = {};
-    // 			rendering.x = ox
-    // 				+ (this.stringSizeNormalized[string] / 2)
-    // 				+ (this.noteRadius * 1);
-    // 			let value = (fret + this.tuningNormalized[string]) % 12;
-    // 			let index = this.scaleNormalized.indexOf(value);
-    // 			if (~index) {
-    // 				let ny = fret === 0 ? this.noteRadius * 1 : this.fretSpace / 2;
-    // 				rendering.y = oy + ny;
-    // 				rendering.fret = fret;
-    // 				rendering.note = this.noteNames[value];
-    // 				rendering.color = index === 0 ? this.rootColor : this.noteColor;
-    // 				rendering.textColor = index === 0 ? this.rootTextColor : this.noteTextColor;
-    // 				if (this.isHorizontal) {
-    // 					let temp = rendering.x;
-    // 					rendering.x = rendering.y;
-    // 					rendering.y = temp;
-    // 					if (this.hasLeftStrummingHand) {
-    // 						rendering.x = this.width - rendering.x;
-    // 					}
-    // 				}
-    // 				renderings.push(rendering);
-    // 			}
-    // 			if (fret === 0) {
-    // 				oy += this.noteRadius * 2 + this.nutSize * 1;
-    // 			} else {
-    // 				oy += this.fretSpace * 1 + this.fretSize * 1;
-    // 			}
-    // 		}
-    // 		ox += this.stringSpace * 1 + this.stringSizeNormalized[string];
-    // 	}
-    // 	return renderings;
-    // },
+      let renderings = [];
+      let start = this.startNormalized;
+      let frets = this.fretsNormalized;
+      let ox = 0;
+      for (let string = 0; string < this.stringsNormalized; ++string) {
+        let oy =
+          start > 0 ? (start === 1 ? this.nutSize : this.fretSize) * 1 : 0;
+        for (let fret = start; fret <= frets; ++fret) {
+          let rendering = {};
+          rendering.x =
+            ox + this.stringSizeNormalized[string] / 2 + this.noteRadius * 1;
+          let value = (fret + this.tuningNormalized[string]) % 12;
+          let index = this.scaleNormalized.indexOf(value);
+          if (~index) {
+            let ny = fret === 0 ? this.noteRadius * 1 : this.fretSpace / 2;
+            rendering.y = oy + ny;
+            rendering.fret = fret;
+            rendering.note = this.noteNames[value];
+            rendering.color = index === 0 ? this.rootColor : this.noteColor;
+            rendering.textColor =
+              index === 0 ? this.rootTextColor : this.noteTextColor;
+            if (this.isHorizontal) {
+              let temp = rendering.x;
+              rendering.x = rendering.y;
+              rendering.y = temp;
+              if (this.hasLeftStrummingHand) {
+                rendering.x = this.width - rendering.x;
+              }
+            }
+            renderings.push(rendering);
+          }
+          if (fret === 0) {
+            oy += this.noteRadius * 2 + this.nutSize * 1;
+          } else {
+            oy += this.fretSpace * 1 + this.fretSize * 1;
+          }
+        }
+        ox += this.stringSpace * 1 + this.stringSizeNormalized[string];
+      }
+      return renderings;
+    },
 
-    // scaleNormalized: function () {
-    // 	let noteValue = {
-    // 		C: 0,
-    // 		D: 2,
-    // 		E: 4,
-    // 		F: 5,
-    // 		G: 7,
-    // 		A: 9,
-    // 		B: 11,
-    // 	};
-    // 	let accidental = {
-    // 		B: -1,
-    // 		'#': 1,
-    // 		'': 0,
-    // 	};
-    // 	let v = this.scale.trim().toUpperCase();
-    // 	let m = null;
-    // 	if (m = v.match(/^([a-g])([#b]?)\s*(major|minor|acoustic|aeolian|ionian|dorian|algerian|locrian|lydian|major pentatonic|minor pentatonic|mixolydian|phrygian)$/i)) {
-    // 		let intervals = {
-    // 			'MAJOR': [0,2,2,1,2,2,2,1],
-    // 			'MINOR': [0,2,1,2,2,1,2,2],
-    // 			'ACOUSTIC': [0,2,2,2,1,2,1,2],
-    // 			'AEOLIAN': [0,2,1,2,2,1,2,2],
-    // 			'ALGERIAN': [0,2,1,3,1,1,3,1,2,1,2],
-    // 			'DORIAN': [0,2,1,2,2,2,1,2],
-    // 			'IONIAN': [0,2,2,1,2,2,2,1],
-    // 			'LOCRIAN': [0,1,2,2,1,2,2,2],
-    // 			'LYDIAN': [0,2,2,2,1,2,2,1],
-    // 			'MAJOR PENTATONIC': [0,2,2,3,2,3],
-    // 			'MINOR PENTATONIC': [0,3,2,2,3,2],
-    // 			'MIXOLYDIAN': [0,2,2,1,2,2,1,2],
-    // 			'PHRYGIAN': [0,1,2,2,2,1,2,2],
-    // 		};
-    // 		let notes = [];
-    // 		for (let i = 0, k = 0, l = intervals[m[3]].length; i < l; ++i) {
-    // 			k += intervals[m[3]][i];
-    // 			notes.push((noteValue[m[1]] + accidental[m[2]] + k) % 12);
-    // 		}
-    // 		return notes;
-    // 	} else {
-    // 		return this.getValues(this.scale);
-    // 	}
-    // },
+    scaleNormalized() {
+      let noteValue = {
+        C: 0,
+        D: 2,
+        E: 4,
+        F: 5,
+        G: 7,
+        A: 9,
+        B: 11,
+      };
+      let accidental = {
+        B: -1,
+        "#": 1,
+        "": 0,
+      };
+      let v = this.scale.trim().toUpperCase();
+      let m = null;
+      if (
+        (m = v.match(
+          /^([a-g])([#b]?)\s*(major|minor|acoustic|aeolian|ionian|dorian|algerian|locrian|lydian|major pentatonic|minor pentatonic|mixolydian|phrygian)$/i
+        ))
+      ) {
+        let intervals = {
+          MAJOR: [0, 2, 2, 1, 2, 2, 2, 1],
+          MINOR: [0, 2, 1, 2, 2, 1, 2, 2],
+          ACOUSTIC: [0, 2, 2, 2, 1, 2, 1, 2],
+          AEOLIAN: [0, 2, 1, 2, 2, 1, 2, 2],
+          ALGERIAN: [0, 2, 1, 3, 1, 1, 3, 1, 2, 1, 2],
+          DORIAN: [0, 2, 1, 2, 2, 2, 1, 2],
+          IONIAN: [0, 2, 2, 1, 2, 2, 2, 1],
+          LOCRIAN: [0, 1, 2, 2, 1, 2, 2, 2],
+          LYDIAN: [0, 2, 2, 2, 1, 2, 2, 1],
+          "MAJOR PENTATONIC": [0, 2, 2, 3, 2, 3],
+          "MINOR PENTATONIC": [0, 3, 2, 2, 3, 2],
+          MIXOLYDIAN: [0, 2, 2, 1, 2, 2, 1, 2],
+          PHRYGIAN: [0, 1, 2, 2, 2, 1, 2, 2],
+        };
+        let notes = [];
+        for (let i = 0, k = 0, l = intervals[m[3]].length; i < l; ++i) {
+          k += intervals[m[3]][i];
+          notes.push((noteValue[m[1]] + accidental[m[2]] + k) % 12);
+        }
+        return notes;
+      } else {
+        return this.getValues(this.scale);
+      }
+    },
 
     scaleRendering() {
       return this.scaleInfo.map((rendering) => {
@@ -477,45 +553,43 @@ export default {
       }
     },
 
-    // widthHeight: function () {
-    // 	let height = 0;
-    // 	if (this.hasNut) {
-    // 		height += this.nutSize * 1;
-    // 		if (this.start == 0) height += this.noteRadius * 2;
-    // 	} else {
-    // 		height += this.fretSize * 1;
-    // 	}
-    // 	let frets = this.fretsNormalized - Math.max(0, this.startNormalized - 1);
-    // 	height += frets * this.fretSpace;
-    // 	height += this.fretSize * frets
+    widthHeight() {
+      let height = 0;
+      if (this.hasNut) {
+        height += this.nutSize * 1;
+        if (this.start == 0) height += this.noteRadius * 2;
+      } else {
+        height += this.fretSize * 1;
+      }
+      let frets = this.fretsNormalized - Math.max(0, this.startNormalized - 1);
+      height += frets * this.fretSpace;
+      height += this.fretSize * frets;
 
-    // 	let width = this.noteRadius * 2;
-    // 	width += ((this.stringsNormalized - 1) * this.stringSpace);
-    // 	for (let i = 0, l = this.stringSizeNormalized.length; i < l; i++) {
-    // 		width += this.stringSizeNormalized[i];
-    // 	}
+      let width = this.noteRadius * 2;
+      width += (this.stringsNormalized - 1) * this.stringSpace;
+      for (let i = 0, l = this.stringSizeNormalized.length; i < l; i++) {
+        width += this.stringSizeNormalized[i];
+      }
 
-    // 	return {
-    // 		width: this.isHorizontal ? height : width,
-    // 		height: this.isHorizontal ? width : height,
-    // 	};
-    // },
+      return {
+        width: this.isHorizontal ? height : width,
+        height: this.isHorizontal ? width : height,
+      };
+    },
 
-    // height: function () {
-    // 	return this.widthHeight.height;
-    // },
+    height() {
+      return this.widthHeight.height;
+    },
 
-    // width: function () {
-    // 	return this.widthHeight.width;
-    // },
+    width() {
+      return this.widthHeight.width;
+    },
 
     svgViewBox() {
-      return `0 0 100 100`;
-      //return `0 0 ${this.width} ${this.height}`;
+      return `0 0 ${this.width} ${this.height}`;
     },
     svgStyle() {
-      //return `width:${this.width}px;height:${this.height}px;`;
-      return `width:1000px;height:1000px;`; // gdy totally wrong
+      return `width:${this.width}px;height:${this.height}px;`;
     },
     stringsNormalized() {
       return this.strings;
