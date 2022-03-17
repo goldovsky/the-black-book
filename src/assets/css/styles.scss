@@ -70,3 +70,23 @@ input.theme-switch + label:active,
 input.theme-switch:checked + label {
   cursor: pointer;
 }
+
+/*
+* === PAGES TRANSITIONS ===
+*/
+.route-enter-from,
+.route-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.route-enter-active,
+.route-leave-active {
+  transition: all 0.15s ease;
+}
+
+.route-enter-to,
+.route-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
