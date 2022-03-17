@@ -31,175 +31,272 @@
       ></the-fretboard>
     </section>
     <section class="col-3">
-			<fieldset class="form-group mt-4">
-				<legend>General</legend>
-				<div class="form-group">
-					<label for="scale">Scale</label>
-					<input id="scale" class="form-control" type="text" v-model="$root.scale" list="scaleOptions" />
-					<!-- <datalist id="scaleOptions">
-						<script>
-							let scales = {
-								Major: [2, 2, 1, 2, 2, 2, 1],
-								Minor: [2, 1, 2, 2, 1, 2, 2],
-								Dorian: [2, 1, 2, 2, 2, 1, 2],
-								Locrian: [1,2,2,1,2,2,2],
-								Lydian: [2,2,2,1,2,2,1],
-								Mixolydian: [2,2,1,2,2,1,2],
-								Phrygian: [1,2,2,2,1,2,2],
-								'Major Pentatonic': [2,2,3,2,3],
-								'Minor Pentatonic': [3,2,2,3,2],
-							};
-							let notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-							let html = '';
-							Object.keys(scales).forEach((scale) => {
-								notes.forEach((note, i) => {
-									let scale_notes = [];
-									for (let k = 0, j = 0, l = scales[scale].length; k < l; ++k) {
-										scale_notes.push(notes[(i + j) % 12]);
-										j += scales[scale][k];
-									}
-									scale_notes = scale_notes.join(' ');
-									html += `<option value="${note} ${scale}">${scale_notes}</option>`;
-								});
-							});
-							document.currentScript.parentNode.innerHTML = html;
-						</script>
-					</datalist> -->
-					<span class="form-text text-muted">1 or more space separated note names or a scale name (e.g. C Major)</span>
-				</div>
-				<div class="form-group">
-					<label for="tuning">Tuning</label>
-					<input id="tuning" class="form-control" type="text" v-model="$root.tuning" list="tuningOptions" />
-					<datalist id="tuningOptions">
-						<option value="E A D G B E">Guitar Standard</option>
-						<option value="D A G B C E">Guitar Drop D</option>
-						<option value="E A C# E A E">Guitar Open A</option>
-						<option value="C G C G C E">Guitar Open C</option>
-						<option value="G C E A">Tenor Ukele Standard</option>
-					</datalist>
-					<span class="form-text text-muted">1 or more space separated notes. Use b for flats and # for sharps. String order: last to first</span>
-				</div>
-				<div class="form-group">
-					<label for="orientation">Orientation</label>
-					<select id="orientation" class="form-control" v-model="$root.orientation"><option value="horizontal">Horizontal</option><option value="vertical">Vertical</option></select>
-				</div>
-				<div class="form-group">
-					<label for="strummingHand">Strumming Hand</label>
-					<select id="strummingHand" class="form-control" v-model="$root.strummingHand"><option value="left">Left</option><option value="right">Right</option></select>
-				</div>
-			</fieldset>
+      <fieldset class="form-group mt-4">
+        <legend>General</legend>
+        <div class="form-group">
+          <label for="scale">Scale</label>
+          <input
+            id="scale"
+            class="form-control"
+            type="text"
+            v-model="scale"
+            list="scaleOptions"
+          />
+          <!-- <datalist id="scaleOptions">
+            <option></option>
+          </datalist> -->
+          <span class="form-text text-muted"
+            >1 or more space separated note names or a scale name (e.g. C
+            Major)</span
+          >
+        </div>
+        <div class="form-group">
+          <label for="tuning">Tuning</label>
+          <input
+            id="tuning"
+            class="form-control"
+            type="text"
+            v-model="tuning"
+            list="tuningOptions"
+          />
+          <datalist id="tuningOptions">
+            <option value="E A D G B E">Guitar Standard</option>
+            <option value="D A G B C E">Guitar Drop D</option>
+            <option value="E A C# E A E">Guitar Open A</option>
+            <option value="C G C G C E">Guitar Open C</option>
+            <option value="G C E A">Tenor Ukele Standard</option>
+          </datalist>
+          <span class="form-text text-muted"
+            >1 or more space separated notes. Use b for flats and # for sharps.
+            String order: last to first</span
+          >
+        </div>
+        <div class="form-group">
+          <label for="orientation">Orientation</label>
+          <select id="orientation" class="form-control" v-model="orientation">
+            <option value="horizontal">Horizontal</option>
+            <option value="vertical">Vertical</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="strummingHand">Strumming Hand</label>
+          <select
+            id="strummingHand"
+            class="form-control"
+            v-model="strummingHand"
+          >
+            <option value="left">Left</option>
+            <option value="right">Right</option>
+          </select>
+        </div>
+      </fieldset>
 
-			<hr/>
+      <hr />
 
-			<fieldset class="form-group">
-				<legend>Notes</legend>
+      <fieldset class="form-group">
+        <legend>Notes</legend>
 
-				<div class="form-group">
-					<label for="noteRadius">Note Radius</label>
-					<input id="noteRadius" class="form-control" type="number" v-model="$root.noteRadius" />
-				</div>
-				<div class="form-group">
-					<label for="noteColor">Note Color</label>
-					<input id="noteColor" class="form-control" type="color" v-model="$root.noteColor" />
-				</div>
-				<div class="form-group">
-					<label for="rootColor">Root Note Color</label>
-					<input id="rootColor" class="form-control" type="color" v-model="$root.rootColor" />
-				</div>
-				<div class="form-group">
-					<label for="noteTextColor">Note Text Color</label>
-					<input id="noteTextColor" class="form-control" type="color" v-model="$root.noteTextColor" />
-				</div>
-				<div class="form-group">
-					<label for="rootTextColor">Root Text Color</label>
-					<input id="rootTextColor" class="form-control" type="color" v-model="$root.rootTextColor" />
-				</div>
-			</fieldset>
+        <div class="form-group">
+          <label for="noteRadius">Note Radius</label>
+          <input
+            id="noteRadius"
+            class="form-control"
+            type="number"
+            v-model="noteRadius"
+          />
+        </div>
+        <div class="form-group">
+          <label for="noteColor">Note Color</label>
+          <input
+            id="noteColor"
+            class="form-control"
+            type="color"
+            v-model="noteColor"
+          />
+        </div>
+        <div class="form-group">
+          <label for="rootColor">Root Note Color</label>
+          <input
+            id="rootColor"
+            class="form-control"
+            type="color"
+            v-model="rootColor"
+          />
+        </div>
+        <div class="form-group">
+          <label for="noteTextColor">Note Text Color</label>
+          <input
+            id="noteTextColor"
+            class="form-control"
+            type="color"
+            v-model="noteTextColor"
+          />
+        </div>
+        <div class="form-group">
+          <label for="rootTextColor">Root Text Color</label>
+          <input
+            id="rootTextColor"
+            class="form-control"
+            type="color"
+            v-model="rootTextColor"
+          />
+        </div>
+      </fieldset>
 
-			<hr/>
+      <hr />
 
-			<fieldset class="form-group">
-				<legend>Strings</legend>
-				<div class="form-group">
-					<label for="strings"># of Strings</label>
-					<select id="strings" class="form-control" v-model="$root.strings">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-						<option>6</option>
-						<option>7</option>
-						<option>8</option>
-						<option>9</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label for="stringSize">String Size</label>
-					<input id="stringSize" class="form-control" type="text" v-model="$root.stringSize" />
-					<span class="form-text text-muted">1 or more space-separated numbers. String order: last to first</span>
-				</div>
-				<div class="form-group">
-					<label for="stringSpace">Space Between Strings</label>
-					<input id="stringSpace" class="form-control" type="text" v-model="$root.stringSpace" />
-				</div>
-				<div class="form-group">
-					<label for="stringColor">String Color</label>
-					<input id="stringColor" class="form-control" type="color" v-model="$root.stringColor" />
-				</div>
-			</fieldset>
+      <fieldset class="form-group">
+        <legend>Strings</legend>
+        <div class="form-group">
+          <label for="strings"># of Strings</label>
+          <select id="strings" class="form-control" v-model="strings">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="stringSize">String Size</label>
+          <input
+            id="stringSize"
+            class="form-control"
+            type="text"
+            v-model="stringSize"
+          />
+          <span class="form-text text-muted"
+            >1 or more space-separated numbers. String order: last to
+            first</span
+          >
+        </div>
+        <div class="form-group">
+          <label for="stringSpace">Space Between Strings</label>
+          <input
+            id="stringSpace"
+            class="form-control"
+            type="text"
+            v-model="stringSpace"
+          />
+        </div>
+        <div class="form-group">
+          <label for="stringColor">String Color</label>
+          <input
+            id="stringColor"
+            class="form-control"
+            type="color"
+            v-model="stringColor"
+          />
+        </div>
+      </fieldset>
 
-			<hr/>
+      <hr />
 
-			<fieldset class="form-group">
-				<legend>Frets</legend>
-				<div class="form-group">
-					<label for="numberOfFrets"># of Frets</label>
-					<input id="numberOfFrets" class="form-control" type="number" max="30" min="1" v-model="$root.frets" />
-					<span class="text-muted form-text">number between 1 and 30</span>
-				</div>
-				<div class="form-group">
-					<label for="startingFret">Starting Fret</label>
-					<input id="startingFret" class="form-control" type="number" min="0" max="30" v-model="$root.start" />
-					<span class="text-muted form-text">number &ge; 0 and &lt; frets</span>
-				</div>
-				<div class="form-group">
-					<label for="nutSize">Nut Size</label>
-					<input id="nutSize" class="form-control" type="number" v-model="$root.nutSize" />
-				</div>
-				<div class="form-group">
-					<label for="fretSize">Fret Size</label>
-					<input id="fretSize" class="form-control" type="number" v-model="$root.fretSize" />
-				</div>
-				<div class="form-group">
-					<label for="fretSpace">Space Between Frets</label>
-					<input id="fretSpace" class="form-control" type="text" v-model="$root.fretSpace" />
-				</div>
-				<div class="form-group">
-					<label for="fretColor">Fret Color</label>
-					<input id="fretColor" class="form-control" type="color" v-model="$root.fretColor" />
-				</div>
-			</fieldset>
+      <fieldset class="form-group">
+        <legend>Frets</legend>
+        <div class="form-group">
+          <label for="numberOfFrets"># of Frets</label>
+          <input
+            id="numberOfFrets"
+            class="form-control"
+            type="number"
+            max="30"
+            min="1"
+            v-model="frets"
+          />
+          <span class="text-muted form-text">number between 1 and 30</span>
+        </div>
+        <div class="form-group">
+          <label for="startingFret">Starting Fret</label>
+          <input
+            id="startingFret"
+            class="form-control"
+            type="number"
+            min="0"
+            max="30"
+            v-model="start"
+          />
+          <span class="text-muted form-text">number &ge; 0 and &lt; frets</span>
+        </div>
+        <div class="form-group">
+          <label for="nutSize">Nut Size</label>
+          <input
+            id="nutSize"
+            class="form-control"
+            type="number"
+            v-model="nutSize"
+          />
+        </div>
+        <div class="form-group">
+          <label for="fretSize">Fret Size</label>
+          <input
+            id="fretSize"
+            class="form-control"
+            type="number"
+            v-model="fretSize"
+          />
+        </div>
+        <div class="form-group">
+          <label for="fretSpace">Space Between Frets</label>
+          <input
+            id="fretSpace"
+            class="form-control"
+            type="text"
+            v-model="fretSpace"
+          />
+        </div>
+        <div class="form-group">
+          <label for="fretColor">Fret Color</label>
+          <input
+            id="fretColor"
+            class="form-control"
+            type="color"
+            v-model="fretColor"
+          />
+        </div>
+      </fieldset>
 
-			<hr/>
+      <hr />
 
-			<fieldset class="form-group">
-				<legend>Reference Dots</legend>
-				<div class="form-group">
-					<label for="references">References</label>
-					<input id="references" class="form-control" type="text" v-model="$root.reference" />
-					<span class="form-text text-muted">1 or more space-separated numbers. Enter a number twice to get 2 dots.</span>
-				</div>
-				<div class="form-group">
-					<label for="referenceRadius">Reference Radius</label>
-					<input id="referenceRadius" class="form-control" type="number" v-model="$root.referenceRadius" />
-				</div>
-				<div class="form-group">
-					<label for="color">Reference Color</label>
-					<input id="color" class="form-control" type="color" v-model="$root.referenceColor" />
-				</div>
-			</fieldset>
-		</section>
+      <fieldset class="form-group">
+        <legend>Reference Dots</legend>
+        <div class="form-group">
+          <label for="references">References</label>
+          <input
+            id="references"
+            class="form-control"
+            type="text"
+            v-model="reference"
+          />
+          <span class="form-text text-muted"
+            >1 or more space-separated numbers. Enter a number twice to get 2
+            dots.</span
+          >
+        </div>
+        <div class="form-group">
+          <label for="referenceRadius">Reference Radius</label>
+          <input
+            id="referenceRadius"
+            class="form-control"
+            type="number"
+            v-model="referenceRadius"
+          />
+        </div>
+        <div class="form-group">
+          <label for="color">Reference Color</label>
+          <input
+            id="color"
+            class="form-control"
+            type="color"
+            v-model="referenceColor"
+          />
+        </div>
+      </fieldset>
+    </section>
   </div>
 </template>
 
@@ -233,7 +330,49 @@ export default {
       reference: "5 7 10 12 12 15",
       referenceRadius: 5,
       referenceColor: "#7c27b4",
+      // below come from <script> inside html
+      scales: {
+        Major: [2, 2, 1, 2, 2, 2, 1],
+        Minor: [2, 1, 2, 2, 1, 2, 2],
+        Dorian: [2, 1, 2, 2, 2, 1, 2],
+        Locrian: [1, 2, 2, 1, 2, 2, 2],
+        Lydian: [2, 2, 2, 1, 2, 2, 1],
+        Mixolydian: [2, 2, 1, 2, 2, 1, 2],
+        Phrygian: [1, 2, 2, 2, 1, 2, 2],
+        "Major Pentatonic": [2, 2, 3, 2, 3],
+        "Minor Pentatonic": [3, 2, 2, 3, 2],
+      },
+      notes: ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"],
     };
+  },
+  created() {
+    //let html = "";
+    Object.keys(this.scales).forEach((scale) => {
+      console.log("GDY Scale");
+      console.log(scale);
+      
+      // notes.forEach((note, i) => {
+      //   let scale_notes = [];
+      //   for (let k = 0, j = 0, l = this.scales[scale].length; k < l; ++k) {
+      //     scale_notes.push(notes[(i + j) % 12]);
+      //     j += this.scales[scale][k];
+      //   }
+      //   scale_notes = scale_notes.join(" ");
+      //   html += `<option value="${note} ${scale}">${scale_notes}</option>`;
+      // });
+    });
+    //document.currentScript.parentNode.innerHTML = html;
+
+
+
+
+    // Object.keys(data).forEach((key) => {
+		// 	watch[key] = (val) => window.localStorage.setItem(key, val);
+		// 	let value = window.localStorage.getItem(key);
+		// 	if (value !== null) {
+		// 		data[key] = value;
+		// 	}
+		// });
   },
 };
 </script>
