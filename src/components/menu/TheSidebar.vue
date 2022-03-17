@@ -104,6 +104,7 @@
  * - Modify generic Icons to definitive ones
  * @1) remove this link as it is for icons from the template
  * goo icons : hive, atom, brain, box, chalkboard, meteor
+ * - do a scrollable version of it
  */
 // import { useStore } from "vuex";
 export default {
