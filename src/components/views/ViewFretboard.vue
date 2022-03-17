@@ -1,9 +1,13 @@
 <template>
-  <h1>Fretboard</h1>
+  <the-fretboard></the-fretboard>
 </template>
 
 <script>
+import TheFretboard from './../fretboard/TheFretboard.vue';
 export default {
+  components: {
+    TheFretboard
+  }
 
 }
 </script>
