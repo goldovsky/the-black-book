@@ -146,6 +146,7 @@ export default {
   height: 100%;
   width: 78px;
   background: var(--sidebar-background);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   padding: 6px 14px;
   z-index: 99;
   transition: all 0.5s ease;
