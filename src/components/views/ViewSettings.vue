@@ -2,10 +2,24 @@
   <div class="cardsettings">
     <h1>Settings</h1>
     <base-card>
+      <h2>Instrument</h2>
       <ul>
-        <li>Setting 1</li>
+        <li>Bass/Guitar</li>
+        <li>nbStrings | 6--7--8</li>
+        <li>Tuning | Standard | E</li>
+        <li>Dexterity | Left/Right</li>
+      </ul>
+    </base-card>
+    <base-card>
+      <ul>
+        <div>
+          <span>Diagrams Orientations</span>
+          <li>Chords | Horizontal | Vertical</li>
+          <li>Fretboard | Horizontal | Vertical</li>
+        </div>
         <li>Setting 2</li>
         <li>
+          <span>Theme</span>
           <!-- theme switcher -->
           <input
             type="checkbox"

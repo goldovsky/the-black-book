@@ -301,6 +301,11 @@
 </template>
 
 <script>
+/**
+ * TODO
+ * put fretboard into basecard
+ * position of settings bellow, without a basecard
+ */
 import TheFretboard from "./../fretboard/TheFretboard.vue";
 export default {
   components: {
