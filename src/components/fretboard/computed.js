@@ -62,10 +62,9 @@ export default {
       let neck = {};
       let referenceDots = this.reference.trim().split(/\s+/);
       referenceDots.forEach(function (referenceDot) {
-        // if (!neck.hasOwnProperty(referenceDot)) { // !neck.hasOwnProperty(referenceDot)
-        //   neck[referenceDot] = 0;
-        // }
-
+        if (!Object.prototype.hasOwnProperty.call(neck, referenceDot)) {
+          neck[referenceDot] = 0;
+        }
         ++neck[referenceDot];
       });
 

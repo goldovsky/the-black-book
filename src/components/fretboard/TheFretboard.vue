@@ -139,7 +139,6 @@ export default {
     reference: {
       type: String,
       default: "",
-      //validation: this.validNumberList,
     },
   },
   created() {
@@ -155,19 +154,19 @@ export default {
     // @1
     this.stringSize = 3;
     this.noteRadius = 12;
-    this.noteTextColor = "#EEEEEE";
-    this.rootTextColor = "#EEEEEE";
     this.fretSpace = 66;
     this.nutSize = 10;
     this.fretSize = 2;
-    this.fretColor = "#707070";
-    this.stringColor = "#a8744d";
-    this.noteColor = "#0f267b";
-    this.rootColor = "#ba2121";
     this.stringSpace = "40";
     this.referenceRadius = 5;
-    this.referenceColor = "#7c27b4";
     this.orientation = "horizontal";
+    this.fretColor = "var(--fretboard-fret-color)";
+    this.stringColor = "var(--fretboard-string-color)";
+    this.noteColor = "var(--fretboard-note-color)";
+    this.rootColor = "var(--fretboard-root-color)";
+    this.noteTextColor = "var(--fretboard-noteText-color)";
+    this.rootTextColor = "var(--fretboard-rootText-color)";
+    this.referenceColor = "var(--fretboard-reference-color)";
   },
   methods: {
     ariaId() {
@@ -195,9 +194,6 @@ export default {
             1;
           return Math.abs((noteValue[v[0]] + accidental) % 12);
         });
-    },
-    validNumberList(list) {
-      return list.match(/^\s*[0-9]+(\s+[0-9]+)*\s*$/);
     },
     validNoteList(list) {
       return list.match(/^\s*[A-F][#b]*(\s+[A-F][#b]*)*\s*$/);

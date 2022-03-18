@@ -15,6 +15,8 @@
         title="Test"
       ></the-fretboard>
     </section>
+    <base-card>
+    
     <section class="col-3">
       <fieldset class="form-group mt-4">
         <legend>General</legend>
@@ -107,6 +109,7 @@
         </div>
       </fieldset>
     </section>
+    </base-card>
   </div>
 </template>
 
@@ -117,9 +120,11 @@
  * position of settings bellow, without a basecard
  */
 import TheFretboard from "./../fretboard/TheFretboard.vue";
+import BaseCard from "./../ui/BaseCard.vue";
 export default {
   components: {
     TheFretboard,
+    BaseCard
   },
   data() {
     return {
@@ -127,8 +132,8 @@ export default {
       tuning: "G C E A",
       orientation: "horizontal",
       start: 0,
-      frets: 15,
-      reference: "5 7 10 12 12 15",
+      frets: 12,
+      reference: "3 5 7 9 12",
       // below come from <script> inside html
       scales: {
         Major: [2, 2, 1, 2, 2, 2, 1],
@@ -176,18 +181,18 @@ export default {
 <style>
 #fretboardapp {
   align-items: center;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
 }
 #fretboardapp > section:first-child {
   display: flex;
-  height: 100vh;
+  /* height: 100vh; */
   justify-content: center;
   overflow: auto;
 }
 #fretboardapp > section:nth-child(2) {
   border-left: 5px solid #888;
-  height: 100vh;
+  /* height: 100vh; */
   overflow-y: scroll;
 }
 </style>

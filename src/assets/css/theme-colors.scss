@@ -21,7 +21,16 @@
   --diagram-fret: #00000019;
   --diagram-finger: #126e82;
   --diagram-finger-indication: #d8e3e7;
-
+  /**
+    * FRETBOARD
+    */
+  --fretboard-reference-color: #7c27b4;
+  --fretboard-string-color: #a8744d;
+  --fretboard-fret-color: #707070;
+  --fretboard-note-color: #0f267b;
+  --fretboard-root-color: #ba2121;
+  --fretboard-noteText-color: #EEEEEE;
+  --fretboard-rootText-color: #EEEEEE;
   /**
     * TITLES
     */
@@ -51,7 +60,17 @@
   --diagram-string: #d8e3e7;
   --diagram-fret: #d8e3e719;
   --diagram-finger: #d8e3e7;
-  --diagram-finger-indication: #132C33;
+  --diagram-finger-indication: #132c33;
+  /**
+    * FRETBOARD
+    */
+    --fretboard-reference-color: #7c27b4;
+    --fretboard-string-color: #a8744d;
+    --fretboard-fret-color: #707070;
+    --fretboard-note-color: #0f267b;
+    --fretboard-root-color: #ba2121;
+    --fretboard-noteText-color: #EEEEEE;
+    --fretboard-rootText-color: #EEEEEE;
   /**
     * TITLES
     */
@@ -64,33 +83,3 @@
   --dynamic-li-color: #d8e3e7;
   --dynamic-subtitle-color: cyan;
 }
-
-// :root {
-//     --app-background-color: #FFFFFF;
-//     --sidebar-background: #000000;
-//     --sidebar-icon: #333333;
-//     --sidebar-icon-hover: #FFFFFF;
-//     --sidebar-text: #FFFFFF;
-//     --dynamic-h1-color: #363636;
-//     --dynamic-h2-color: #363636;
-//     --dynamic-h3-color: #363636;
-//     --dynamic-h4-color: #363636;
-//     --dynamic-h5-color: #363636;
-//     --dynamic-h6-color: #363636;
-//     --dynamic-subtitle-color: #4a4a4a;
-// }
-
-// [theme="dark"] {
-//     --app-background-color: #091A28;
-//     --sidebar-background: #000000;
-//     --sidebar-icon: #091A28;
-//     --sidebar-icon-hover: #000000;
-//     --sidebar-text: #000000;
-//     --dynamic-h1-color: #FFFFFF;
-//     --dynamic-h2-color: #03DAC6;
-//     --dynamic-h3-color: #FFFFFF;
-//     --dynamic-h4-color: #FFFFFF;
-//     --dynamic-h5-color: #FFFFFF;
-//     --dynamic-h6-color: #FFFFFF;
-//     --dynamic-subtitle-color: cyan;
-// }
