@@ -227,6 +227,7 @@ export default {
     },
     scaleText() {
       return this.scaleInfo.map((rendering) => {
+        // @displayIntervalsInsteadOfNotes
         return {
           text: rendering.note,
           x: rendering.x,

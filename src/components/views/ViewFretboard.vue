@@ -98,6 +98,8 @@
  * TODO
  * put fretboard into basecard
  * position of settings bellow, without a basecard
+ * 
+ * info: frets start and # of frets can be used to display shapes (penta...)
  */
 import TheFretboard from "./../fretboard/TheFretboard.vue";
 import BaseCard from "./../ui/BaseCard.vue";

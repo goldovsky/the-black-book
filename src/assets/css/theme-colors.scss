@@ -3,7 +3,6 @@
 // 51C4D3
 // 126E82
 // 132C33
-
 :root {
   --app-background-color: #d8e3e7;
   /**
@@ -24,9 +23,9 @@
   /**
     * FRETBOARD
     */
-  --fretboard-reference-color: #7c27b4;
-  --fretboard-string-color: #a8744d;
-  --fretboard-fret-color: #707070;
+  --fretboard-reference-color:#132c33; // #7c27b4;
+  --fretboard-string-color: #126e82; // #a8744d;
+  --fretboard-fret-color: #00000019; //#707070;
   --fretboard-note-color: #0f267b;
   --fretboard-root-color: #ba2121;
   --fretboard-noteText-color: #EEEEEE;
@@ -64,9 +63,9 @@
   /**
     * FRETBOARD
     */
-    --fretboard-reference-color: #7c27b4;
-    --fretboard-string-color: #a8744d;
-    --fretboard-fret-color: #707070;
+    --fretboard-reference-color: #d8e3e7;
+    --fretboard-string-color: #d8e3e7; // #a8744d;
+    --fretboard-fret-color: #d8e3e719;// #707070;
     --fretboard-note-color: #0f267b;
     --fretboard-root-color: #ba2121;
     --fretboard-noteText-color: #EEEEEE;
