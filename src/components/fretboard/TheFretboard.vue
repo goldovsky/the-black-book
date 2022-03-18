@@ -91,6 +91,8 @@ export default {
       referenceColor: null,
       leftDexterity: null,
       orientation: null,
+      reference: null,
+      tuning: null,
       /**
        *
        */
@@ -121,7 +123,7 @@ export default {
       default: "C D E F G A B",
       //validation: this.validNoteList,
     },
-    tuning: {
+    propTuning: {
       type: String,
       default: "G C E A",
       //validation: this.validNoteList,
@@ -135,10 +137,6 @@ export default {
       type: Number,
       default: 5,
       validator: (v) => v >= 1 && v <= 30,
-    },
-    reference: {
-      type: String,
-      default: "",
     },
   },
   created() {
@@ -159,6 +157,7 @@ export default {
     this.fretSize = 2;
     this.stringSpace = "40";
     this.referenceRadius = 5;
+    this.reference = "3 5 7 9 12 12 15 17 19 21 24 24"; // enter number twice to get two dots
     this.orientation = "horizontal";
     this.fretColor = "var(--fretboard-fret-color)";
     this.stringColor = "var(--fretboard-string-color)";
@@ -167,6 +166,16 @@ export default {
     this.noteTextColor = "var(--fretboard-noteText-color)";
     this.rootTextColor = "var(--fretboard-rootText-color)";
     this.referenceColor = "var(--fretboard-reference-color)";
+    /**
+     * Reverse string order to get the low string on top of the diagram
+     */
+      if (store.getters.fretboardSwitchStringSymmetry) {
+        var reverseTuning = this.propTuning;
+        reverseTuning = reverseTuning.split(" ").reverse().join(" ");
+        this.tuning = reverseTuning;
+      } else {
+        this.tuning = this.propTuning;
+      }
   },
   methods: {
     ariaId() {

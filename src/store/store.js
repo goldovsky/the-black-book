@@ -14,6 +14,7 @@ const store = createStore({
       leftDexterity: true,
       nbStrings: 6,
       chordDiagramWidth: 16, // de base à 20
+      fretboardSwitchStringSymmetry: false,
     };
   },
   getters: {
@@ -29,6 +30,9 @@ const store = createStore({
     nbStrings(state) {
       return state.nbStrings;
     },
+    fretboardSwitchStringSymmetry(state) {
+      return state.fretboardSwitchStringSymmetry;
+    }
   },
   mutations: {
     switchTheme() {

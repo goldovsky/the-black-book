@@ -6,9 +6,8 @@
     >
       <the-fretboard
         :scale="scale"
-        :tuning="tuning"
+        :prop-tuning="tuning"
         :strumming-hand="strummingHand"
-        :reference="reference"
         :start="start"
         :frets="frets"
         :fret-color="fretColor"
@@ -89,25 +88,6 @@
           <span class="text-muted form-text">number &ge; 0 and &lt; frets</span>
         </div>
       </fieldset>
-
-      <hr />
-
-      <fieldset class="form-group">
-        <legend>Reference Dots</legend>
-        <div class="form-group">
-          <label for="references">References</label>
-          <input
-            id="references"
-            class="form-control"
-            type="text"
-            v-model="reference"
-          />
-          <span class="form-text text-muted"
-            >1 or more space-separated numbers. Enter a number twice to get 2
-            dots.</span
-          >
-        </div>
-      </fieldset>
     </section>
     </base-card>
   </div>
@@ -129,11 +109,11 @@ export default {
   data() {
     return {
       scale: "C Major",
-      tuning: "G C E A",
+      tuning: "E A D G B E",
+      //tuning: "E B G D A E",
       orientation: "horizontal",
       start: 0,
       frets: 12,
-      reference: "3 5 7 9 12",
       // below come from <script> inside html
       scales: {
         Major: [2, 2, 1, 2, 2, 2, 1],
