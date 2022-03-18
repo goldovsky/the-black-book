@@ -7,26 +7,11 @@
       <the-fretboard
         :scale="scale"
         :tuning="tuning"
-        :orientation="orientation"
         :strumming-hand="strummingHand"
         :reference="reference"
-        :reference-radius="referenceRadius"
-        :reference-color="referenceColor"
         :start="start"
         :frets="frets"
-        :nut-size="nutSize"
-        :fret-size="fretSize"
-        :fret-space="fretSpace"
         :fret-color="fretColor"
-        :strings="strings"
-        :string-space="stringSpace"
-        :string-size="stringSize"
-        :string-color="stringColor"
-        :note-radius="noteRadius"
-        :note-color="noteColor"
-        :root-color="rootColor"
-        :note-text-color="noteTextColor"
-        :root-text-color="rootTextColor"
         title="Test"
       ></the-fretboard>
     </section>
@@ -71,130 +56,10 @@
             String order: last to first</span
           >
         </div>
-        <div class="form-group">
-          <label for="orientation">Orientation</label>
-          <select id="orientation" class="form-control" v-model="orientation">
-            <option value="horizontal">Horizontal</option>
-            <option value="vertical">Vertical</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="strummingHand">Strumming Hand</label>
-          <select
-            id="strummingHand"
-            class="form-control"
-            v-model="strummingHand"
-          >
-            <option value="left">Left</option>
-            <option value="right">Right</option>
-          </select>
-        </div>
       </fieldset>
 
       <hr />
 
-      <fieldset class="form-group">
-        <legend>Notes</legend>
-
-        <div class="form-group">
-          <label for="noteRadius">Note Radius</label>
-          <input
-            id="noteRadius"
-            class="form-control"
-            type="number"
-            v-model="noteRadius"
-          />
-        </div>
-        <div class="form-group">
-          <label for="noteColor">Note Color</label>
-          <input
-            id="noteColor"
-            class="form-control"
-            type="color"
-            v-model="noteColor"
-          />
-        </div>
-        <div class="form-group">
-          <label for="rootColor">Root Note Color</label>
-          <input
-            id="rootColor"
-            class="form-control"
-            type="color"
-            v-model="rootColor"
-          />
-        </div>
-        <div class="form-group">
-          <label for="noteTextColor">Note Text Color</label>
-          <input
-            id="noteTextColor"
-            class="form-control"
-            type="color"
-            v-model="noteTextColor"
-          />
-        </div>
-        <div class="form-group">
-          <label for="rootTextColor">Root Text Color</label>
-          <input
-            id="rootTextColor"
-            class="form-control"
-            type="color"
-            v-model="rootTextColor"
-          />
-        </div>
-      </fieldset>
-
-      <hr />
-
-      <fieldset class="form-group">
-        <legend>Strings</legend>
-        <div class="form-group">
-          <label for="strings"># of Strings</label>
-          <select id="strings" class="form-control" v-model="strings">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="stringSize">String Size</label>
-          <input
-            id="stringSize"
-            class="form-control"
-            type="text"
-            v-model="stringSize"
-          />
-          <span class="form-text text-muted"
-            >1 or more space-separated numbers. String order: last to
-            first</span
-          >
-        </div>
-        <div class="form-group">
-          <label for="stringSpace">Space Between Strings</label>
-          <input
-            id="stringSpace"
-            class="form-control"
-            type="text"
-            v-model="stringSpace"
-          />
-        </div>
-        <div class="form-group">
-          <label for="stringColor">String Color</label>
-          <input
-            id="stringColor"
-            class="form-control"
-            type="color"
-            v-model="stringColor"
-          />
-        </div>
-      </fieldset>
-
-      <hr />
 
       <fieldset class="form-group">
         <legend>Frets</legend>
@@ -222,42 +87,7 @@
           />
           <span class="text-muted form-text">number &ge; 0 and &lt; frets</span>
         </div>
-        <div class="form-group">
-          <label for="nutSize">Nut Size</label>
-          <input
-            id="nutSize"
-            class="form-control"
-            type="number"
-            v-model="nutSize"
-          />
-        </div>
-        <div class="form-group">
-          <label for="fretSize">Fret Size</label>
-          <input
-            id="fretSize"
-            class="form-control"
-            type="number"
-            v-model="fretSize"
-          />
-        </div>
-        <div class="form-group">
-          <label for="fretSpace">Space Between Frets</label>
-          <input
-            id="fretSpace"
-            class="form-control"
-            type="text"
-            v-model="fretSpace"
-          />
-        </div>
-        <div class="form-group">
-          <label for="fretColor">Fret Color</label>
-          <input
-            id="fretColor"
-            class="form-control"
-            type="color"
-            v-model="fretColor"
-          />
-        </div>
+        
       </fieldset>
 
       <hr />
@@ -276,24 +106,6 @@
             >1 or more space-separated numbers. Enter a number twice to get 2
             dots.</span
           >
-        </div>
-        <div class="form-group">
-          <label for="referenceRadius">Reference Radius</label>
-          <input
-            id="referenceRadius"
-            class="form-control"
-            type="number"
-            v-model="referenceRadius"
-          />
-        </div>
-        <div class="form-group">
-          <label for="color">Reference Color</label>
-          <input
-            id="color"
-            class="form-control"
-            type="color"
-            v-model="referenceColor"
-          />
         </div>
       </fieldset>
     </section>
@@ -316,25 +128,9 @@ export default {
       scale: "C Major",
       tuning: "G C E A",
       orientation: "horizontal",
-      strummingHand: "right",
-      nutSize: 10,
       start: 0,
-      fretSize: 2,
       frets: 15,
-      fretSpace: "66",
-      fretColor: "#707070",
-      strings: 4,
-      stringSize: "3",
-      stringSpace: "40",
-      stringColor: "#a8744d",
-      noteRadius: 12,
-      noteColor: "#0f267b",
-      rootColor: "#ba2121",
-      noteTextColor: "#EEEEEE",
-      rootTextColor: "#EEEEEE",
       reference: "5 7 10 12 12 15",
-      referenceRadius: 5,
-      referenceColor: "#7c27b4",
       // below come from <script> inside html
       scales: {
         Major: [2, 2, 1, 2, 2, 2, 1],
@@ -355,7 +151,7 @@ export default {
     Object.keys(this.scales).forEach((scale) => {
       console.log("GDY Scale");
       console.log(scale);
-      
+
       // notes.forEach((note, i) => {
       //   let scale_notes = [];
       //   for (let k = 0, j = 0, l = this.scales[scale].length; k < l; ++k) {
@@ -368,16 +164,13 @@ export default {
     });
     //document.currentScript.parentNode.innerHTML = html;
 
-
-
-
     // Object.keys(data).forEach((key) => {
-		// 	watch[key] = (val) => window.localStorage.setItem(key, val);
-		// 	let value = window.localStorage.getItem(key);
-		// 	if (value !== null) {
-		// 		data[key] = value;
-		// 	}
-		// });
+    // 	watch[key] = (val) => window.localStorage.setItem(key, val);
+    // 	let value = window.localStorage.getItem(key);
+    // 	if (value !== null) {
+    // 		data[key] = value;
+    // 	}
+    // });
   },
 };
 </script>

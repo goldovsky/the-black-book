@@ -81,9 +81,37 @@
 </template>
 
 <script>
+/**
+ * TODO
+ * @1) Change rendered/set values to CSS
+ */
+import { useStore } from "vuex";
 export default {
   data() {
     return {
+      nbStrings: null,
+      /**
+       * Design Values
+       */
+      stringSize: null,
+      noteRadius: null,
+      noteTextColor: null,
+      rootTextColor: null,
+      fretSpace: null,
+      nutSize: null,
+      fretSize: null,
+      fretColor: null,
+      stringColor: null,
+      noteColor: null,
+      rootColor: null,
+      stringSpace: null,
+      referenceRadius: null, // repère de touche
+      referenceColor: null,
+      leftDexterity: null,
+      orientation: null,
+      /**
+       * 
+       */
       ariaUid: 0,
       noteNames: [
         "C",
@@ -106,16 +134,6 @@ export default {
       type: String,
       default: "",
     },
-    strummingHand: {
-      type: String,
-      default: "right",
-      //validator: (value) => value === 'left' || value === 'right',
-    },
-    orientation: {
-      type: String,
-      default: "horizontal",
-      //validator: (value) => value === 'vertical' || value === 'horizontal',
-    },
     scale: {
       type: String,
       default: "C D E F G A B",
@@ -131,87 +149,47 @@ export default {
       default: 0,
       //validator: (v) => v >= 0 && v <= 30,
     },
-    noteTextColor: {
-      type: String,
-      default: "#EEEEEE",
-      //validator: this.validColor,
-    },
-    rootTextColor: {
-      type: String,
-      default: "#EEEEEE",
-      //validator: this.validColor,
-    },
-    noteColor: {
-      type: String,
-      default: "#555555",
-      //validator: this.validColor,
-    },
-    rootColor: {
-      type: String,
-      default: "#880000",
-      //validator: this.validColor,
-    },
-    noteRadius: {
-      type: Number,
-      default: 12,
-    },
     frets: {
       type: Number,
       default: 5,
       //validator: (v) => v >= 1 && v <= 30,
-    },
-    fretColor: {
-      type: String,
-      default: "#777777",
-      //validator: this.validColor,
-    },
-    nutSize: {
-      type: Number,
-      default: 10,
-    },
-    fretSize: {
-      type: Number,
-      default: 2,
-    },
-    fretSpace: {
-      type: String,
-      default: "30",
-      //validator: this.validNumber,
-    },
-    strings: {
-      type: Number,
-      default: 4,
-      //validator: (v) => v >= 1 && v <= 12,
-    },
-    stringColor: {
-      type: String,
-      default: "#777777",
-      //validator: this.validColor,
-    },
-    stringSize: {
-      type: String,
-      default: "1",
-      //validator: this.validNumberList,
-    },
-    stringSpace: {
-      type: String,
-      default: "25",
-      //validator: this.validNumber,
     },
     reference: {
       type: String,
       default: "",
       //validation: this.validNumberList,
     },
-    referenceRadius: {
-      type: Number,
-      default: 7,
-    },
-    referenceColor: {
-      type: String,
-      default: "#777777",
-      //validator: this.validColor,
-    },
+  },
+  created() {
+    /**
+     * STORE
+     */
+    const store = useStore();
+    // this.leftDexterity = store.getters.leftDexterity;
+    // if (!this.leftDexterity) {
+    //   return;
+    // }
+    this.nbStrings = store.getters.nbStrings;
+    this.leftDexterity = store.getters.leftDexterity;
+    /**
+     * Design Values
+     */
+    // @1
+    this.stringSize = 3;
+    this.noteRadius = 12;
+    this.noteTextColor = "#EEEEEE";
+    this.rootTextColor = "#EEEEEE";
+    this.fretSpace = 66;
+    this.nutSize = 10;
+    this.fretSize = 2;
+    this.fretColor = "#707070";
+    this.stringColor = "#a8744d";
+    this.noteColor = "#0f267b";
+    this.rootColor = "#ba2121";
+    this.stringSpace = "40";
+    this.referenceRadius = 5;
+    this.referenceColor =  "#7c27b4";
+    this.orientation = "horizontal";
   },
   methods: {
     ariaId() {
@@ -239,12 +217,6 @@ export default {
             1;
           return Math.abs((noteValue[v[0]] + accidental) % 12);
         });
-    },
-    validColor(color) {
-      return color.match(/^#[A-F0-9]{6}$/i);
-    },
-    validNumber(number) {
-      return number.match(/^[0-9]+([.][0-9]*)?$/);
     },
     validNumberList(list) {
       return list.match(/^\s*[0-9]+(\s+[0-9]+)*\s*$/);
@@ -299,7 +271,7 @@ export default {
             x: rendering.y,
             color: rendering.color,
           };
-          if (this.hasLeftStrummingHand) {
+          if (this.leftDexterity) {
             rendering.x = this.width - rendering.x - rendering.width;
           }
         }
@@ -320,6 +292,7 @@ export default {
         // if (!neck.hasOwnProperty(referenceDot)) { // !neck.hasOwnProperty(referenceDot)
         //   neck[referenceDot] = 0;
         // }
+        
         ++neck[referenceDot];
       });
 
@@ -336,7 +309,7 @@ export default {
           let rendering = {};
           rendering.radius = this.referenceRadius * 1;
           rendering.fill = this.referenceColor;
-          let mid = Math.floor(this.strings / 2);
+          let mid = Math.floor(this.nbStrings / 2);
           rendering.cx =
             1 +
             (mid > 0
@@ -365,7 +338,7 @@ export default {
             let temp = rendering.cx;
             rendering.cx = rendering.cy;
             rendering.cy = temp;
-            if (this.hasLeftStrummingHand) {
+            if (this.leftDexterity) {
               rendering.cx = this.width - rendering.cx;
             }
           }
@@ -404,7 +377,7 @@ export default {
               let temp = rendering.x;
               rendering.x = rendering.y;
               rendering.y = temp;
-              if (this.hasLeftStrummingHand) {
+              if (this.leftDexterity) {
                 rendering.x = this.width - rendering.x;
               }
             }
@@ -519,7 +492,7 @@ export default {
             height: rendering.width,
             color: rendering.color,
           };
-          if (this.hasLeftStrummingHand) {
+          if (this.leftDexterity) {
             rendering.x = this.width - rendering.x - rendering.width;
           }
         }
@@ -539,14 +512,14 @@ export default {
           stringSizes.length > 1 ? stringSizes.shift() * 1 : stringSizes[0] * 1
         );
       }
-      if (this.isHorizontal || this.hasLeftStrummingHand) {
+      if (this.isHorizontal || this.leftDexterity) {
         strings.reverse();
       }
       return strings;
     },
     tuningNormalized() {
       let tuning = this.getValues(this.tuning).reverse();
-      if (!this.isHorizontal && !this.hasLeftStrummingHand) {
+      if (!this.isHorizontal && !this.leftDexterity) {
         return tuning.reverse();
       } else {
         return tuning;
@@ -592,10 +565,7 @@ export default {
       return `width:${this.width}px;height:${this.height}px;`;
     },
     stringsNormalized() {
-      return this.strings;
-    },
-    hasLeftStrummingHand() {
-      return this.strummingHand === "left";
+      return this.nbStrings;
     },
     hasNut() {
       return this.startNormalized <= 1;
