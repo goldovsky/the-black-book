@@ -21,46 +21,44 @@
  * OpenD and openE.... based on OpenC shifted
  */
 
-export default [
-  {
-    tuning_standard: {
-      nb_strings_6: {
-        root_on_string_6: {
-          powerChord: {},
-          minor: {},
-          major: {},
-          diminished: {},
-          augmented: {},
-          major_7th: {},
-          major_7th_add9: {},
-        },
-        root_on_string_5: {},
-        root_on_string_4: {},
+export default {
+  tuning_standard: {
+    nb_strings_6: {
+      root_on_string_6: {
+        powerChord: {},
+        minor: {},
+        major: {},
+        diminished: {},
+        augmented: {},
+        major_7th: {},
+        major_7th_add9: {},
       },
-      nb_strings_7: {
-        root_on_string_7: {},
-        root_on_string_6: {},
-        root_on_string_5: {},
-        root_on_string_4: {},
-      },
-      nb_strings_8: {
-        root_on_string_8: {},
-        root_on_string_7: {},
-        root_on_string_6: {},
-        root_on_string_5: {},
-        root_on_string_4: {},
-      },
+      root_on_string_5: {},
+      root_on_string_4: {},
     },
-    tuning_open_c: {
-      nb_strings_6: {
-        root_on_string_6: {},
-        root_on_string_5: {},
-        root_on_string_4: {},
-      },
+    nb_strings_7: {
+      root_on_string_7: {},
+      root_on_string_6: {},
+      root_on_string_5: {},
+      root_on_string_4: {},
     },
-    tuning_standard_fourth: {},
+    nb_strings_8: {
+      root_on_string_8: {},
+      root_on_string_7: {},
+      root_on_string_6: {},
+      root_on_string_5: {},
+      root_on_string_4: {},
+    },
   },
-];
+  tuning_open_c: {
+    nb_strings_6: {
+      root_on_string_6: {},
+      root_on_string_5: {},
+      root_on_string_4: {},
+    },
+  },
+  tuning_standard_fourth: {},
+};
 
 /**
  * {

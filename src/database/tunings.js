@@ -14,7 +14,8 @@
  * 1 : instrument
  * 2 : nb strings
  * 3 : type of tuning (Standard, drop, open, 4th...)
- * 4 : strings (from high to low)
+ * 4 : tonality
+ * 5 : strings (from high to low)
  *
  * TODO
  * add different tuning
