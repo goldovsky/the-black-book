@@ -7,9 +7,6 @@
   >
     <title :id="ariaTitleId">{{ ariaTitleText }}</title>
     <desc :id="ariaDescId">{{ ariaDescText }}</desc>
-    <!-- <template v-for="ref in referenceRendering">
-			<circle :key="ref" role="presentation" :cx="ref.cx" :cy="ref.cy" :r="ref.radius" :stroke="ref.stroke" :fill="ref.fill" />
-		</template> -->
     <circle
       v-for="ref in referenceRendering"
       :key="ref"
@@ -20,10 +17,6 @@
       :stroke="ref.stroke"
       :fill="ref.fill"
     />
-
-    <!-- <template v-for="fret in fretRenderings">
-			<rect :key="fret" role="presentation" :x="fret.x" :y="fret.y" :height="fret.height" :width="fret.width" :fill="fret.color" />
-		</template> -->
     <rect
       v-for="fret in fretRenderings"
       :key="fret"
@@ -34,10 +27,6 @@
       :width="fret.width"
       :fill="fret.color"
     />
-
-    <!-- <template v-for="string in stringRenderings">
-			<rect :key="string" role="presentation" :x="string.x" :y="string.y" :height="string.height" :width="string.width" :fill="string.color" />
-		</template> -->
     <rect
       v-for="string in stringRenderings"
       :key="string"
@@ -48,10 +37,6 @@
       :width="string.width"
       :fill="string.color"
     />
-
-    <!-- <template v-for="note in scaleRendering">
-			<circle :key="note" role="presentation" :cx="note.cx" :cy="note.cy" :r="note.radius" :stroke="note.stroke" :fill="note.fill" />
-		</template> -->
     <circle
       v-for="note in scaleRendering"
       :key="note"
@@ -62,10 +47,6 @@
       :stroke="note.stroke"
       :fill="note.fill"
     />
-
-    <!-- <template v-for="text in scaleText">
-			<text :key="text" text-anchor="middle" dominant-baseline="middle" :x="text.x" :y="text.y" :fill="text.fill">{{text.text}}</text>
-		</template> -->
     <text
       v-for="text in scaleText"
       :key="text"
@@ -110,7 +91,7 @@ export default {
       leftDexterity: null,
       orientation: null,
       /**
-       * 
+       *
        */
       ariaUid: 0,
       noteNames: [
@@ -165,10 +146,6 @@ export default {
      * STORE
      */
     const store = useStore();
-    // this.leftDexterity = store.getters.leftDexterity;
-    // if (!this.leftDexterity) {
-    //   return;
-    // }
     this.nbStrings = store.getters.nbStrings;
     this.leftDexterity = store.getters.leftDexterity;
     /**
@@ -188,7 +165,7 @@ export default {
     this.rootColor = "#ba2121";
     this.stringSpace = "40";
     this.referenceRadius = 5;
-    this.referenceColor =  "#7c27b4";
+    this.referenceColor = "#7c27b4";
     this.orientation = "horizontal";
   },
   methods: {
@@ -226,26 +203,26 @@ export default {
     },
   },
   computed: {
-    ariaDescId: function () {
+    ariaDescId() {
       return "dt-fretboard-desc-" + this.ariaId;
     },
-    ariaDescText: function () {
+    ariaDescText() {
       return "Scale: " + this.scale + "; Tuning: " + this.tuning;
     },
-    ariaIds: function () {
+    ariaIds() {
       return this.ariaTitleId + " " + this.ariaDescId;
     },
-    ariaTitleId: function () {
+    ariaTitleId() {
       return "dt-fretboard-title-" + this.ariaId;
     },
-    ariaTitleText: function () {
+    ariaTitleText() {
       return this.title;
     },
-    fretsNormalized: function () {
+    fretsNormalized() {
       return Math.max(1, Math.min(30, this.frets));
     },
 
-    fretRenderings: function () {
+    fretRenderings() {
       let renderings = [];
       let oy = this.start == 0 ? this.noteRadius * 2 : 0;
       for (
@@ -282,7 +259,7 @@ export default {
       return renderings;
     },
 
-    referenceRendering: function () {
+    referenceRendering() {
       if (!(this.reference + "").length) {
         return [];
       }
@@ -292,7 +269,7 @@ export default {
         // if (!neck.hasOwnProperty(referenceDot)) { // !neck.hasOwnProperty(referenceDot)
         //   neck[referenceDot] = 0;
         // }
-        
+
         ++neck[referenceDot];
       });
 
@@ -525,7 +502,6 @@ export default {
         return tuning;
       }
     },
-
     widthHeight() {
       let height = 0;
       if (this.hasNut) {
@@ -549,15 +525,12 @@ export default {
         height: this.isHorizontal ? width : height,
       };
     },
-
     height() {
       return this.widthHeight.height;
     },
-
     width() {
       return this.widthHeight.width;
     },
-
     svgViewBox() {
       return `0 0 ${this.width} ${this.height}`;
     },

@@ -60,7 +60,6 @@
 
       <hr />
 
-
       <fieldset class="form-group">
         <legend>Frets</legend>
         <div class="form-group">
@@ -87,7 +86,6 @@
           />
           <span class="text-muted form-text">number &ge; 0 and &lt; frets</span>
         </div>
-        
       </fieldset>
 
       <hr />
