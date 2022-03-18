@@ -41,6 +41,12 @@
   --dynamic-h6-color: #363636;
   --dynamic-li-color: #363636;
   --dynamic-subtitle-color: #4a4a4a;
+  /**
+    * Items
+    */
+  --switch-background: #51C4D3;
+  --switch-color: #126e82;
+
 }
 
 [theme="dark"] {
@@ -81,4 +87,9 @@
   --dynamic-h6-color: #d8e3e7;
   --dynamic-li-color: #d8e3e7;
   --dynamic-subtitle-color: cyan;
+  /**
+    * Items
+    */
+    --switch-background: #51C4D3;
+    --switch-color: #126e82;
 }

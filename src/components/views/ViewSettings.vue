@@ -5,6 +5,20 @@
       <h2>Instrument</h2>
       <ul>
         <li>Bass/Guitar</li>
+        <!-- .slideOne -->
+        <section title=".slideOne">
+          <div class="slideOne">
+            <input
+              type="checkbox"
+              value="None"
+              id="slideOne"
+              name="check"
+              checked
+            />
+            <label for="slideOne"></label>
+          </div>
+          <!-- end .slideOne -->
+        </section>
         <li>nbStrings | 6--7--8</li>
         <li>Tuning | Standard | E</li>
         <li>Dexterity | Left/Right</li>
