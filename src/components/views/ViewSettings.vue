@@ -4,24 +4,47 @@
     <base-card>
       <h2>Instrument</h2>
       <ul>
-        <li>Bass/Guitar</li>
-        <!-- .slideOne -->
-        <section title=".slideOne">
-          <div class="slideOne">
-            <input
-              type="checkbox"
-              value="None"
-              id="slideOne"
-              name="check"
-              checked
-            />
-            <label for="slideOne"></label>
-          </div>
-          <!-- end .slideOne -->
-        </section>
-        <li>nbStrings | 6--7--8</li>
+        <li>
+          <base-button
+            :mode="{ flat: !switchToBass }"
+            @click="switchInstrumentToBass(true)"
+            >Bass</base-button
+          >
+          <base-button
+            :mode="{ flat: switchToBass }"
+            @click="switchInstrumentToBass(false)"
+            >Guitar</base-button
+          >
+        </li>
+        <li>
+          <div>nbStrings |</div>
+        </li>
         <li>Tuning | Standard | E</li>
-        <li>Dexterity | Left/Right</li>
+        <li>
+          <div>Dexterity |</div>
+          <div>Right</div>
+          <div title="Dexterity">
+            <div
+              class="slideDexterity"
+              :style="{
+                background: `var(--switch-background-${
+                  leftDexterity ? 'left' : 'right'
+                })`,
+              }"
+            >
+              <input
+                type="checkbox"
+                value="None"
+                id="slideDexterity"
+                name="check"
+                v-model="leftDexterity"
+                @click="switchDexterity"
+              />
+              <label for="slideDexterity"></label>
+            </div>
+          </div>
+          <div>Left</div>
+        </li>
       </ul>
     </base-card>
     <base-card>
@@ -64,15 +87,28 @@ export default {
   data() {
     return {
       darkMode: null,
+      leftDexterity: null,
+      switchToBass: null,
     };
   },
   name: "ViewSettings",
   created() {
     this.darkMode = this.$store.getters.darkMode;
+    this.leftDexterity = this.$store.getters.leftDexterity;
+    this.switchToBass = this.$store.getters.switchToBass;
   },
   methods: {
     switchTheme() {
       this.$store.dispatch("switchTheme");
+    },
+    switchDexterity() {
+      this.$store.dispatch("switchDexterity");
+    },
+    switchInstrumentToBass(s) {
+      this.$store.dispatch({
+        type: "switchToBass",
+        value: s,
+      });
     },
   },
 };
@@ -90,6 +126,10 @@ ul {
 
 li {
   margin: 0 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .cardsettings {

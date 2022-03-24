@@ -12,6 +12,7 @@ const store = createStore({
       appTitle: "TheBlackBook",
       darkMode: false,
       leftDexterity: true,
+      switchToBass: false,
       nbStrings: 6,
       chordDiagramWidth: 16, // de base à 20
       fretboardSwitchStringSymmetry: false,
@@ -32,25 +33,40 @@ const store = createStore({
     },
     fretboardSwitchStringSymmetry(state) {
       return state.fretboardSwitchStringSymmetry;
+    },
+    switchToBass(state) {
+      return state.switchToBass;
     }
   },
   mutations: {
-    switchTheme() {
+    switchTheme(state) {
       // todo maybe move this somewhere else?
       // add/remove class to/from html tag
       let htmlElement = document.documentElement;
       
-      if (this.darkMode) {
+      if (state.darkMode) {
         htmlElement.setAttribute("theme", "light");
       } else {
         htmlElement.setAttribute("theme", "dark");
       }
-      this.darkMode = !this.darkMode;
+      state.darkMode = !state.darkMode;
+    },
+    switchDexterity(state) {
+      state.leftDexterity = !state.leftDexterity;
+    },
+    switchToBass(state, payload) {
+      state.switchToBass = payload.value;
     }
   },
   actions: {
     switchTheme(context) {
       context.commit('switchTheme');
+    },
+    switchDexterity(context) {
+      context.commit('switchDexterity');
+    },
+    switchToBass(context, payload) {
+      context.commit('switchToBass', payload);
     }
   }
 });

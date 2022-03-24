@@ -98,11 +98,10 @@ input.theme-switch:checked + label {
   transform: translateY(0);
 }
 
-/* .slideOne */
-.slideOne {
+.slideDexterity {
   width: 50px;
   height: 10px;
-  background: var(--switch-background);
+  //background: var(--switch-background);
   margin: 20px auto;
   position: relative;
   border-radius: 50px;
@@ -128,4 +127,3 @@ input.theme-switch:checked + label {
     }  
   }
 }
-/* end .slideOne */

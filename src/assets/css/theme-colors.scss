@@ -3,6 +3,12 @@
 // 51C4D3
 // 126E82
 // 132C33
+//$primary-color: #D8E3E7;
+//$secondary-color: #51C4D3;
+//$tertiary-color: #126E82;
+//$quaternary-color: #132C33;
+//$quinary-color: #0000;
+
 :root {
   --app-background-color: #d8e3e7;
   /**
@@ -23,13 +29,13 @@
   /**
     * FRETBOARD
     */
-  --fretboard-reference-color:#132c33; // #7c27b4;
+  --fretboard-reference-color: #132c33; // #7c27b4;
   --fretboard-string-color: #126e82; // #a8744d;
   --fretboard-fret-color: #00000019; //#707070;
   --fretboard-note-color: #0f267b;
   --fretboard-root-color: #ba2121;
-  --fretboard-noteText-color: #EEEEEE;
-  --fretboard-rootText-color: #EEEEEE;
+  --fretboard-noteText-color: #eeeeee;
+  --fretboard-rootText-color: #eeeeee;
   /**
     * TITLES
     */
@@ -44,9 +50,10 @@
   /**
     * Items
     */
-  --switch-background: #51C4D3;
+  --switch-background-left: #51c4d3;
+  --switch-background-right: #132c33;
   --switch-color: #126e82;
-
+  --button-color: #126e82;
 }
 
 [theme="dark"] {
@@ -69,13 +76,13 @@
   /**
     * FRETBOARD
     */
-    --fretboard-reference-color: #d8e3e7;
-    --fretboard-string-color: #d8e3e7; // #a8744d;
-    --fretboard-fret-color: #d8e3e719;// #707070;
-    --fretboard-note-color: #0f267b;
-    --fretboard-root-color: #ba2121;
-    --fretboard-noteText-color: #EEEEEE;
-    --fretboard-rootText-color: #EEEEEE;
+  --fretboard-reference-color: #d8e3e7;
+  --fretboard-string-color: #d8e3e7; // #a8744d;
+  --fretboard-fret-color: #d8e3e719; // #707070;
+  --fretboard-note-color: #0f267b;
+  --fretboard-root-color: #ba2121;
+  --fretboard-noteText-color: #eeeeee;
+  --fretboard-rootText-color: #eeeeee;
   /**
     * TITLES
     */
@@ -90,6 +97,7 @@
   /**
     * Items
     */
-    --switch-background: #51C4D3;
-    --switch-color: #126e82;
+  --switch-background-left: #51c4d3;
+  --switch-background-right: #132c33;
+  --switch-color: #126e82;
 }
