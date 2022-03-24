@@ -56,6 +56,9 @@ const store = createStore({
     },
     switchToBass(state, payload) {
       state.switchToBass = payload.value;
+    },
+    updateNbStrings(state, payload) {
+      state.nbStrings = payload.value;
     }
   },
   actions: {
@@ -67,6 +70,9 @@ const store = createStore({
     },
     switchToBass(context, payload) {
       context.commit('switchToBass', payload);
+    },
+    updateNbStrings(context, payload) {
+      context.commit('updateNbStrings', payload);
     }
   }
 });

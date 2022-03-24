@@ -8,15 +8,23 @@
           <base-button
             :mode="!switchToBass ? 'flat' : ''"
             @click="switchInstrumentToBass(true)"
-            >Bass</base-button>
+            >Bass</base-button
+          >
           <base-button
             :mode="switchToBass ? 'flat' : ''"
             @click="switchInstrumentToBass(false)"
-            >Guitar</base-button>
+            >Guitar</base-button
+          >
         </li>
         <li>
           <div>nbStrings |</div>
-          <!-- <base-input-number  v-model="nbStrings" :min="0"></base-input-number> -->
+          <base-input-number
+            v-model="nbStrings"
+            :min="switchToBass ? 4 : 6"
+            :max="switchToBass ? 6 : 8"
+            :value="nbStrings"
+            @input="updateNbStrings"
+          ></base-input-number>
         </li>
         <li>Tuning | Standard | E</li>
         <li>
@@ -89,7 +97,12 @@ export default {
       darkMode: null,
       leftDexterity: null,
       switchToBass: null,
-      nbStrings: 6
+      nbStrings: 6,
+      tuning: [],
+      tonality: {
+        note: '', // e.g. Eb
+        shift: 0 // e.g. -1
+      }
     };
   },
   name: "ViewSettings",
@@ -97,6 +110,9 @@ export default {
     this.darkMode = this.$store.getters.darkMode;
     this.leftDexterity = this.$store.getters.leftDexterity;
     this.switchToBass = this.$store.getters.switchToBass;
+
+    // todo build tuning
+    // todo build tonality
   },
   methods: {
     switchTheme() {
@@ -105,13 +121,19 @@ export default {
     switchDexterity() {
       this.$store.dispatch("switchDexterity");
     },
-    switchInstrumentToBass(s) {
+    switchInstrumentToBass(booleanValue) {
       this.$store.dispatch({
         type: "switchToBass",
-        value: s,
+        value: booleanValue,
       });
       this.switchToBass = !this.switchToBass; // @1
     },
+    updateNbStrings(numberValue) {
+      this.$store.dispatch({
+        type: "updateNbStrings",
+        value: numberValue,
+      });
+    }
   },
 };
 </script>

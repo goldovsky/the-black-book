@@ -1,36 +1,36 @@
-// light to dark
-// D8E3E7
-// 51C4D3
-// 126E82
-// 132C33
-//$primary-color: #D8E3E7;
-//$secondary-color: #51C4D3;
-//$tertiary-color: #126E82;
-//$quaternary-color: #132C33;
-//$quinary-color: #0000;
+/**
+* TODO
+* is it necessary to repeat colors in dark when it doesnt change?
+*/
 
 :root {
-  --app-background-color: #d8e3e7;
+  // light to dark
+  --primary-color: #d8e3e7;
+  --secondary-color: #51C4D3;
+  --tertiary-color: #126E82;
+  --quaternary-color: #132C33;
+  
+  --app-background-color: var(--primary-color);
   /**
     * SIDEBAR
     */
-  --sidebar-background: #132c33;
-  --sidebar-icon: #126e82;
-  --sidebar-icon-hover: #d8e3e7;
-  --sidebar-text: #d8e3e7;
+  --sidebar-background: var(--quaternary-color);
+  --sidebar-icon: var(--tertiary-color);
+  --sidebar-icon-hover: var(--primary-color);
+  --sidebar-text: var(--primary-color);
   /**
     * DIAGRAMS
     */
-  --diagram-stroke: #126e82;
-  --diagram-string: #126e82;
+  --diagram-stroke: var(--tertiary-color);
+  --diagram-string: var(--tertiary-color);
   --diagram-fret: #00000019;
-  --diagram-finger: #126e82;
-  --diagram-finger-indication: #d8e3e7;
+  --diagram-finger: var(--tertiary-color);
+  --diagram-finger-indication: var(--primary-color);
   /**
     * FRETBOARD
     */
-  --fretboard-reference-color: #132c33; // #7c27b4;
-  --fretboard-string-color: #126e82; // #a8744d;
+  --fretboard-reference-color: var(--quaternary-color); // #7c27b4;
+  --fretboard-string-color: var(--tertiary-color); // #a8744d;
   --fretboard-fret-color: #00000019; //#707070;
   --fretboard-note-color: #0f267b;
   --fretboard-root-color: #ba2121;
@@ -50,35 +50,36 @@
   /**
     * Items
     */
-  --switch-background-left: #51c4d3;
-  --switch-background-right: #132c33;
-  --switch-color: #126e82;
-  --button-color: #126e82;
+  --switch-background-left: var(--secondary-color);
+  --switch-background-right: var(--quaternary-color);
+  --switch-color: var(--tertiary-color);
+  --button-color: var(--tertiary-color);
+  --button-hover-color: var(--secondary-color);
 }
 
 [theme="dark"] {
-  --app-background-color: #132c33;
+  --app-background-color: var(--quaternary-color);
   /**
     * SIDEBAR
     */
-  --sidebar-background: #132c33;
-  --sidebar-icon: #126e82;
-  --sidebar-icon-hover: #132c33;
-  --sidebar-text: #132c33;
+  --sidebar-background: var(--quaternary-color);
+  --sidebar-icon: var(--tertiary-color);
+  --sidebar-icon-hover: var(--quaternary-color);
+  --sidebar-text: var(--quaternary-color);
   /**
     * DIAGRAMS
     */
-  --diagram-stroke: #d8e3e7;
-  --diagram-string: #d8e3e7;
-  --diagram-fret: #d8e3e719;
-  --diagram-finger: #d8e3e7;
-  --diagram-finger-indication: #132c33;
+  --diagram-stroke: var(--primary-color);
+  --diagram-string: var(--primary-color);
+  --diagram-fret: rgba(var(--primary-color), 0.25); //0.25 en base 10 = 19 en base 16
+  --diagram-finger: var(--primary-color);
+  --diagram-finger-indication: var(--quaternary-color);
   /**
     * FRETBOARD
     */
-  --fretboard-reference-color: #d8e3e7;
-  --fretboard-string-color: #d8e3e7; // #a8744d;
-  --fretboard-fret-color: #d8e3e719; // #707070;
+  --fretboard-reference-color: var(--primary-color);
+  --fretboard-string-color: var(--primary-color); // #a8744d;
+  --fretboard-fret-color: var(--primary-color)19; // #707070;
   --fretboard-note-color: #0f267b;
   --fretboard-root-color: #ba2121;
   --fretboard-noteText-color: #eeeeee;
@@ -86,18 +87,19 @@
   /**
     * TITLES
     */
-  --dynamic-h1-color: #d8e3e7;
-  --dynamic-h2-color: #d8e3e7;
-  --dynamic-h3-color: #d8e3e7;
-  --dynamic-h4-color: #d8e3e7;
-  --dynamic-h5-color: #d8e3e7;
-  --dynamic-h6-color: #d8e3e7;
-  --dynamic-li-color: #d8e3e7;
+  --dynamic-h1-color: var(--primary-color);
+  --dynamic-h2-color: var(--primary-color);
+  --dynamic-h3-color: var(--primary-color);
+  --dynamic-h4-color: var(--primary-color);
+  --dynamic-h5-color: var(--primary-color);
+  --dynamic-h6-color: var(--primary-color);
+  --dynamic-li-color: var(--primary-color);
   --dynamic-subtitle-color: cyan;
   /**
     * Items
     */
-  --switch-background-left: #51c4d3;
-  --switch-background-right: #132c33;
-  --switch-color: #126e82;
+  --switch-background-left: var(--secondary-color);
+  --switch-background-right: var(--quaternary-color);
+  --switch-color: var(--tertiary-color);
+  --button-hover-color: var(--secondary-color);
 }

@@ -47,13 +47,13 @@ a:hover,
 a:active,
 button:hover,
 button:active {
-  background-color: #270041;
-  border-color: #270041;
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
 }
 
 .flat {
   background-color: transparent;
-  color: #3a0061;
+  color: var(--secondary-color);
   border: none;
 }
 
@@ -67,6 +67,7 @@ button:active {
 .flat:active,
 .outline:hover,
 .outline:active {
-  background-color: #edd2ff;
+  background-color: var(--button-hover-color);
+  color: var(--primary-color);
 }
 </style>
