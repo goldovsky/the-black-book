@@ -4,7 +4,7 @@
  * 
  * data() {
     return {
-      dataChords: DATA_TETRACHORDS,
+      dataTetrachords: DATA_TETRACHORDS,
     };
   },
  */

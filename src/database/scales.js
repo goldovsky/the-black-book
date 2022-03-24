@@ -4,7 +4,7 @@
  * 
  * data() {
     return {
-      dataChords: DATA_SCALES,
+      dataScales: DATA_SCALES,
     };
   },
  */

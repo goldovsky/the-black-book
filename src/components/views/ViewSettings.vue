@@ -26,7 +26,28 @@
             @input="updateNbStrings"
           ></base-input-number>
         </li>
-        <li>Tuning | Standard | E</li>
+        <li>
+          <!-- @3 -->
+          <div>Tuning</div>
+          <select v-model="tuning">
+            <option
+              v-for="optionTuning in availableTunings"
+              :key="optionTuning"
+            >
+              {{ optionTuning }}
+            </option>
+          </select>
+          <!-- @4 -->
+          <div>In</div>
+          <select v-model="tonality.note">
+            <option
+              v-for="optionTonality in availableTonalities"
+              :key="optionTonality"
+            >
+              {{ optionTonality }}
+            </option>
+          </select>
+        </li>
         <li>
           <div>Dexterity |</div>
           <div>Right</div>
@@ -90,6 +111,8 @@
  * TODO
  * at first page loading, icon get set to dark whatever the current theme is. check created method
  * @1) not sure it is the best way, but as we associate the value at created we might need to do something so it is updated as the store change state
+ * @2 switch tuning to bass ones
+ * @3 && @4 : select first value of list @ loading
  */
 export default {
   data() {
@@ -98,11 +121,14 @@ export default {
       leftDexterity: null,
       switchToBass: null,
       nbStrings: 6,
-      tuning: [],
+      tuning: "",
       tonality: {
-        note: '', // e.g. Eb
-        shift: 0 // e.g. -1
-      }
+        note: "", // e.g. Eb
+        shift: 0, // e.g. -1
+      },
+      // scoped variables
+      availableTunings: ["tuning A", "tuning B"],
+      availableTonalities: ["E", "Eb"],
     };
   },
   name: "ViewSettings",
@@ -111,7 +137,7 @@ export default {
     this.leftDexterity = this.$store.getters.leftDexterity;
     this.switchToBass = this.$store.getters.switchToBass;
 
-    // todo build tuning
+    this.loadAvailableTunings();
     // todo build tonality
   },
   methods: {
@@ -127,13 +153,20 @@ export default {
         value: booleanValue,
       });
       this.switchToBass = !this.switchToBass; // @1
+      // @2
     },
     updateNbStrings(numberValue) {
       this.$store.dispatch({
         type: "updateNbStrings",
         value: numberValue,
       });
-    }
+    },
+    loadAvailableTunings() {
+      // todo build tuning
+      console.log("loadAvailableTunings");
+      //const guitarTunings = this.$store.getters.dataTunings.guitar;
+      //console.log(guitarTunings);
+    },
   },
 };
 </script>

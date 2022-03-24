@@ -2,28 +2,52 @@
  * NOTES
  *
  */
-
+import DATA_CHORDS from './../database/chords.js';
+import DATA_SCALES from './../database/scales.js';
+import DATA_TETRACHORDS from './../database/tetrachords.js';
+import DATA_TUNINGS from './../database/tunings.js';
 import { createStore } from "vuex";
 
 const store = createStore({
   modules: {},
   state() {
     return {
+      // App Related
       appTitle: "TheBlackBook",
       darkMode: false,
-      leftDexterity: true,
-      switchToBass: false,
-      nbStrings: 6,
       chordDiagramWidth: 16, // de base à 20
       fretboardSwitchStringSymmetry: false,
+      // instrument Related
+      switchToBass: false,
+      leftDexterity: true,
+      nbStrings: 6,
+      // Tuning Related
+      tuning: 'standard', // e.g. 'standard'
+      tonality: {
+        note: 'E', // e.g. Eb
+        shift: 0 // e.g. -1
+      },
+      //database
+      dataChords: DATA_CHORDS,
+      dataScales: DATA_SCALES,
+      dataTetrachords: DATA_TETRACHORDS,
+      dataTunings: DATA_TUNINGS,
     };
   },
   getters: {
+    // App Related
     appTitle(state) {
       return state.appTitle;
     },
     darkMode(state) {
       return state.darkMode;
+    },
+    fretboardSwitchStringSymmetry(state) {
+      return state.fretboardSwitchStringSymmetry;
+    },
+    // Instrument Related
+    switchToBass(state) {
+      return state.switchToBass;
     },
     leftDexterity(state) {
       return state.leftDexterity;
@@ -31,11 +55,20 @@ const store = createStore({
     nbStrings(state) {
       return state.nbStrings;
     },
-    fretboardSwitchStringSymmetry(state) {
-      return state.fretboardSwitchStringSymmetry;
+    // Tuning Related
+
+    //database
+    dataChords(state) {
+      return state.dataChords;
     },
-    switchToBass(state) {
-      return state.switchToBass;
+    dataScales(state) {
+      return state.dataScales;
+    },
+    dataTetrachords(state) {
+      return state.dataTetrachords;
+    },
+    dataTunings(state) {
+      return state.dataTunings;
     }
   },
   mutations: {

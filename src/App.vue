@@ -12,6 +12,7 @@
 /**
  * TODO
  * check CSS to change the scroll bar (it's ugly right now...)
+ * @1) load "database"
  */
 /**
  * * INFORMATION
