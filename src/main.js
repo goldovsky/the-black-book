@@ -5,6 +5,7 @@ import store from './store/store.js';
 
 import BaseCard from './components/ui/BaseCard.vue'
 import BaseButton from './components/ui/BaseButton.vue'
+// import BaseInputNumber from './components/ui/BaseInputNumber.vue'
 
 import './assets/css/styles.scss' // custom styles
 
@@ -14,6 +15,7 @@ app.use(store)
 
 app.component('base-card', BaseCard);
 app.component('base-button', BaseButton);
+// app.component('base-input-number', BaseInputNumber);
 
 router.isReady().then(() => {
     app.mount('#app');

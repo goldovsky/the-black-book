@@ -6,18 +6,17 @@
       <ul>
         <li>
           <base-button
-            :mode="{ flat: !switchToBass }"
+            :mode="!switchToBass ? 'flat' : ''"
             @click="switchInstrumentToBass(true)"
-            >Bass</base-button
-          >
+            >Bass</base-button>
           <base-button
-            :mode="{ flat: switchToBass }"
+            :mode="switchToBass ? 'flat' : ''"
             @click="switchInstrumentToBass(false)"
-            >Guitar</base-button
-          >
+            >Guitar</base-button>
         </li>
         <li>
           <div>nbStrings |</div>
+          <!-- <base-input-number  v-model="nbStrings" :min="0"></base-input-number> -->
         </li>
         <li>Tuning | Standard | E</li>
         <li>
@@ -82,6 +81,7 @@
 /**
  * TODO
  * at first page loading, icon get set to dark whatever the current theme is. check created method
+ * @1) not sure it is the best way, but as we associate the value at created we might need to do something so it is updated as the store change state
  */
 export default {
   data() {
@@ -89,6 +89,7 @@ export default {
       darkMode: null,
       leftDexterity: null,
       switchToBass: null,
+      nbStrings: 6
     };
   },
   name: "ViewSettings",
@@ -109,6 +110,7 @@ export default {
         type: "switchToBass",
         value: s,
       });
+      this.switchToBass = !this.switchToBass; // @1
     },
   },
 };
