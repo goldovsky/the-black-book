@@ -9,7 +9,7 @@
         :prop-tuning="tuning"
         :strumming-hand="strummingHand"
         :start="start"
-        :frets="frets"
+        :frets="frets + start - 1"
         :fret-color="fretColor"
         title="Test"
       ></the-fretboard>
@@ -44,29 +44,27 @@
           <legend>Frets</legend>
           <div class="form-group">
             <label for="numberOfFrets"># of Frets</label>
-            <input
+            <base-input-number
               id="numberOfFrets"
               class="form-control"
-              type="number"
-              max="30"
-              min="1"
+              :min="1"
+              :max="30"
+              :value="frets"
               v-model="frets"
+              @input="updateNumberOfFrets"
             />
-            <span class="text-muted form-text">number between 1 and 30</span>
           </div>
           <div class="form-group">
             <label for="startingFret">Starting Fret</label>
-            <input
+            <base-input-number
               id="startingFret"
               class="form-control"
-              type="number"
-              min="0"
-              max="30"
+              :min="0"
+              :max="23"
+              :value="start"
               v-model="start"
+              @input="updateStartingNumber"
             />
-            <span class="text-muted form-text"
-              >number &ge; 0 and &lt; frets</span
-            >
           </div>
         </fieldset>
       </section>
@@ -84,6 +82,7 @@
  * - move repère touche suivant le nombre de cordes
  * - always display strings notes, in grey if not part of the scale, in shape and color if so
  * - switch b <-> # (bemol/sharp)
+ * - last fret in dotted line if not the 21/22/24th fret
  */
 import TheFretboard from "./../fretboard/TheFretboard.vue";
 import BaseCard from "./../ui/BaseCard.vue";
@@ -98,7 +97,7 @@ export default {
       tuning: null, // build in created()
       orientation: "horizontal",
       start: 0,
-      frets: 12,
+      frets: 13,
       // below come from <script> inside html
       scales: {
         Major: [2, 2, 1, 2, 2, 2, 1],
@@ -145,6 +144,15 @@ export default {
     // 		data[key] = value;
     // 	}
     // });
+  },
+  methods: {
+    updateStartingNumber(value) {
+      this.start = value;
+      // todo check relation betwen this and number of frets
+    },
+    updateNumberOfFrets(value) {
+      this.frets = value;
+    },
   },
 };
 </script>

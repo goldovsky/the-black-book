@@ -68,10 +68,11 @@
  * @displayIntervalsInsteadOfNotes prop option to not display number in notes or interval instead
  * - change notes circle to shape and color based on intervals
  * - check nut color/ design
- * 
+ * - when startng from a fret instead of the nut, le repères de touches n'apparaissent pas toutes
+ *
  */
 import { useStore } from "vuex";
-import computed from './computed.js';
+import computed from "./computed.js";
 export default {
   data() {
     return {
@@ -158,7 +159,7 @@ export default {
     this.noteRadius = 12;
     this.fretSpace = 66;
     this.nutSize = 10;
-    this.fretSize = 6;//2;
+    this.fretSize = 6; //2;
     this.stringSpace = "40";
     this.referenceRadius = 5;
     this.reference = "3 5 7 9 12 12 15 17 19 21 24 24"; // enter number twice to get two dots
@@ -173,13 +174,13 @@ export default {
     /**
      * Reverse string order to get the low string on top of the diagram
      */
-      if (store.getters.fretboardSwitchStringSymmetry) {
-        var reverseTuning = this.propTuning;
-        reverseTuning = reverseTuning.split(" ").reverse().join(" ");
-        this.tuning = reverseTuning;
-      } else {
-        this.tuning = this.propTuning;
-      }
+    if (store.getters.fretboardSwitchStringSymmetry) {
+      var reverseTuning = this.propTuning;
+      reverseTuning = reverseTuning.split(" ").reverse().join(" ");
+      this.tuning = reverseTuning;
+    } else {
+      this.tuning = this.propTuning;
+    }
   },
   methods: {
     ariaId() {

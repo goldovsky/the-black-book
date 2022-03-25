@@ -1,18 +1,11 @@
 <template>
   <div class="control number">
     <button
-      class="decrement-button"
+      class="decrement-button hiddearrows"
       :disabled="decrementDisabled"
       @click="decrement"
     >
       −
-    </button>
-    <button
-      class="increment-button"
-      :disabled="incrementDisabled"
-      @click="increment"
-    >
-      +
     </button>
     <input
       type="number"
@@ -27,6 +20,13 @@
       @keydown.up.prevent="increment"
       @keydown.down.prevent="decrement"
     />
+    <button
+      class="increment-button"
+      :disabled="incrementDisabled"
+      @click="increment"
+    >
+      +
+    </button>
   </div>
 </template>
 

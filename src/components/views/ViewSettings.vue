@@ -23,8 +23,7 @@
             :min="switchToBass ? 4 : 6"
             :max="switchToBass ? 6 : 8"
             :value="nbStrings"
-            @input="updateNbStrings"
-          ></base-input-number>
+            @input="updateNbStrings" />
         </li>
         <li>
           <!-- @3 -->
