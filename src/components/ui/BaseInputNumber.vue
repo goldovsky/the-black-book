@@ -115,6 +115,16 @@ export default {
 </script>
 
 <style scoped>
+/* remove arrows in input field */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number]{
+    -moz-appearance: textfield;
+}
+
 .control.number {
   display: inline-flex;
   margin-bottom: 1rem;
