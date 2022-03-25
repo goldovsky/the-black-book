@@ -2,10 +2,10 @@
  * NOTES
  *
  */
-import DATA_CHORDS from './../database/chords.js';
-import DATA_SCALES from './../database/scales.js';
-import DATA_TETRACHORDS from './../database/tetrachords.js';
-import DATA_TUNINGS from './../database/tunings.js';
+import DATA_CHORDS from "./../database/chords.js";
+import DATA_SCALES from "./../database/scales.js";
+import DATA_TETRACHORDS from "./../database/tetrachords.js";
+import DATA_TUNINGS from "./../database/tunings.js";
 import { createStore } from "vuex";
 
 const store = createStore({
@@ -22,15 +22,10 @@ const store = createStore({
       leftDexterity: true,
       nbStrings: 6,
       // Tuning Related
-      tuning: 'standard', // e.g. 'standard'
-      tonality: {
-        note: 'E', // e.g. Eb
-        shift: 0 // e.g. -1
-      },
-      tuningTest: {
-        type: '',
-        tonality: '',
-        notesByStrings:[]
+      tuning: {
+        type: "standard",
+        tonality: "E",
+        stringsNotes: [ "E4", "B3", "G3", "D3", "A2", "E2" ],
       },
       //database
       dataChords: DATA_CHORDS,
@@ -61,7 +56,9 @@ const store = createStore({
       return state.nbStrings;
     },
     // Tuning Related
-
+    tuning(state) {
+      return state.tuning;
+    },
     //database
     dataChords(state) {
       return state.dataChords;
@@ -74,14 +71,14 @@ const store = createStore({
     },
     dataTunings(state) {
       return state.dataTunings;
-    }
+    },
   },
   mutations: {
     switchTheme(state) {
       // todo maybe move this somewhere else?
       // add/remove class to/from html tag
       let htmlElement = document.documentElement;
-      
+
       if (state.darkMode) {
         htmlElement.setAttribute("theme", "light");
       } else {
@@ -97,22 +94,37 @@ const store = createStore({
     },
     updateNbStrings(state, payload) {
       state.nbStrings = payload.value;
-    }
+    },
+    updateTuning(state, payload) {
+      let tmpPayloadValue = payload.value;
+      // todo use of switch to bass not the best way to do it
+      tmpPayloadValue.stringsNotes =
+        state.dataTunings[state.switchToBass ? "bass" : "guitar"][
+          "nb_strings_" + state.nbStrings
+        ][tmpPayloadValue.type][tmpPayloadValue.tonality.toLowerCase()];
+
+        state.tuning = tmpPayloadValue;
+        console.log("tmpPayloadValue updated");
+        console.log(state.tuning);
+    },
   },
   actions: {
     switchTheme(context) {
-      context.commit('switchTheme');
+      context.commit("switchTheme");
     },
     switchDexterity(context) {
-      context.commit('switchDexterity');
+      context.commit("switchDexterity");
     },
     switchToBass(context, payload) {
-      context.commit('switchToBass', payload);
+      context.commit("switchToBass", payload);
     },
     updateNbStrings(context, payload) {
-      context.commit('updateNbStrings', payload);
-    }
-  }
+      context.commit("updateNbStrings", payload);
+    },
+    updateTuning(context, payload) {
+      context.commit("updateTuning", payload);
+    },
+  },
 });
 
 export default store;

@@ -30,20 +30,14 @@
           <!-- @3 -->
           <div>Tuning</div>
           <select v-model="tuning">
-            <option
-              v-for="(value, key) in tuningOptions"
-              :key="key"
-            >
+            <option v-for="(value, key) in tuningOptions" :key="key">
               {{ key }}
             </option>
           </select>
           <!-- @4 -->
           <div>In</div>
-          <select v-model="tonality.note">
-            <option
-              v-for="(value, key) in tuningOptions[tuning]"
-              :key="key"
-            >
+          <select v-model="tonality">
+            <option v-for="(value, key) in tuningOptions[tuning]" :key="key">
               {{ value }}
             </option>
           </select>
@@ -123,9 +117,7 @@ export default {
       switchToBass: null,
       nbStrings: 6,
       tuning: "",
-      tonality: {
-        note: "", // e.g. Eb
-      },
+      tonality: '',
       // scoped variables
       tuningOptions: {},
     };
@@ -138,6 +130,14 @@ export default {
 
     this.loadAvailableTunings();
     // todo build tonality
+  },
+  watch: {
+    tuning() {
+      this.updateGlobalTuning();
+    },
+    tonality() {
+      this.updateGlobalTuning();
+    }
   },
   methods: {
     switchTheme() {
@@ -160,8 +160,17 @@ export default {
         value: numberValue,
       });
     },
+    updateGlobalTuning() {
+      this.$store.dispatch({
+        type: "updateTuning",
+        value: {
+          type: this.tuning.length > 0 ? this.tuning : 'standard',
+          tonality: this.tonality.length > 0 ? this.tonality : 'E',
+          stringsNotes: null
+        },
+      });
+    },
     loadAvailableTunings() {
-      // todo build tuning
       const storeGuitarTunings = this.$store.getters.dataTunings.guitar;
       // loop on number of strings available
       for (const HowManyStrings in storeGuitarTunings) {
@@ -177,14 +186,13 @@ export default {
           let tmpTuningTonalities = [];
           // loop on each tuning Tonality available
           for (const tonality in storeGuitarTunings[HowManyStrings][tuning]) {
-            tmpTuningTonalities.push(tonality.charAt(0).toUpperCase() + tonality.slice(1).toLowerCase());
+            tmpTuningTonalities.push(
+              tonality.charAt(0).toUpperCase() + tonality.slice(1).toLowerCase()
+            );
           }
           this.tuningOptions[tuning] = tmpTuningTonalities;
         }
       }
-
-      console.log("tuningOptions");
-      console.log(this.tuningOptions);
     },
   },
 };
