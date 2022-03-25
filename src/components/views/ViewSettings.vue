@@ -31,20 +31,20 @@
           <div>Tuning</div>
           <select v-model="tuning">
             <option
-              v-for="optionTuning in availableTunings"
-              :key="optionTuning"
+              v-for="(value, key) in tuningOptions"
+              :key="key"
             >
-              {{ optionTuning }}
+              {{ key }}
             </option>
           </select>
           <!-- @4 -->
           <div>In</div>
           <select v-model="tonality.note">
             <option
-              v-for="optionTonality in availableTonalities"
-              :key="optionTonality"
+              v-for="(value, key) in tuningOptions[tuning]"
+              :key="key"
             >
-              {{ optionTonality }}
+              {{ value }}
             </option>
           </select>
         </li>
@@ -112,6 +112,7 @@
  * at first page loading, icon get set to dark whatever the current theme is. check created method
  * @1) not sure it is the best way, but as we associate the value at created we might need to do something so it is updated as the store change state
  * @2 switch tuning to bass ones
+ * @3 && @4 : update tuning and tonality accordingly
  * @3 && @4 : select first value of list @ loading
  */
 export default {
@@ -124,11 +125,9 @@ export default {
       tuning: "",
       tonality: {
         note: "", // e.g. Eb
-        shift: 0, // e.g. -1
       },
       // scoped variables
-      availableTunings: ["tuning A", "tuning B"],
-      availableTonalities: ["E", "Eb"],
+      tuningOptions: {},
     };
   },
   name: "ViewSettings",
@@ -163,9 +162,29 @@ export default {
     },
     loadAvailableTunings() {
       // todo build tuning
-      console.log("loadAvailableTunings");
-      //const guitarTunings = this.$store.getters.dataTunings.guitar;
-      //console.log(guitarTunings);
+      const storeGuitarTunings = this.$store.getters.dataTunings.guitar;
+      // loop on number of strings available
+      for (const HowManyStrings in storeGuitarTunings) {
+        // skip loop if not in right nb of strings
+        if (
+          parseInt(HowManyStrings.substr(HowManyStrings.length - 1)) !==
+          this.nbStrings
+        ) {
+          continue;
+        }
+        // loop on type of tuning
+        for (const tuning in storeGuitarTunings[HowManyStrings]) {
+          let tmpTuningTonalities = [];
+          // loop on each tuning Tonality available
+          for (const tonality in storeGuitarTunings[HowManyStrings][tuning]) {
+            tmpTuningTonalities.push(tonality.charAt(0).toUpperCase() + tonality.slice(1).toLowerCase());
+          }
+          this.tuningOptions[tuning] = tmpTuningTonalities;
+        }
+      }
+
+      console.log("tuningOptions");
+      console.log(this.tuningOptions);
     },
   },
 };

@@ -27,6 +27,11 @@ const store = createStore({
         note: 'E', // e.g. Eb
         shift: 0 // e.g. -1
       },
+      tuningTest: {
+        type: '',
+        tonality: '',
+        notesByStrings:[]
+      },
       //database
       dataChords: DATA_CHORDS,
       dataScales: DATA_SCALES,
