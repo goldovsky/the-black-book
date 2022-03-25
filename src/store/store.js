@@ -1,6 +1,7 @@
 /**
  * NOTES
- *
+ * TODO 
+ * refacto switchToBass en 'instrument' et de type string ('guitar', 'bass')
  */
 import DATA_CHORDS from "./../database/chords.js";
 import DATA_SCALES from "./../database/scales.js";

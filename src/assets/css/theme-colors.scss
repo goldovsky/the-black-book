@@ -3,6 +3,28 @@
 * is it necessary to repeat colors in dark when it doesnt change?
 */
 
+// below is from signal chain sketches in dart
+// Whites
+// final BrokenWhite = const Color(0xfff7f7f7);
+
+// // Colors
+// final CrimsonRed = const Color(0xffDC143C);
+// final CrimsonRedFaded = const Color(0x55DC143C);
+// final Teal = const Color(0xff64dcef);
+// final TealFaded = const Color(0x5564dcef);
+// //final LightTeal = const Color(0xff);
+
+// // Greys
+// final LightGrey = const Color(0xff3f3f3f);
+// final MediumGrey = const Color(0xff2f2f2f);
+// final DarkGrey = const Color(0xff1f1f1f);
+// final DarkestkGrey = const Color(0xff0f0f0f);
+
+// //------------------------------------------
+
+// // XOTIC
+// final XoticWhite = const Color(0xfff0f0f0); // GDY
+
 :root {
   // light to dark
   --primary-color: #d8e3e7;

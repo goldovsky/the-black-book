@@ -14,81 +14,62 @@
         title="Test"
       ></the-fretboard>
     </section>
+
     <base-card>
-    
-    <section class="col-3">
-      <fieldset class="form-group mt-4">
-        <legend>General</legend>
-        <div class="form-group">
-          <label for="scale">Scale</label>
-          <input
-            id="scale"
-            class="form-control"
-            type="text"
-            v-model="scale"
-            list="scaleOptions"
-          />
-          <!-- <datalist id="scaleOptions">
+      <section class="col-3">
+        <fieldset class="form-group mt-4">
+          <legend>General</legend>
+          <div class="form-group">
+            <label for="scale">Scale</label>
+            <input
+              id="scale"
+              class="form-control"
+              type="text"
+              v-model="scale"
+              list="scaleOptions"
+            />
+            <!-- <datalist id="scaleOptions">
             <option></option>
           </datalist> -->
-          <span class="form-text text-muted"
-            >1 or more space separated note names or a scale name (e.g. C
-            Major)</span
-          >
-        </div>
-        <div class="form-group">
-          <label for="tuning">Tuning</label>
-          <input
-            id="tuning"
-            class="form-control"
-            type="text"
-            v-model="tuning"
-            list="tuningOptions"
-          />
-          <datalist id="tuningOptions">
-            <option value="E A D G B E">Guitar Standard</option>
-            <option value="D A G B C E">Guitar Drop D</option>
-            <option value="E A C# E A E">Guitar Open A</option>
-            <option value="C G C G C E">Guitar Open C</option>
-            <option value="G C E A">Tenor Ukele Standard</option>
-          </datalist>
-          <span class="form-text text-muted"
-            >1 or more space separated notes. Use b for flats and # for sharps.
-            String order: last to first</span
-          >
-        </div>
-      </fieldset>
+            <span class="form-text text-muted"
+              >1 or more space separated note names or a scale name (e.g. C
+              Major)</span
+            >
+          </div>
+        </fieldset>
 
-      <hr />
+        <hr />
 
-      <fieldset class="form-group">
-        <legend>Frets</legend>
-        <div class="form-group">
-          <label for="numberOfFrets"># of Frets</label>
-          <input
-            id="numberOfFrets"
-            class="form-control"
-            type="number"
-            max="30"
-            min="1"
-            v-model="frets"
-          />
-          <span class="text-muted form-text">number between 1 and 30</span>
-        </div>
-        <div class="form-group">
-          <label for="startingFret">Starting Fret</label>
-          <input
-            id="startingFret"
-            class="form-control"
-            type="number"
-            min="0"
-            max="30"
-            v-model="start"
-          />
-          <span class="text-muted form-text">number &ge; 0 and &lt; frets</span>
-        </div>
-      </fieldset>
-    </section>
+        <fieldset class="form-group">
+          <legend>Frets</legend>
+          <div class="form-group">
+            <label for="numberOfFrets"># of Frets</label>
+            <input
+              id="numberOfFrets"
+              class="form-control"
+              type="number"
+              max="30"
+              min="1"
+              v-model="frets"
+            />
+            <span class="text-muted form-text">number between 1 and 30</span>
+          </div>
+          <div class="form-group">
+            <label for="startingFret">Starting Fret</label>
+            <input
+              id="startingFret"
+              class="form-control"
+              type="number"
+              min="0"
+              max="30"
+              v-model="start"
+            />
+            <span class="text-muted form-text"
+              >number &ge; 0 and &lt; frets</span
+            >
+          </div>
+        </fieldset>
+      </section>
     </base-card>
   </div>
 </template>
@@ -98,21 +79,23 @@
  * TODO
  * put fretboard into basecard
  * position of settings bellow, without a basecard
- * 
+ *
  * info: frets start and # of frets can be used to display shapes (penta...)
+ * - move repère touche suivant le nombre de cordes
+ * - always display strings notes, in grey if not part of the scale, in shape and color if so
+ * - switch b <-> # (bemol/sharp)
  */
 import TheFretboard from "./../fretboard/TheFretboard.vue";
 import BaseCard from "./../ui/BaseCard.vue";
 export default {
   components: {
     TheFretboard,
-    BaseCard
+    BaseCard,
   },
   data() {
     return {
       scale: "C Major",
-      tuning: "E A D G B E",
-      //tuning: "E B G D A E",
+      tuning: null, // build in created()
       orientation: "horizontal",
       start: 0,
       frets: 12,
@@ -132,6 +115,12 @@ export default {
     };
   },
   created() {
+    // build tuning based on Store
+    this.tuning = this.$store.getters.tuning.stringsNotes
+      .reverse()
+      .join(" ")
+      .replace(/[0-9]/g, "");
+
     //let html = "";
     Object.keys(this.scales).forEach((scale) => {
       console.log("GDY Scale");
