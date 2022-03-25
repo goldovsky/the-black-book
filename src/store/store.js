@@ -25,7 +25,7 @@ const store = createStore({
       tuning: {
         type: "standard",
         tonality: "E",
-        stringsNotes: [ "E4", "B3", "G3", "D3", "A2", "E2" ],
+        stringsNotes: ["E4", "B3", "G3", "D3", "A2", "E2"],
       },
       //database
       dataChords: DATA_CHORDS,
@@ -97,15 +97,23 @@ const store = createStore({
     },
     updateTuning(state, payload) {
       let tmpPayloadValue = payload.value;
+      let tmpTonality = tmpPayloadValue.tonality.toLowerCase();
       // todo use of switch to bass not the best way to do it
-      tmpPayloadValue.stringsNotes =
+
+      let tmpTuningsAvailable =
         state.dataTunings[state.switchToBass ? "bass" : "guitar"][
           "nb_strings_" + state.nbStrings
-        ][tmpPayloadValue.type][tmpPayloadValue.tonality.toLowerCase()];
+        ][tmpPayloadValue.type];
 
-        state.tuning = tmpPayloadValue;
-        console.log("tmpPayloadValue updated");
-        console.log(state.tuning);
+      // change tonality if it doesn't exist with current nbStrings
+      if (!tmpTuningsAvailable[tmpTonality]) {
+        tmpTonality = Object.keys(tmpTuningsAvailable)[0];
+        tmpPayloadValue.tonality = tmpTonality;
+      }
+
+      tmpPayloadValue.stringsNotes = tmpTuningsAvailable[tmpTonality];
+
+      state.tuning = tmpPayloadValue;
     },
   },
   actions: {

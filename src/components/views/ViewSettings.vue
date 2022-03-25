@@ -159,6 +159,7 @@ export default {
         type: "updateNbStrings",
         value: numberValue,
       });
+      this.updateGlobalTuning();  
     },
     updateGlobalTuning() {
       this.$store.dispatch({
