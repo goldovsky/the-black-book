@@ -115,35 +115,28 @@ export default {
 </script>
 
 <style scoped>
-/* $link-color: #0288d1;
-$gray-light: #e9ecef;
-$gray-medium: #adb5bd;
-$gray-dark: #343d46;
-$bg-color: #afccff; */
-/* 
 .control.number {
   display: inline-flex;
   margin-bottom: 1rem;
   position: relative;
   width: 100%;
   max-width: calc(180 / 16 * 1rem);
+}
+.increment-button {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  right: calc(1.5 / 14 * 1rem);
+}
 
-  .increment-button {
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-    right: calc(1.5 / 14 * 1rem);
-  }
-
-  .decrement-button {
-    right: calc(41.5 / 14 * 1rem);
-  }
+.decrement-button {
+  right: calc(41.5 / 14 * 1rem);
 }
 button {
-  background-color: #fff;
-  border: 0px solid $gray-light;
+  /* background-color: #fff;
+  border: 0px solid lightgrey;
   border-left-width: 1px;
   border-radius: 0;
-  color: $gray-dark;
+  color: darkgrey;
   cursor: pointer;
   flex: 0 1;
   font-family: sans-serif;
@@ -156,15 +149,24 @@ button {
   width: 2.5rem;
   height: 2.375rem;
   user-select: none;
-  z-index: 5;
+  z-index: 5; */
 
-  &:hover,
+  /* &:hover,
   &:active,
   &:focus {
     border-color: $link-color;
     color: $link-color;
-    outline: none;
-  }
+    outline: none; */
+}
+/* $link-color: #0288d1;
+$gray-light: #e9ecef;
+$gray-medium: #adb5bd;
+$gray-dark: #343d46;
+$bg-color: #afccff; */
+/* 
+
+button {
+ 
 
   &:hover {
     & ~ .input {
