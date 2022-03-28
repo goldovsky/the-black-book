@@ -129,7 +129,7 @@
  * @1) not sure it is the best way, but as we associate the value at created we might need to do something so it is updated as the store change state
  * @2) switch tuning to bass ones (1: change nbStrings ? should be automatic, 2: lload new tunings and update the selects)
  * @3) do the switch in store
- * Tuning doesn't update when changing nbStrings
+ * Tuning doesn't update when changing nbStrings, tonality does
  */
 export default {
   data() {
@@ -237,6 +237,8 @@ export default {
       this.tonality = this.$store.getters.tuning.tonality;
     },
     loadAvailableTunings(instrument) {
+      this.tuningOptions = {};
+    
       const storeGuitarTunings = this.$store.getters.dataTunings[instrument];
       // loop on number of strings available
       for (const HowManyStrings in storeGuitarTunings) {
