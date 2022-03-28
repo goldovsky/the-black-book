@@ -1,5 +1,11 @@
 <template>
   <div id="fretboardapp">
+    <!-- <section>
+      <div>
+        <h1>Fretboard</h1>
+        <h4>{{ storeTuning.type }} {{ storeTuning.tonality }}</h4>
+      </div>
+    </section> -->
     <section
       class="col-9 align-middle"
       v-bind:style="{ alignItems: orientation == 'horizontal' ? 'center' : '' }"
@@ -83,6 +89,8 @@
  * - always display strings notes, in grey if not part of the scale, in shape and color if so
  * - switch b <-> # (bemol/sharp)
  * - last fret in dotted line if not the 21/22/24th fret
+ * - add H1 title fretboard
+ * - add h4 or else tuning
  */
 import TheFretboard from "./../fretboard/TheFretboard.vue";
 import BaseCard from "./../ui/BaseCard.vue";
@@ -94,6 +102,7 @@ export default {
   data() {
     return {
       scale: "C Major",
+      storeTuning: null,
       tuning: null, // build in created()
       orientation: "horizontal",
       start: 0,
@@ -114,6 +123,7 @@ export default {
     };
   },
   created() {
+    this.storeTuning = this.$store.getters.tuning;
     // build tuning based on Store
     this.tuning = this.$store.getters.tuning.stringsNotes
       .reverse()

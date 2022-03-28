@@ -27,7 +27,6 @@
           />
         </li>
         <li>
-          <!-- @3 -->
           <div>Tuning</div>
           <base-select
             :options="tuningOptions"
@@ -35,7 +34,6 @@
             :initialValue="tuning"
             @select="updateTuning"
           />
-          <!-- @4 -->
           <div>In</div>
           <base-select
             :options="tuningOptions[tuning]"
@@ -107,9 +105,7 @@
  * TODO
  * at first page loading, icon get set to dark whatever the current theme is. check created method
  * @1) not sure it is the best way, but as we associate the value at created we might need to do something so it is updated as the store change state
- * @2 switch tuning to bass ones
- * @3 && @4 : update tuning and tonality accordingly
- * todo when mounting th page, check tuning and tonality before overwriting as we change the tuning each time we log in this page!
+ * @2 switch tuning to bass ones (1: change nbStrings ? should be automatic, 2: lload new tunings and update the selects)
  */
 export default {
   data() {
@@ -130,7 +126,7 @@ export default {
     this.leftDexterity = this.$store.getters.leftDexterity;
     this.switchToBass = this.$store.getters.switchToBass;
 
-    this.loadAvailableTunings();
+    this.loadAvailableTunings("guitar");
 
     const storeTuning = this.$store.getters.tuning;
     if (storeTuning.type !== null) {
@@ -192,8 +188,8 @@ export default {
         },
       });
     },
-    loadAvailableTunings() {
-      const storeGuitarTunings = this.$store.getters.dataTunings.guitar;
+    loadAvailableTunings(instrument) {
+      const storeGuitarTunings = this.$store.getters.dataTunings[instrument];
       // loop on number of strings available
       for (const HowManyStrings in storeGuitarTunings) {
         // skip loop if not in right nb of strings
