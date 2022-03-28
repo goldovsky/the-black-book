@@ -23,11 +23,13 @@
             :min="switchToBass ? 4 : 6"
             :max="switchToBass ? 6 : 8"
             :value="nbStrings"
-            @input="updateNbStrings" />
+            @input="updateNbStrings"
+          />
         </li>
         <li>
           <!-- @3 -->
           <div>Tuning</div>
+          <!-- <base-select :options="tuningOptions" /> -->
           <select v-model="tuning">
             <option v-for="(value, key) in tuningOptions" :key="key">
               {{ key }}
@@ -116,7 +118,7 @@ export default {
       switchToBass: null,
       nbStrings: 6,
       tuning: "",
-      tonality: '',
+      tonality: "",
       // scoped variables
       tuningOptions: {},
     };
@@ -132,11 +134,18 @@ export default {
   },
   watch: {
     tuning() {
-      this.updateGlobalTuning();
+      if (
+        this.tuning !== undefined &&
+        Object.keys(this.tuningOptions).length > 0
+      ) {
+        this.tonality = this.tuningOptions[this.tuning][0];
+      }
+      // doesn't need to call this function as we do with the tonality watcher we did call by modifying tonality value
+      //this.updateGlobalTuning();
     },
     tonality() {
       this.updateGlobalTuning();
-    }
+    },
   },
   methods: {
     switchTheme() {
@@ -153,20 +162,27 @@ export default {
       this.switchToBass = !this.switchToBass; // @1
       // @2
     },
+    updateTuning(value) {
+      // todo check if used, as well as updatetonality
+      this.tuning = value;
+    },
+    updateTonality(value) {
+      this.tonality = value;
+    },
     updateNbStrings(numberValue) {
       this.$store.dispatch({
         type: "updateNbStrings",
         value: numberValue,
       });
-      this.updateGlobalTuning();  
+      this.updateGlobalTuning();
     },
     updateGlobalTuning() {
       this.$store.dispatch({
         type: "updateTuning",
         value: {
-          type: this.tuning.length > 0 ? this.tuning : 'standard',
-          tonality: this.tonality.length > 0 ? this.tonality : 'E',
-          stringsNotes: null
+          type: this.tuning.length > 0 ? this.tuning : "standard",
+          tonality: this.tonality.length > 0 ? this.tonality : "E",
+          stringsNotes: null,
         },
       });
     },
