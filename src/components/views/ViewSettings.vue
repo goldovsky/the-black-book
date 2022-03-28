@@ -132,21 +132,10 @@ export default {
 
     this.loadAvailableTunings();
 
-    // // auto-select standard tuning on launch
-    // if (tuning === "standard" && tonality === "e") {
-    //   this.tuning = tuning;
-    //   this.tonality = tonality.toUpperCase();
-    // }
-
-    console.log("created ViewSettings");
-    console.log(this.$store.getters.tuning.type !== null);
-    if (this.$store.getters.tuning.type !== null) {
-      this.tuning = this.$store.getters.tuning.type;
-      this.tonality = this.$store.getters.tuning.tonality;
-
-    } else {
-      console.log('esle')
-      console.log(this.tuningOptions)
+    const storeTuning = this.$store.getters.tuning;
+    if (storeTuning.type !== null) {
+      this.tuning = storeTuning.type;
+      this.tonality = storeTuning.tonality;
     }
   },
   watch: {
@@ -181,14 +170,9 @@ export default {
       // @2
     },
     updateTuning(value) {
-      // todo check if used, as well as updatetonality
-      console.log("updatedtuning called from base select");
-      console.log(value);
       this.tuning = value;
     },
     updateTonality(value) {
-      console.log("updatedTonality called from base select");
-      console.log(value);
       this.tonality = value;
     },
     updateNbStrings(numberValue) {
@@ -227,12 +211,6 @@ export default {
             tmpTuningTonalities.push(
               tonality.charAt(0).toUpperCase() + tonality.slice(1).toLowerCase()
             );
-
-            // // auto-select standard tuning on launch
-            // if (tuning === "standard" && tonality === "e") {
-            //   this.tuning = tuning;
-            //   this.tonality = tonality.toUpperCase();
-            // }
           }
           this.tuningOptions[tuning] = tmpTuningTonalities;
         }
