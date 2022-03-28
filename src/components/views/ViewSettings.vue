@@ -189,6 +189,12 @@ export default {
             tmpTuningTonalities.push(
               tonality.charAt(0).toUpperCase() + tonality.slice(1).toLowerCase()
             );
+
+            // auto-select standard tuning on launch
+            if (tuning === "standard" && tonality === "e") {
+              this.tuning = tuning;
+              this.tonality = tonality.toUpperCase();
+            }
           }
           this.tuningOptions[tuning] = tmpTuningTonalities;
         }
