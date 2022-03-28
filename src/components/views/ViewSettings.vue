@@ -118,7 +118,6 @@
           </li>
         </ul>
       </base-card>
-      
     </div>
   </div>
 </template>
@@ -130,6 +129,7 @@
  * @1) not sure it is the best way, but as we associate the value at created we might need to do something so it is updated as the store change state
  * @2) switch tuning to bass ones (1: change nbStrings ? should be automatic, 2: lload new tunings and update the selects)
  * @3) do the switch in store
+ * Tuning doesn't update when changing nbStrings
  */
 export default {
   data() {
@@ -139,7 +139,7 @@ export default {
       chordDiagramHorizontal: false,
       fretboardDiagramHorizontal: true,
       switchToBass: null,
-      nbStrings: 6,
+      nbStrings: null,
       tuning: "",
       tonality: "",
       // scoped variables
@@ -151,6 +151,7 @@ export default {
     this.darkMode = this.$store.getters.darkMode;
     this.leftDexterity = this.$store.getters.leftDexterity;
     this.switchToBass = this.$store.getters.switchToBass;
+    this.nbStrings = this.$store.getters.nbStrings;
 
     this.loadAvailableTunings("guitar");
 
@@ -166,13 +167,11 @@ export default {
         this.tuning !== undefined &&
         Object.keys(this.tuningOptions).length > 0
       ) {
-        this.tonality = this.tuningOptions[this.tuning][0];
+        this.tonality = this.tuningOptions[this.tuning][0]; // watcher call tonality() then updateGlobalTuning()
       }
-      // doesn't need to call this function as we do with the tonality watcher we did call by modifying tonality value
-      //this.updateGlobalTuning();
     },
     tonality() {
-      this.updateGlobalTuning();
+      this.updateGlobalTuning(false);
     },
   },
   methods: {
@@ -209,17 +208,33 @@ export default {
         type: "updateNbStrings",
         value: numberValue,
       });
-      this.updateGlobalTuning();
+      this.nbStrings = this.$store.getters.nbStrings;
+      this.loadAvailableTunings("guitar"); //todo
+      this.updateGlobalTuning(true);
     },
-    updateGlobalTuning() {
-      this.$store.dispatch({
-        type: "updateTuning",
-        value: {
+    updateGlobalTuning(updatedNbStrings) {
+      let tmpValue = {};
+      if (updatedNbStrings) {
+        let tmpType = Object.keys(this.tuningOptions)[0];
+        tmpValue = {
+          type: tmpType,
+          tonality: this.tuningOptions[tmpType][0],
+          stringsNotes: null,
+        };
+      } else {
+        tmpValue = {
           type: this.tuning.length > 0 ? this.tuning : "standard",
           tonality: this.tonality.length > 0 ? this.tonality : "E",
           stringsNotes: null,
-        },
+        };
+      }
+
+      this.$store.dispatch({
+        type: "updateTuning",
+        value: tmpValue,
       });
+
+      this.tonality = this.$store.getters.tuning.tonality;
     },
     loadAvailableTunings(instrument) {
       const storeGuitarTunings = this.$store.getters.dataTunings[instrument];

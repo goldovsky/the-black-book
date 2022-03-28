@@ -7,11 +7,14 @@ import ViewSignalChainSketches from './components/views/ViewSignalChainSketches.
 import ViewSettings from './components/views/ViewSettings.vue';
 import ViewPlayback from './components/views/ViewPlayback.vue';
 
+// TODO
+// '/' shouldn't redirect home
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/', redirect: '/home' },
-    { path: '/home', component: ViewHome },
+    { path: '/', component: ViewHome },
+    { path: '/home', redirect: '/' },
     { path: '/chordsdiagrams', component: ViewChordsDiagrams },
     { path: '/fretboard', component: ViewFretboard },
     { path: '/metronome', component: ViewMetronome },

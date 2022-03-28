@@ -1,80 +1,93 @@
 <template>
-  <div id="fretboardapp">
-    <!-- <section>
+  <div>
+    <section>
       <div>
         <h1>Fretboard</h1>
-        <h4>{{ storeTuning.type }} {{ storeTuning.tonality }}</h4>
+        <div>
+          <span>Tuning: </span>
+          <span
+            >{{ storeTuning.type }}
+            {{
+              storeTuning.tonality.charAt(0).toUpperCase() +
+              storeTuning.tonality.slice(1).toLowerCase()
+            }}</span
+          >
+        </div>
       </div>
-    </section> -->
-    <section
-      class="col-9 align-middle"
-      v-bind:style="{ alignItems: orientation == 'horizontal' ? 'center' : '' }"
-    >
-      <the-fretboard
-        :scale="scale"
-        :prop-tuning="tuning"
-        :strumming-hand="strummingHand"
-        :start="start"
-        :frets="frets + start - 1"
-        :fret-color="fretColor"
-        title="Test"
-      ></the-fretboard>
     </section>
+    <div id="fretboardapp">
+      <section
+        class="col-9 align-middle"
+        v-bind:style="{
+          alignItems: orientation == 'horizontal' ? 'center' : '',
+        }"
+      >
+        <the-fretboard
+          :scale="scale"
+          :prop-tuning="tuning"
+          :strumming-hand="strummingHand"
+          :start="start"
+          :frets="frets + start - 1"
+          :fret-color="fretColor"
+          title="Test"
+        ></the-fretboard>
+      </section>
 
-    <base-card>
-      <section class="col-3">
-        <fieldset class="form-group mt-4">
-          <legend>General</legend>
-          <div class="form-group">
-            <label for="scale">Scale</label>
-            <input
-              id="scale"
-              class="form-control"
-              type="text"
-              v-model="scale"
-              list="scaleOptions"
-            />
-            <!-- <datalist id="scaleOptions">
+      <base-card>
+        <section class="col-3">
+          <fieldset class="form-group mt-4">
+            <legend>General</legend>
+            <div class="form-group">
+              <label for="scale">Scale</label>
+              <input
+                id="scale"
+                class="form-control"
+                type="text"
+                v-model="scale"
+                list="scaleOptions"
+              />
+              <!-- <datalist id="scaleOptions">
             <option></option>
           </datalist> -->
-            <span class="form-text text-muted"
-              >1 or more space separated note names or a scale name (e.g. C
-              Major)</span
-            >
-          </div>
-        </fieldset>
+              <span class="form-text text-muted"
+                >1 or more space separated note names or a scale name (e.g. C
+                Major)</span
+              >
+            </div>
+          </fieldset>
 
-        <hr />
+          <hr />
 
-        <fieldset class="form-group">
-          <legend>Frets</legend>
-          <div class="form-group">
-            <label for="numberOfFrets"># of Frets</label>
-            <base-input-number
-              id="numberOfFrets"
-              class="form-control"
-              :min="1"
-              :max="30"
-              :value="frets"
-              v-model="frets"
-              @input="updateNumberOfFrets"
-            />
-          </div>
-          <div class="form-group">
-            <label for="startingFret">Starting Fret</label>
-            <base-input-number
-              id="startingFret"
-              class="form-control"
-              :min="0"
-              :max="23"
-              :value="start"
-              v-model="start"
-              @input="updateStartingNumber"
-            />
-          </div>
-        </fieldset>
-      </section>
-    </base-card>
+          <fieldset class="form-group">
+            <legend>Frets</legend>
+            <div class="form-group">
+              <label for="numberOfFrets"># of Frets</label>
+              <base-input-number
+                id="numberOfFrets"
+                class="form-control"
+                :min="1"
+                :max="30"
+                :value="frets"
+                v-model="frets"
+                @input="updateNumberOfFrets"
+              />
+            </div>
+            <div class="form-group">
+              <label for="startingFret">Starting Fret</label>
+              <base-input-number
+                id="startingFret"
+                class="form-control"
+                :min="0"
+                :max="23"
+                :value="start"
+                v-model="start"
+                @input="updateStartingNumber"
+              />
+            </div>
+          </fieldset>
+        </section>
+      </base-card>
+    </div>
   </div>
 </template>
 
@@ -89,8 +102,7 @@
  * - always display strings notes, in grey if not part of the scale, in shape and color if so
  * - switch b <-> # (bemol/sharp)
  * - last fret in dotted line if not the 21/22/24th fret
- * - add H1 title fretboard
- * - add h4 or else tuning
+ * - add instrument head icon for the tuning
  */
 import TheFretboard from "./../fretboard/TheFretboard.vue";
 import BaseCard from "./../ui/BaseCard.vue";
