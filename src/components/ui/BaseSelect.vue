@@ -16,7 +16,11 @@ export default {
     valueInsteadOfKey: {
       type: Boolean,
       required: true,
-    }
+    },
+    initialValue: {
+      type: String,
+      required: false,
+    },
   },
   data() {
     return {
@@ -24,14 +28,17 @@ export default {
     };
   },
   watch: {
+    initialValue(val) {
+      this.selectedOption = val;
+    },
     selectedOption() {
-      console.log("selectedOption watcher -> " + this.selectedOption);
       this.$emit("select", this.selectedOption);
     },
   },
   beforeMount() {
-    if (Object.keys(this.options).length > 0) {
-        console.log("gdy gdy gdy")
+      if (this.initialValue !== undefined) {
+          this.selectedOption = this.initialValue;
+      } else if (Object.keys(this.options).length > 0) {
       this.selectedOption = this.valueInsteadOfKey ? this.options[0] : Object.keys(this.options)[0];
     }
   },

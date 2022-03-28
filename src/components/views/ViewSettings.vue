@@ -29,20 +29,21 @@
         <li>
           <!-- @3 -->
           <div>Tuning</div>
-          <base-select :options="tuningOptions" :valueInsteadOfKey="false" @select="updateTuning"/>
-          <!-- <select v-model="tuning">
-            <option v-for="(value, key) in tuningOptions" :key="key">
-              {{ key }}
-            </option>
-          </select> -->
+          <base-select
+            :options="tuningOptions"
+            :valueInsteadOfKey="false"
+            :initialValue="tuning"
+            @select="updateTuning"
+          />
           <!-- @4 -->
           <div>In</div>
-          <base-select :options="tuningOptions[tuning]" :valueInsteadOfKey="true" @select="updateTonality"/>
-          <!-- <select v-model="tonality">
-            <option v-for="(value, key) in tuningOptions[tuning]" :key="key">
-              {{ value }}
-            </option>
-          </select> -->
+          <base-select
+            :options="tuningOptions[tuning]"
+            :valueInsteadOfKey="true"
+            :initialValue="tonality"
+            @select="updateTonality"
+          />
+
         </li>
         <li>
           <div>Dexterity |</div>
@@ -109,6 +110,7 @@
  * @1) not sure it is the best way, but as we associate the value at created we might need to do something so it is updated as the store change state
  * @2 switch tuning to bass ones
  * @3 && @4 : update tuning and tonality accordingly
+ * todo when mounting th page, check tuning and tonality before overwriting as we change the tuning each time we log in this page!
  */
 export default {
   data() {
@@ -134,7 +136,7 @@ export default {
   },
   watch: {
     tuning() {
-      console.log('tuning watcher');
+      console.log("tuning watcher");
       if (
         this.tuning !== undefined &&
         Object.keys(this.tuningOptions).length > 0
@@ -165,12 +167,12 @@ export default {
     },
     updateTuning(value) {
       // todo check if used, as well as updatetonality
-      console.log('updatedtuning called from base select');
+      console.log("updatedtuning called from base select");
       console.log(value);
       this.tuning = value;
     },
     updateTonality(value) {
-      console.log('updatedTonality called from base select');
+      console.log("updatedTonality called from base select");
       console.log(value);
       this.tonality = value;
     },
