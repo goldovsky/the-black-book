@@ -43,7 +43,6 @@
             :initialValue="tonality"
             @select="updateTonality"
           />
-
         </li>
         <li>
           <div>Dexterity |</div>
@@ -132,7 +131,23 @@ export default {
     this.switchToBass = this.$store.getters.switchToBass;
 
     this.loadAvailableTunings();
-    // todo build tonality
+
+    // // auto-select standard tuning on launch
+    // if (tuning === "standard" && tonality === "e") {
+    //   this.tuning = tuning;
+    //   this.tonality = tonality.toUpperCase();
+    // }
+
+    console.log("created ViewSettings");
+    console.log(this.$store.getters.tuning.type !== null);
+    if (this.$store.getters.tuning.type !== null) {
+      this.tuning = this.$store.getters.tuning.type;
+      this.tonality = this.$store.getters.tuning.tonality;
+
+    } else {
+      console.log('esle')
+      console.log(this.tuningOptions)
+    }
   },
   watch: {
     tuning() {
@@ -213,11 +228,11 @@ export default {
               tonality.charAt(0).toUpperCase() + tonality.slice(1).toLowerCase()
             );
 
-            // auto-select standard tuning on launch
-            if (tuning === "standard" && tonality === "e") {
-              this.tuning = tuning;
-              this.tonality = tonality.toUpperCase();
-            }
+            // // auto-select standard tuning on launch
+            // if (tuning === "standard" && tonality === "e") {
+            //   this.tuning = tuning;
+            //   this.tonality = tonality.toUpperCase();
+            // }
           }
           this.tuningOptions[tuning] = tmpTuningTonalities;
         }

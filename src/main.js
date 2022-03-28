@@ -14,6 +14,8 @@ const app = createApp(App)
 app.use(router)
 app.use(store)
 
+store.commit('initalizeTuning');
+
 app.component('base-card', BaseCard);
 app.component('base-button', BaseButton);
 app.component('base-input-number', BaseInputNumber);

@@ -1,6 +1,6 @@
 /**
  * NOTES
- * TODO 
+ * TODO
  * refacto switchToBass en 'instrument' et de type string ('guitar', 'bass')
  */
 import DATA_CHORDS from "./../database/chords.js";
@@ -24,9 +24,9 @@ const store = createStore({
       nbStrings: 6,
       // Tuning Related
       tuning: {
-        type: "standard",
-        tonality: "E",
-        stringsNotes: ["E4", "B3", "G3", "D3", "A2", "E2"],
+        type: null,
+        tonality: null,
+        stringsNotes: [],
       },
       //database
       dataChords: DATA_CHORDS,
@@ -116,6 +116,13 @@ const store = createStore({
 
       state.tuning = tmpPayloadValue;
     },
+    initalizeTuning(state) {
+      // todo use updateTuning instead
+      // initialise the app with standard E
+      state.tuning.type = "standard";
+      state.tuning.tonality = "E";
+      state.tuning.stringsNotes = ["E4", "B3", "G3", "D3", "A2", "E2"];
+    },
   },
   actions: {
     switchTheme(context) {
@@ -132,6 +139,9 @@ const store = createStore({
     },
     updateTuning(context, payload) {
       context.commit("updateTuning", payload);
+    },
+    initalizeTuning(context) {
+      context.commit("initalizeTuning");
     },
   },
 });
