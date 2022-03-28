@@ -8,6 +8,7 @@
       −
     </button>
     <input
+      class="input-number"
       type="number"
       :disabled="inputDisabled"
       :min="min"
@@ -118,111 +119,51 @@ export default {
 /* remove arrows in input field */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
-input[type=number]{
-    -moz-appearance: textfield;
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
-.control.number {
-  display: inline-flex;
-  margin-bottom: 1rem;
+.input-number {
   position: relative;
-  width: 100%;
-  max-width: calc(180 / 16 * 1rem);
+  width: 30px;
+  background-color: transparent;
+  overflow: hidden;
+  border: none;
+  border-radius: 20px;
+  margin: 2px;
+  text-align: center;
+  background-color: white;
+  line-height: 20px;
+  font-size: 16px;
+  letter-spacing: -1px;
+}
+
+.increment-button,
+.decrement-button {
+  display: inline-block;
+  width: 50px;
+  height: 100%;
+  border: none;
+  border-radius: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  
 }
 .increment-button {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  right: calc(1.5 / 14 * 1rem);
+  padding-right: 20px;
 }
 
 .decrement-button {
-  right: calc(41.5 / 14 * 1rem);
-}
-button {
-  /* background-color: #fff;
-  border: 0px solid lightgrey;
-  border-left-width: 1px;
-  border-radius: 0;
-  color: darkgrey;
-  cursor: pointer;
-  flex: 0 1;
-  font-family: sans-serif;
-  font-size: 0.875rem;
-  font-weight: bold;
-  line-height: 1.7;
-  position: absolute;
-  top: 0.0625rem;
-  text-align: center;
-  width: 2.5rem;
-  height: 2.375rem;
-  user-select: none;
-  z-index: 5; */
-
-  /* &:hover,
-  &:active,
-  &:focus {
-    border-color: $link-color;
-    color: $link-color;
-    outline: none; */
-}
-/* $link-color: #0288d1;
-$gray-light: #e9ecef;
-$gray-medium: #adb5bd;
-$gray-dark: #343d46;
-$bg-color: #afccff; */
-/* 
-
-button {
- 
-
-  &:hover {
-    & ~ .input {
-      border: 1px solid $link-color;
-    }
-  }
-  &:active,
-  &:focus {
-    & ~ .input {
-      border: 0;
-      box-shadow: 0 0 0 0.2rem $link-color;
-    }
-  }
-  &:disabled,
-  &.is-disabled {
-    color: $gray-medium;
-    opacity: 1;
-  }
+  padding-left: 20px;
 }
 
-input {
-  border: 1px solid $gray-light;
-  border-radius: 3px;
-  font-size: 0.875rem;
-  flex: 1 0;
-  line-height: 1.65;
-  height: 2.5em;
-  margin: 0 auto;
-  padding-left: 0.5rem;
-  padding-right: calc(82 / 16 * 1rem);
-  text-align: left;
-  width: 100%;
-  max-width: 100%;
-  vertical-align: top;
-  // Firefox-specific hack
-  -moz-appearance: textfield;
-
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  &:focus {
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem $link-color;
-  }
-} */
+.increment-button:hover,
+.increment-button:active,
+.decrement-button:hover,
+.decrement-button:active {
+  background-color: rgba(255, 255, 255, 0.25);
+}
 </style>
