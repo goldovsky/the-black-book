@@ -29,19 +29,20 @@
         <li>
           <!-- @3 -->
           <div>Tuning</div>
-          <!-- <base-select :options="tuningOptions" /> -->
-          <select v-model="tuning">
+          <base-select :options="tuningOptions" :valueInsteadOfKey="false" @select="updateTuning"/>
+          <!-- <select v-model="tuning">
             <option v-for="(value, key) in tuningOptions" :key="key">
               {{ key }}
             </option>
-          </select>
+          </select> -->
           <!-- @4 -->
           <div>In</div>
-          <select v-model="tonality">
+          <base-select :options="tuningOptions[tuning]" :valueInsteadOfKey="true" @select="updateTonality"/>
+          <!-- <select v-model="tonality">
             <option v-for="(value, key) in tuningOptions[tuning]" :key="key">
               {{ value }}
             </option>
-          </select>
+          </select> -->
         </li>
         <li>
           <div>Dexterity |</div>
@@ -108,7 +109,6 @@
  * @1) not sure it is the best way, but as we associate the value at created we might need to do something so it is updated as the store change state
  * @2 switch tuning to bass ones
  * @3 && @4 : update tuning and tonality accordingly
- * @3 && @4 : select first value of list @ loading
  */
 export default {
   data() {
@@ -134,6 +134,7 @@ export default {
   },
   watch: {
     tuning() {
+      console.log('tuning watcher');
       if (
         this.tuning !== undefined &&
         Object.keys(this.tuningOptions).length > 0
@@ -164,9 +165,13 @@ export default {
     },
     updateTuning(value) {
       // todo check if used, as well as updatetonality
+      console.log('updatedtuning called from base select');
+      console.log(value);
       this.tuning = value;
     },
     updateTonality(value) {
+      console.log('updatedTonality called from base select');
+      console.log(value);
       this.tonality = value;
     },
     updateNbStrings(numberValue) {
