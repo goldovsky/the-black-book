@@ -46,7 +46,7 @@ const store = createStore({
     };
   },
   methods: {
-    
+
   },
   getters: {
     // App Related
@@ -76,10 +76,11 @@ const store = createStore({
         maxStrings: null,
       };
 
+      // todo get the info from database
       switch (state.instrument.type) {
         case "bass":
           response.minStrings = 4;
-          response.maxStrings = 6;
+          response.maxStrings = 5;
           break;
         case "guitar":
           response.minStrings = 6;
@@ -124,8 +125,8 @@ const store = createStore({
         state.instrument.type = payload.instrument.type;
         // todo update nb Strings
         console.log("gdymin string");
-        console.log(this.stringRangeByInstrument.min);
-        state.instrument.strings = this.stringRangeByInstrument.min;
+        console.log(this.getters.stringRangeByInstrument.minStrings);
+        state.instrument.strings = this.getters.stringRangeByInstrument.minStrings;
 
         // todo update tuning options
         boolUpdateAvailableTunings = true;
@@ -147,11 +148,7 @@ const store = createStore({
       /**
        * DOMINANT HAND
        */
-       console.log('DOMINANT HAND TIME!!!')
-       console.log(payload.instrument["leftDominantHand"])
       if (payload.instrument["leftDominantHand"] !== undefined) {
-        console.log('state.instrument.leftDominantHand = ' + String.valueOf(state.instrument.leftDominantHand))
-        console.log('payload.instrument.leftDominantHand = ' + String.valueOf(payload.instrument.leftDominantHand))
         state.instrument.leftDominantHand = payload.instrument.leftDominantHand;
       }
 
@@ -230,9 +227,6 @@ const store = createStore({
             tmpTuningTonalities;
         }
       }
-
-      console.log("updateTuningAvailableOptions after creation");
-      console.log(state.instrument.tuning.availableTunings);
     },
     initalizeTuning(state) {
       // todo use updateTuning instead
