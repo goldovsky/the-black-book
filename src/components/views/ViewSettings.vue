@@ -135,7 +135,6 @@
 export default {
   data() {
     return {
-      darkMode: null,
       chordDiagramHorizontal: false,
       fretboardDiagramHorizontal: true,
       tuning: "",
@@ -144,8 +143,6 @@ export default {
   },
   name: "ViewSettings",
   created() {
-    this.darkMode = this.$store.getters.darkMode;
-
     const storeTuning = this.$store.getters.tuning;
     if (storeTuning.type !== null) {
       this.tuning = storeTuning.type;
@@ -169,6 +166,9 @@ export default {
     },
   },
   computed: {
+    darkMode() {
+      return this.$store.getters.darkMode;
+    },
     leftDominantHand() {
       return this.$store.getters.instrument.leftDominantHand;
     },
