@@ -1,7 +1,5 @@
 /**
  * NOTES
- * TODO
- * refacto switchToBass en 'instrument' et de type string ('guitar', 'bass')
  */
 import DATA_CHORDS from "./../database/chords.js";
 import DATA_SCALES from "./../database/scales.js";
@@ -31,7 +29,6 @@ const store = createStore({
           availableOptions: {},
         },
       },
-      switchToBass: false,
       nbStrings: 6,
       // Tuning Related
       tuning: {
@@ -66,9 +63,6 @@ const store = createStore({
     database(state) {
       return state.database;
     },
-    switchToBass(state) {
-      return state.switchToBass;
-    },
     nbStrings(state) {
       return state.nbStrings;
     },
@@ -92,12 +86,20 @@ const store = createStore({
     },
     updateInstrument(state, payload) {
       /**
-       * Dexterity
+       * TYPE
        */
-      state.instrument.leftDominantHand = payload.instrument.leftDominantHand;
-    },
-    switchToBass(state, payload) {
-      state.switchToBass = payload.value;
+      if (payload.instrument['type'] !== undefined && (state.instrument.type !== payload.instrument.type)) {
+        state.instrument.type = payload.instrument.type;
+        // todo update nb Strings
+        // todo update tuning options
+        // todo update tuning
+      }
+      /**
+       * DOMINANT HAND
+       */
+      if (payload.instrument['leftDominantHand'] !== undefined) {
+        state.instrument.leftDominantHand = payload.instrument.leftDominantHand;
+      }
     },
     updateNbStrings(state, payload) {
       state.nbStrings = payload.value;
@@ -107,10 +109,8 @@ const store = createStore({
       let tmpTonality = tmpPayloadValue.tonality.toLowerCase();
       // todo use of switch to bass not the best way to do it
 
-      console.log('updateTuning called');
-      console.log(state.database.tunings)
       let tmpTuningsAvailable =
-        state.database.tunings[state.switchToBass ? "bass" : "guitar"][
+        state.database.tunings[state.instrument.type][
           "nb_strings_" + state.nbStrings
         ][tmpPayloadValue.type];
 
@@ -151,9 +151,6 @@ const store = createStore({
     },
     updateInstrument(context, payload) {
       context.commit("updateInstrument", payload);
-    },
-    switchToBass(context, payload) {
-      context.commit("switchToBass", payload);
     },
     updateNbStrings(context, payload) {
       context.commit("updateNbStrings", payload);

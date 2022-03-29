@@ -7,13 +7,13 @@
         <ul>
           <li>
             <base-button
-              :mode="!switchToBass ? 'flat' : ''"
-              @click="switchInstrumentToBass(true)"
+              :mode="instrumentType === 'bass' ? '' : 'flat'"
+              @click="updateInstrumentType('bass')"
               >Bass</base-button
             >
             <base-button
-              :mode="switchToBass ? 'flat' : ''"
-              @click="switchInstrumentToBass(false)"
+              :mode="instrumentType === 'guitar' ? '' : 'flat'"
+              @click="updateInstrumentType('guitar')"
               >Guitar</base-button
             >
           </li>
@@ -21,8 +21,8 @@
             <div>nbStrings |</div>
             <base-input-number
               v-model="nbStrings"
-              :min="switchToBass ? 4 : 6"
-              :max="switchToBass ? 6 : 8"
+              :min="minStringsForInstrument"
+              :max="maxStringsForInstrument"
               :value="nbStrings"
               @input="updateNbStrings"
             />
@@ -78,7 +78,7 @@
                   id="slideDexterity"
                   name="check"
                   v-model="leftDominantHand"
-                  @click="switchDexterity"
+                  @click="switchDominantHand"
                 />
                 <label for="slideDexterity"></label>
               </div>
@@ -137,7 +137,6 @@ export default {
       darkMode: null,
       chordDiagramHorizontal: false,
       fretboardDiagramHorizontal: true,
-      switchToBass: null,
       nbStrings: null,
       tuning: "",
       tonality: "",
@@ -148,7 +147,6 @@ export default {
   name: "ViewSettings",
   created() {
     this.darkMode = this.$store.getters.darkMode;
-    this.switchToBass = this.$store.getters.switchToBass;
     this.nbStrings = this.$store.getters.nbStrings;
 
     this.updateTuningOptions("guitar");
@@ -161,7 +159,7 @@ export default {
   },
   watch: {
     // todo instead of saving tuning and tonality here,
-    // don't use watch but computed 
+    // don't use watch but computed
     // ex tuning() { return this.$store.getters.tuning.type}
     tuning() {
       if (
@@ -179,25 +177,48 @@ export default {
     leftDominantHand() {
       return this.$store.getters.instrument.leftDominantHand;
     },
+    instrumentType() {
+      return this.$store.getters.instrument.type;
+    },
+    minStringsForInstrument() {
+      switch (this.instrumentType) {
+        case "bass":
+          return 4;
+        case "guitar":
+          return 6;
+        default:
+          return 6;
+      }
+    },
+    maxStringsForInstrument() {
+      switch (this.instrumentType) {
+        case "bass":
+          return 6;
+        case "guitar":
+          return 8;
+        default:
+          return 8;
+      }
+    },
   },
   methods: {
     switchTheme() {
       this.$store.dispatch("switchTheme");
     },
-    switchDexterity() {
+    switchDominantHand() {
       const tmpLeftDominantHand = this.leftDominantHand;
       this.$store.dispatch("updateInstrument", {
         instrument: {
-          leftDominantHand: !tmpLeftDominantHand
-        }
+          leftDominantHand: !tmpLeftDominantHand,
+        },
       });
     },
-    switchInstrumentToBass(booleanValue) {
-      this.$store.dispatch({
-        type: "switchToBass",
-        value: booleanValue,
+    updateInstrumentType(value) {
+      this.$store.dispatch("updateInstrument", {
+        instrument: {
+            type: value
+          }
       });
-      this.switchToBass = !this.switchToBass; // @1
       // @2
     },
     switchChordDiagramOrientation() {
@@ -252,8 +273,9 @@ export default {
       // todo move this function into a separate file
       // refacto "getTuningOptions()" to do this.tuningOptions = getTuningOptions()
       this.tuningOptions = {};
-    
-      const storeGuitarTunings = this.$store.getters.database.tunings[instrument];
+
+      const storeGuitarTunings =
+        this.$store.getters.database.tunings[instrument];
       // loop on number of strings available
       for (const HowManyStrings in storeGuitarTunings) {
         // skip loop if not in right nb of strings
