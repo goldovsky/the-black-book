@@ -32,15 +32,15 @@
             <base-select
               :options="this.instrument.tuning.availableTunings"
               :valueInsteadOfKey="false"
-              :initialValue="tuning"
-              @select="updateTuning"
+              :initialValue="this.instrument.tuning.type"
+              @select="updateInstrumentTuningType"
             />
             <div>|</div>
             <base-select
-              :options="this.instrument.tuning.availableTunings[tuning]"
+              :options="this.instrument.tuning.availableTunings[this.instrument.tuning.type]"
               :valueInsteadOfKey="true"
-              :initialValue="tonality"
-              @select="updateTonality"
+              :initialValue="this.instrument.tuning.tonality"
+              @select="updateInstrumentTuningTonality"
             />
           </li>
         </ul>
@@ -137,34 +137,9 @@ export default {
     return {
       chordDiagramHorizontal: false,
       fretboardDiagramHorizontal: true,
-      tuning: "",
-      tonality: "",
     };
   },
   name: "ViewSettings",
-  created() {
-    const storeTuning = this.$store.getters.tuning;
-    if (storeTuning.type !== null) {
-      this.tuning = storeTuning.type;
-      this.tonality = storeTuning.tonality;
-    }
-  },
-  watch: {
-    // todo instead of saving tuning and tonality here,
-    // don't use watch but computed
-    // ex tuning() { return this.$store.getters.tuning.type}
-    tuning() {
-      if (
-        this.tuning !== undefined &&
-        Object.keys(this.instrument.tuning.availableTunings).length > 0
-      ) {
-        this.tonality = this.instrument.tuning.availableTunings[this.tuning][0]; // watcher call tonality() then updateStoreTuning()
-      }
-    },
-    tonality() {
-      //this.updateStoreTuning(false);
-    },
-  },
   computed: {
     display() {
       return this.$store.getters.display;
@@ -203,8 +178,6 @@ export default {
           strings: value,
         },
       });
-
-      //this.updateStoreTuning(true);
     },
     updateInstrumentTuningType(value) {
       this.$store.dispatch("updateInstrument", {
@@ -231,37 +204,6 @@ export default {
     switchFretboardDiagramOrientation() {
       //@3
       this.fretboardDiagramHorizontal = !this.fretboardDiagramHorizontal;
-    },
-    updateTuning(value) {
-      this.tuning = value;
-    },
-    updateTonality(value) {
-      this.tonality = value;
-    },
-    updateStoreTuning(updatedNbStrings) {
-      // todo move this function into a separate file
-      let tmpValue = {};
-      if (updatedNbStrings) {
-        let tmpType = Object.keys(this.tuningOptions)[0];
-        tmpValue = {
-          type: tmpType,
-          tonality: this.tuningOptions[tmpType][0],
-          stringsNotes: null,
-        };
-      } else {
-        tmpValue = {
-          type: this.tuning.length > 0 ? this.tuning : "standard",
-          tonality: this.tonality.length > 0 ? this.tonality : "E",
-          stringsNotes: null,
-        };
-      }
-
-      this.$store.dispatch({
-        type: "updateTuning",
-        value: tmpValue,
-      });
-
-      this.tonality = this.$store.getters.tuning.tonality;
     },
   },
 };

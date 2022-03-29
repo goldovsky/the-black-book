@@ -135,8 +135,6 @@ export default {
     };
   },
   created() {
-    console.log("gdy instrument tuning created view fretboard")
-    console.log(this.instrument.tuning)
     this.storeTuning = this.instrument.tuning;
     // build tuning based on Store
     this.tuning = this.instrument.tuning.stringsNotes

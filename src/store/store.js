@@ -37,12 +37,7 @@ const store = createStore({
           availableTunings: {},
         },
       },
-      // Tuning Related
-      tuning: {
-        type: null,
-        tonality: null,
-        stringsNotes: [],
-      },
+    
       //database
       database: {
         chords: DATA_CHORDS,
@@ -91,11 +86,7 @@ const store = createStore({
       }
 
       return response;
-    },
-    // Tuning Related
-    tuning(state) {
-      return state.tuning;
-    },
+    }
   },
   mutations: {
     switchTheme(state) {
@@ -113,6 +104,7 @@ const store = createStore({
     },
     updateInstrument(state, payload) {
       let boolUpdateAvailableTunings = false;
+      let boolUpdateCurrentTuning = false;
       let boolUpdateCurrentTonality = false;
       /**
        * INSTRUMENT TYPE
@@ -123,13 +115,12 @@ const store = createStore({
       ) {
         state.instrument.type = payload.instrument.type;
         // todo update nb Strings
-        console.log("gdymin string");
-        console.log(this.getters.stringRangeByInstrument.minStrings);
         state.instrument.strings = this.getters.stringRangeByInstrument.minStrings;
 
         // todo update tuning options
         boolUpdateAvailableTunings = true;
         // todo update tuning
+        boolUpdateCurrentTuning = true;
       }
       /**
        * STRINGS
@@ -154,15 +145,19 @@ const store = createStore({
       /**
        * TUNING TYPE
        */
+
       if (payload.instrument["tuning"] !== undefined) {
         if (payload.instrument.tuning["type"] !== undefined) {
           state.instrument.tuning.type = payload.instrument.tuning.type;
           //update current tonality to first of the list
           boolUpdateCurrentTonality = true;
+          // todo move what is in the if directly here
         }
         if (payload.instrument.tuning["tonality"] !== undefined) {
           state.instrument.tuning.tonality = payload.instrument.tuning.tonality;
         }
+        // todo update tuning
+        boolUpdateCurrentTuning = true;
       }
 
       /**
@@ -172,32 +167,31 @@ const store = createStore({
         this.commit("updateTuningAvailableOptions");
       }
       if (boolUpdateCurrentTonality) {
-        console.log("boolUpdateCurrentTonality");
-        this.state.instruent.tonality =
-          this.instrument.tuning.availableTunings[
-            Object.keys(this.instrument.tuning.availableTunings)[0]
-          ][0];
+        state.instrument.tonality =
+        state.instrument.tuning.availableTunings[
+          Object.keys(state.instrument.tuning.availableTunings)[0]
+        ][0];
+      }
+      if (boolUpdateCurrentTuning) {
+        this.commit("updateTuning");
       }
     },
-    updateTuning(state, payload) {
-      let tmpPayloadValue = payload.value;
-      let tmpTonality = tmpPayloadValue.tonality.toLowerCase();
+    updateTuning(state) {
+      let tmpTonality = state.instrument.tuning.tonality.toLowerCase();
       // todo use of switch to bass not the best way to do it
 
       let tmpTuningsAvailable =
         state.database.tunings[state.instrument.type][
           "nb_strings_" + state.instrument.strings
-        ][tmpPayloadValue.type];
+        ][state.instrument.tuning.type];
 
       // change tonality if it doesn't exist with current instrument.strings
       if (!tmpTuningsAvailable[tmpTonality]) {
         tmpTonality = Object.keys(tmpTuningsAvailable)[0];
-        tmpPayloadValue.tonality = tmpTonality;
+        state.instrument.tuning.tonality = tmpTonality;
       }
 
-      tmpPayloadValue.stringsNotes = tmpTuningsAvailable[tmpTonality];
-
-      state.tuning = tmpPayloadValue;
+      state.instrument.tuning.stringsNotes = tmpTuningsAvailable[tmpTonality];
     },
     updateTuningAvailableOptions(state) {
       state.instrument.tuning.availableTunings = {};
@@ -230,12 +224,6 @@ const store = createStore({
     initalizeTuning(state) {
       // todo use updateTuning instead
       // initialise the app with standard E
-
-      // todo below to be removed once instrument object is in use
-      state.tuning.type = "standard";
-      state.tuning.tonality = "E";
-      state.tuning.stringsNotes = ["E4", "B3", "G3", "D3", "A2", "E2"];
-
       state.instrument.tuning.type = "standard";
       state.instrument.tuning.tonality = "E";
       state.instrument.tuning.stringsNotes = [
@@ -257,8 +245,8 @@ const store = createStore({
     updateInstrument(context, payload) {
       context.commit("updateInstrument", payload);
     },
-    updateTuning(context, payload) {
-      context.commit("updateTuning", payload);
+    updateTuning(context) {
+      context.commit("updateTuning");
     },
     initalizeTuning(context) {
       context.commit("initalizeTuning");
