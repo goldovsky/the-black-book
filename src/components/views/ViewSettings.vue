@@ -68,7 +68,7 @@
                 class="slideDexterity"
                 :style="{
                   background: `var(--switch-background-${
-                    leftDexterity ? 'left' : 'right'
+                    leftDominantHand ? 'left' : 'right'
                   })`,
                 }"
               >
@@ -77,7 +77,7 @@
                   value="None"
                   id="slideDexterity"
                   name="check"
-                  v-model="leftDexterity"
+                  v-model="leftDominantHand"
                   @click="switchDexterity"
                 />
                 <label for="slideDexterity"></label>
@@ -135,7 +135,6 @@ export default {
   data() {
     return {
       darkMode: null,
-      leftDexterity: null,
       chordDiagramHorizontal: false,
       fretboardDiagramHorizontal: true,
       switchToBass: null,
@@ -149,7 +148,6 @@ export default {
   name: "ViewSettings",
   created() {
     this.darkMode = this.$store.getters.darkMode;
-    this.leftDexterity = this.$store.getters.leftDexterity;
     this.switchToBass = this.$store.getters.switchToBass;
     this.nbStrings = this.$store.getters.nbStrings;
 
@@ -177,12 +175,22 @@ export default {
       this.updateStoreTuning(false);
     },
   },
+  computed: {
+    leftDominantHand() {
+      return this.$store.getters.instrument.leftDominantHand;
+    },
+  },
   methods: {
     switchTheme() {
       this.$store.dispatch("switchTheme");
     },
     switchDexterity() {
-      this.$store.dispatch("switchDexterity");
+      const tmpLeftDominantHand = this.leftDominantHand;
+      this.$store.dispatch("updateInstrument", {
+        instrument: {
+          leftDominantHand: !tmpLeftDominantHand
+        }
+      });
     },
     switchInstrumentToBass(booleanValue) {
       this.$store.dispatch({

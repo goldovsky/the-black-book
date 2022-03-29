@@ -94,7 +94,6 @@ export default {
       stringSpace: null,
       referenceRadius: null, // repère de touche
       referenceColor: null,
-      leftDexterity: null,
       orientation: null,
       reference: null,
       tuning: null,
@@ -150,7 +149,6 @@ export default {
      */
     const store = useStore();
     this.nbStrings = store.getters.nbStrings;
-    this.leftDexterity = store.getters.leftDexterity;
     /**
      * Design Values
      */

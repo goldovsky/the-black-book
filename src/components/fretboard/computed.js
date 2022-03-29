@@ -1,4 +1,7 @@
 export default {
+  leftDominantHand() {
+    return this.$store.getters.instrument.leftDominantHand;
+  },
   ariaDescId() {
     return "dt-fretboard-desc-" + this.ariaId;
   },
@@ -42,7 +45,7 @@ export default {
           x: rendering.y,
           color: rendering.color,
         };
-        if (this.leftDexterity) {
+        if (this.leftDominantHand) {
           rendering.x = this.width - rendering.x - rendering.width;
         }
       }
@@ -108,7 +111,7 @@ export default {
           let temp = rendering.cx;
           rendering.cx = rendering.cy;
           rendering.cy = temp;
-          if (this.leftDexterity) {
+          if (this.leftDominantHand) {
             rendering.cx = this.width - rendering.cx;
           }
         }
@@ -146,7 +149,7 @@ export default {
             let temp = rendering.x;
             rendering.x = rendering.y;
             rendering.y = temp;
-            if (this.leftDexterity) {
+            if (this.leftDominantHand) {
               rendering.x = this.width - rendering.x;
             }
           }
@@ -262,7 +265,7 @@ export default {
           height: rendering.width,
           color: rendering.color,
         };
-        if (this.leftDexterity) {
+        if (this.leftDominantHand) {
           rendering.x = this.width - rendering.x - rendering.width;
         }
       }
@@ -282,14 +285,14 @@ export default {
         stringSizes.length > 1 ? stringSizes.shift() * 1 : stringSizes[0] * 1
       );
     }
-    if (this.isHorizontal || this.leftDexterity) {
+    if (this.isHorizontal || this.leftDominantHand) {
       strings.reverse();
     }
     return strings;
   },
   tuningNormalized() {
     let tuning = this.getValues(this.tuning).reverse();
-    if (!this.isHorizontal && !this.leftDexterity) {
+    if (!this.isHorizontal && !this.leftDominantHand) {
       return tuning.reverse();
     } else {
       return tuning;

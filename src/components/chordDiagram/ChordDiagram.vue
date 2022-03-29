@@ -59,12 +59,14 @@
       <line x1="0" y1="80" :x2="x2DiagramWidth" y2="80" class="fret" />
 
       <!-- STRINGS -->
-      <line  v-for="n in nbStrings" :key="n - 1"
+      <line
+        v-for="n in nbStrings"
+        :key="n - 1"
         class="string"
-        :x1="arrayStringXIndex[n-1]"
+        :x1="arrayStringXIndex[n - 1]"
         y1="0"
-        :x2="arrayStringXIndex[n-1]"
-        :y2="(n-1) === 0 || (n-1) === nbStrings - 1 ? 95 : 99"
+        :x2="arrayStringXIndex[n - 1]"
+        :y2="n - 1 === 0 || n - 1 === nbStrings - 1 ? 95 : 99"
         :style="{ strokeWidth: stringStrokeWidth }"
       />
 
@@ -90,7 +92,7 @@
  * 2) take a look into chord diagrams to see if we need more frets, and if so how to implement it
  * 3) calculate everything from a multiple of current strings used
  * @1) instead of 6 use current strings number used in app
- * @2) based on the variable leftDexterity,
+ * @2) based on the variable leftDominantHand,
  * create a function  on created()
  * that will mirror every string on the chord based nbStrings
  *
@@ -111,12 +113,18 @@
  *
  *
  *  * @1.w) TODO : use his if nut isn't part of the diagram
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  * * @1)  add option in store data to not differenciate the string size
  * - if we differenciate the string size, calculate the placement for the last string to match the width of the string
+ *
+ *
+ *
+ *
+ *  ?REFACTO :
+ * instead of using data variables, use computed to $store
  */
 import BaseFingering from "./elements/BaseFingering.vue";
 import { useStore } from "vuex";
@@ -130,7 +138,6 @@ export default {
     return {
       // store
       nbStrings: null,
-      leftDexterity: null,
       // chord data
       dexterityCorrectedChord: null,
       // computed graphical properties
@@ -150,8 +157,7 @@ export default {
      * STORE
      */
     const store = useStore();
-    this.leftDexterity = store.getters.leftDexterity;
-    if (!this.leftDexterity) {
+    if (!this.leftDominantHand) {
       return;
     }
     this.nbStrings = store.getters.nbStrings;
@@ -211,10 +217,13 @@ export default {
     // do it better than a for loop
     for (var i = 0; i < this.nbStrings; i++) {
       this.arrayStringXIndex.push(this.$store.state.chordDiagramWidth * i);
-    //this.$store.state.chordDiagramWidth * stringIndex
+      //this.$store.state.chordDiagramWidth * stringIndex
     }
   },
   computed: {
+    leftDominantHand() {
+      return this.$store.getters.instrument.leftDominantHand;
+    },
     splitTuning() {
       const re = /[ABCDEFG][#b]?/g;
       let tuning = [];
@@ -236,7 +245,7 @@ export default {
       }
 
       // return calculated Width based on the selected dexterity
-      return this.leftDexterity ? (1 / (this.i + 1)) * 2 : (this.i + 1) * 2;
+      return this.leftDominantHand() ? (1 / (this.i + 1)) * 2 : (this.i + 1) * 2;
     },
   },
 };

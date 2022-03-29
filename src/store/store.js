@@ -22,16 +22,16 @@ const store = createStore({
       // todo implement this object
       instrument: {
         type: "guitar",
-        dexterityRightHanded: false,
+        leftDominantHand: true, // leftDominantHand
         strings: 6,
         tuning: {
           type: null,
           tonality: null,
           stringsNotes: [],
+          availableOptions: {}
         },
       },
       switchToBass: false,
-      leftDexterity: true,
       nbStrings: 6,
       // Tuning Related
       tuning: {
@@ -74,9 +74,6 @@ const store = createStore({
     switchToBass(state) {
       return state.switchToBass;
     },
-    leftDexterity(state) {
-      return state.leftDexterity;
-    },
     nbStrings(state) {
       return state.nbStrings;
     },
@@ -111,13 +108,18 @@ const store = createStore({
       }
       state.darkMode = !state.darkMode;
     },
-    switchDexterity(state) {
-      state.leftDexterity = !state.leftDexterity;
-    },
     updateInstrument(state, payload) {
       console.log('upateInstrument mutation called');
       console.log(state);
       console.log(payload);
+
+      /**
+       * Dexterity
+       */
+      // todo check if other actions are necessary after this one
+      if(state.instrument.leftDominantHand !== payload.instrument.leftDominantHand) {
+        state.instrument.leftDominantHand = payload.instrument.leftDominantHand;
+      }
     },
     switchToBass(state, payload) {
       state.switchToBass = payload.value;
@@ -148,17 +150,20 @@ const store = createStore({
     initalizeTuning(state) {
       // todo use updateTuning instead
       // initialise the app with standard E
+
+      // todo below to be removed once instrument object is in use
       state.tuning.type = "standard";
       state.tuning.tonality = "E";
       state.tuning.stringsNotes = ["E4", "B3", "G3", "D3", "A2", "E2"];
+
+      state.instrument.tuning.type = "standard";
+      state.instrument.tuning.tonality = "E";
+      state.instrument.tuning.stringsNotes = ["E4", "B3", "G3", "D3", "A2", "E2"];
     },
   },
   actions: {
     switchTheme(context) {
       context.commit("switchTheme");
-    },
-    switchDexterity(context) {
-      context.commit("switchDexterity");
     },
     updateInstrument(context, payload) {
       context.commit('updateInstrument', payload);
