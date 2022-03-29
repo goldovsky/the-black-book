@@ -11,18 +11,13 @@ const store = createStore({
   modules: {},
   state() {
     return {
-      // App Related
-      chordDiagramWidth: 16, // de base à 20
-      fretboardSwitchStringSymmetry: false,
-      // display
-      // todo use these instead of the variables above
       display: {
         appTitle: "TheBlackBook",
         darkMode: false,
         diagrams: {
           chords: {
             verticalOrientation: true,
-            width: 16
+            width: 16 // de base à 20
           },
           fretboard: {
             horizontalOrientation: true,
@@ -66,9 +61,6 @@ const store = createStore({
     // App Related
     display(state) {
       return state.display;
-    },
-    fretboardSwitchStringSymmetry(state) {
-      return state.fretboardSwitchStringSymmetry;
     },
     // Instrument Related
     instrument(state) {

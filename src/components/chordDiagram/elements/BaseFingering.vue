@@ -38,7 +38,7 @@ export default {
             let string = this.isBar
                 ? this.string[0]
                 : this.string;
-            return -5 + string * this.$store.state.chordDiagramWidth;
+            return -5 + string * this.$store.getters.display.diagrams.chords.width;
         },
 
         y () {

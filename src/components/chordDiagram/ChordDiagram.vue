@@ -208,7 +208,7 @@ export default {
        q 0,5 -5,5
        v0
        h-70`; // h(-)90 when chordDiagramWidth = 20
-    this.x2DiagramWidth = this.$store.state.chordDiagramWidth * 5;
+    this.x2DiagramWidth = this.$store.getters.display.diagrams.chords.width * 5;
 
     /**
      * Calculate arrayStringXIndex
@@ -216,7 +216,7 @@ export default {
      */
     // do it better than a for loop
     for (var i = 0; i < this.nbStrings; i++) {
-      this.arrayStringXIndex.push(this.$store.state.chordDiagramWidth * i);
+      this.arrayStringXIndex.push(this.$store.getters.display.diagrams.chords.width * i);
       //this.$store.state.chordDiagramWidth * stringIndex
     }
   },

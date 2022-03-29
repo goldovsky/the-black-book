@@ -172,7 +172,7 @@ export default {
     /**
      * Reverse string order to get the low string on top of the diagram
      */
-    if (store.getters.fretboardSwitchStringSymmetry) {
+    if (store.getters.display.diagrams.fretboard.switchStringSymmetry) {
       var reverseTuning = this.propTuning;
       reverseTuning = reverseTuning.split(" ").reverse().join(" ");
       this.tuning = reverseTuning;
