@@ -129,7 +129,7 @@
  * @1) not sure it is the best way, but as we associate the value at created we might need to do something so it is updated as the store change state
  * @2) switch tuning to bass ones (1: change nbStrings ? should be automatic, 2: lload new tunings and update the selects)
  * @3) do the switch in store
- * Tuning doesn't update when changing nbStrings, tonality does
+ *  when selecting drop and changing nbStrings, tonality doesn't update
  */
 export default {
   data() {
@@ -153,7 +153,7 @@ export default {
     this.switchToBass = this.$store.getters.switchToBass;
     this.nbStrings = this.$store.getters.nbStrings;
 
-    this.loadAvailableTunings("guitar");
+    this.updateTuningOptions("guitar");
 
     const storeTuning = this.$store.getters.tuning;
     if (storeTuning.type !== null) {
@@ -162,16 +162,19 @@ export default {
     }
   },
   watch: {
+    // todo instead of saving tuning and tonality here,
+    // don't use watch but computed 
+    // ex tuning() { return this.$store.getters.tuning.type}
     tuning() {
       if (
         this.tuning !== undefined &&
         Object.keys(this.tuningOptions).length > 0
       ) {
-        this.tonality = this.tuningOptions[this.tuning][0]; // watcher call tonality() then updateGlobalTuning()
+        this.tonality = this.tuningOptions[this.tuning][0]; // watcher call tonality() then updateStoreTuning()
       }
     },
     tonality() {
-      this.updateGlobalTuning(false);
+      this.updateStoreTuning(false);
     },
   },
   methods: {
@@ -209,10 +212,11 @@ export default {
         value: numberValue,
       });
       this.nbStrings = this.$store.getters.nbStrings;
-      this.loadAvailableTunings("guitar"); //todo
-      this.updateGlobalTuning(true);
+      this.updateTuningOptions("guitar"); //todo
+      this.updateStoreTuning(true);
     },
-    updateGlobalTuning(updatedNbStrings) {
+    updateStoreTuning(updatedNbStrings) {
+      // todo move this function into a separate file
       let tmpValue = {};
       if (updatedNbStrings) {
         let tmpType = Object.keys(this.tuningOptions)[0];
@@ -236,7 +240,9 @@ export default {
 
       this.tonality = this.$store.getters.tuning.tonality;
     },
-    loadAvailableTunings(instrument) {
+    updateTuningOptions(instrument) {
+      // todo move this function into a separate file
+      // refacto "getTuningOptions()" to do this.tuningOptions = getTuningOptions()
       this.tuningOptions = {};
     
       const storeGuitarTunings = this.$store.getters.dataTunings[instrument];
