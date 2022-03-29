@@ -98,10 +98,10 @@
               type="checkbox"
               id="theme-switch"
               class="theme-switch"
-              v-model="darkMode"
+              v-model="display.darkMode"
             />
             <label for="theme-switch" @click="switchTheme">
-              <span v-if="darkMode">
+              <span v-if="display.darkMode">
                 <img
                   alt="logo"
                   src="./../../assets/images/sun.png"
@@ -166,8 +166,8 @@ export default {
     },
   },
   computed: {
-    darkMode() {
-      return this.$store.getters.darkMode;
+    display() {
+      return this.$store.getters.display;
     },
     leftDominantHand() {
       return this.$store.getters.instrument.leftDominantHand;
@@ -184,15 +184,14 @@ export default {
       this.$store.dispatch("switchTheme");
     },
     switchDominantHand() {
-      console.log("switchDominantHand called");
       const tmpLeftDominantHand = !this.leftDominantHand;
-
       this.$store.dispatch("updateInstrument", {
         instrument: {
           leftDominantHand: tmpLeftDominantHand,
         },
       });
     },
+    // todo should do a single method, get another parameter to use as a key
     updateInstrumentType(value) {
       this.$store.dispatch("updateInstrument", {
         instrument: {

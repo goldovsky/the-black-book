@@ -12,10 +12,24 @@ const store = createStore({
   state() {
     return {
       // App Related
-      appTitle: "TheBlackBook",
-      darkMode: false,
       chordDiagramWidth: 16, // de base à 20
       fretboardSwitchStringSymmetry: false,
+      // display
+      // todo use these instead of the variables above
+      display: {
+        appTitle: "TheBlackBook",
+        darkMode: false,
+        diagrams: {
+          chords: {
+            verticalOrientation: true,
+            width: 16
+          },
+          fretboard: {
+            horizontalOrientation: true,
+            switchStringSymmetry: false
+          }
+        }
+      },
       // instrument Related
       // todo implement this object
       instrument: {
@@ -50,11 +64,8 @@ const store = createStore({
   },
   getters: {
     // App Related
-    appTitle(state) {
-      return state.appTitle;
-    },
-    darkMode(state) {
-      return state.darkMode;
+    display(state) {
+      return state.display;
     },
     fretboardSwitchStringSymmetry(state) {
       return state.fretboardSwitchStringSymmetry;
@@ -105,12 +116,13 @@ const store = createStore({
       // add/remove class to/from html tag
       let htmlElement = document.documentElement;
 
-      if (state.darkMode) {
+      if (state.display.darkMode) {
         htmlElement.setAttribute("theme", "light");
       } else {
         htmlElement.setAttribute("theme", "dark");
       }
-      state.darkMode = !state.darkMode;
+      const tmpDarkMode = state.display.darkMode;
+      state.display.darkMode = tmpDarkMode;
     },
     updateInstrument(state, payload) {
       let boolUpdateAvailableTunings = false;

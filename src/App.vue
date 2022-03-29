@@ -36,7 +36,7 @@ export default {
 
     // check for active theme
     let htmlElement = document.documentElement;
-    let storeDarkMode = this.$store.getters.darkMode;
+    let storeDarkMode = this.$store.getters.display.darkMode;
 
     htmlElement.setAttribute("theme", storeDarkMode ? "dark" : "light");
     // END NOTE

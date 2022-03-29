@@ -8,7 +8,7 @@
     <div class="logo-details" @click="openMenu">
       <!-- <i class="bx bxl-c-plus-plus icon"></i> -->
       <img class="logo-png" src="./../../assets/images/blackPickIcon.png"> 
-      <div class="logo_name">{{ appTitle }}</div>
+      <div class="logo_name">{{ display.appTitle }}</div>
       <i class="bx" :class="iconMenu" id="btn"></i>
     </div>
     <ul class="nav-list">
@@ -110,17 +110,15 @@
 export default {
   data() {
     return {
-      appTitle: this.$store.getters.appTitle,
       sideBarOpened: false,
     };
-  },
-  created() {
-    //const store = useStore();
-    //const appTitle = store.getters.appTitle;
   },
   computed: {
       iconMenu() {
           return this.sideBarOpened ? 'bx-menu-alt-right' : 'bx-menu';
+      },
+      display() {
+        return this.$store.getters.display;
       }
   },
   methods: {
