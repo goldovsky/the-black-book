@@ -28,7 +28,7 @@ const store = createStore({
           type: null,
           tonality: null,
           stringsNotes: [],
-          availableOptions: {}
+          availableOptions: {},
         },
       },
       switchToBass: false,
@@ -40,17 +40,12 @@ const store = createStore({
         stringsNotes: [],
       },
       //database
-      // todo implement this object and remove usage of others
       database: {
         chords: DATA_CHORDS,
         scales: DATA_SCALES,
         tetrachords: DATA_TETRACHORDS,
         tunings: DATA_TUNINGS,
       },
-      dataChords: DATA_CHORDS,
-      dataScales: DATA_SCALES,
-      dataTetrachords: DATA_TETRACHORDS,
-      dataTunings: DATA_TUNINGS,
     };
   },
   getters: {
@@ -81,19 +76,6 @@ const store = createStore({
     tuning(state) {
       return state.tuning;
     },
-    //database
-    dataChords(state) {
-      return state.dataChords;
-    },
-    dataScales(state) {
-      return state.dataScales;
-    },
-    dataTetrachords(state) {
-      return state.dataTetrachords;
-    },
-    dataTunings(state) {
-      return state.dataTunings;
-    },
   },
   mutations: {
     switchTheme(state) {
@@ -109,17 +91,10 @@ const store = createStore({
       state.darkMode = !state.darkMode;
     },
     updateInstrument(state, payload) {
-      console.log('upateInstrument mutation called');
-      console.log(state);
-      console.log(payload);
-
       /**
        * Dexterity
        */
-      // todo check if other actions are necessary after this one
-      if(state.instrument.leftDominantHand !== payload.instrument.leftDominantHand) {
-        state.instrument.leftDominantHand = payload.instrument.leftDominantHand;
-      }
+      state.instrument.leftDominantHand = payload.instrument.leftDominantHand;
     },
     switchToBass(state, payload) {
       state.switchToBass = payload.value;
@@ -132,8 +107,10 @@ const store = createStore({
       let tmpTonality = tmpPayloadValue.tonality.toLowerCase();
       // todo use of switch to bass not the best way to do it
 
+      console.log('updateTuning called');
+      console.log(state.database.tunings)
       let tmpTuningsAvailable =
-        state.dataTunings[state.switchToBass ? "bass" : "guitar"][
+        state.database.tunings[state.switchToBass ? "bass" : "guitar"][
           "nb_strings_" + state.nbStrings
         ][tmpPayloadValue.type];
 
@@ -158,7 +135,14 @@ const store = createStore({
 
       state.instrument.tuning.type = "standard";
       state.instrument.tuning.tonality = "E";
-      state.instrument.tuning.stringsNotes = ["E4", "B3", "G3", "D3", "A2", "E2"];
+      state.instrument.tuning.stringsNotes = [
+        "E4",
+        "B3",
+        "G3",
+        "D3",
+        "A2",
+        "E2",
+      ];
     },
   },
   actions: {
@@ -166,7 +150,7 @@ const store = createStore({
       context.commit("switchTheme");
     },
     updateInstrument(context, payload) {
-      context.commit('updateInstrument', payload);
+      context.commit("updateInstrument", payload);
     },
     switchToBass(context, payload) {
       context.commit("switchToBass", payload);

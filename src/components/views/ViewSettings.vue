@@ -253,7 +253,7 @@ export default {
       // refacto "getTuningOptions()" to do this.tuningOptions = getTuningOptions()
       this.tuningOptions = {};
     
-      const storeGuitarTunings = this.$store.getters.dataTunings[instrument];
+      const storeGuitarTunings = this.$store.getters.database.tunings[instrument];
       // loop on number of strings available
       for (const HowManyStrings in storeGuitarTunings) {
         // skip loop if not in right nb of strings
