@@ -68,7 +68,7 @@
                 class="slideDexterity"
                 :style="{
                   background: `var(--switch-background-${
-                    leftDominantHand ? 'left' : 'right'
+                    instrument.leftDominantHand ? 'left' : 'right'
                   })`,
                 }"
               >
@@ -76,7 +76,7 @@
                 <!-- value="None" -->
                 <input
                   type="checkbox"
-                  :checked="!leftDominantHand"
+                  :checked="!instrument.leftDominantHand"
                   id="slideDexterity"
                   name="check"
                   @click="switchDominantHand"
@@ -169,9 +169,6 @@ export default {
     display() {
       return this.$store.getters.display;
     },
-    leftDominantHand() {
-      return this.$store.getters.instrument.leftDominantHand;
-    },
     instrument() {
       return this.$store.getters.instrument;
     },
@@ -184,7 +181,7 @@ export default {
       this.$store.dispatch("switchTheme");
     },
     switchDominantHand() {
-      const tmpLeftDominantHand = !this.leftDominantHand;
+      const tmpLeftDominantHand = !this.instrument.leftDominantHand;
       this.$store.dispatch("updateInstrument", {
         instrument: {
           leftDominantHand: tmpLeftDominantHand,

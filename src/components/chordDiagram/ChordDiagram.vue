@@ -60,13 +60,13 @@
 
       <!-- STRINGS -->
       <line
-        v-for="n in nbStrings"
+        v-for="n in instrument.strings"
         :key="n - 1"
         class="string"
         :x1="arrayStringXIndex[n - 1]"
         y1="0"
         :x2="arrayStringXIndex[n - 1]"
-        :y2="n - 1 === 0 || n - 1 === nbStrings - 1 ? 95 : 99"
+        :y2="n - 1 === 0 || n - 1 === instrument.strings - 1 ? 95 : 99"
         :style="{ strokeWidth: stringStrokeWidth }"
       />
 
@@ -94,7 +94,7 @@
  * @1) instead of 6 use current strings number used in app
  * @2) based on the variable leftDominantHand,
  * create a function  on created()
- * that will mirror every string on the chord based nbStrings
+ * that will mirror every string on the chord based instrument.strings
  *
  *
  *
@@ -127,7 +127,7 @@
  * instead of using data variables, use computed to $store
  */
 import BaseFingering from "./elements/BaseFingering.vue";
-import { useStore } from "vuex";
+//import { useStore } from "vuex";
 
 export default {
   components: {
@@ -137,7 +137,6 @@ export default {
   data() {
     return {
       // store
-      nbStrings: null,
       // chord data
       dexterityCorrectedChord: null,
       // computed graphical properties
@@ -156,11 +155,11 @@ export default {
     /**
      * STORE
      */
-    const store = useStore();
-    if (!this.leftDominantHand) {
+    //const store = useStore();
+    if (!this.instrument.leftDominantHand) {
       return;
     }
-    this.nbStrings = store.getters.nbStrings;
+    //this.instrument.strings = store.getters.instrument.strings;
 
     /**
      * Modify CHORD DATA based on Dexterity
@@ -177,8 +176,8 @@ export default {
         }
         // fingering is type standard
       } else {
-        // tmpChord[idx] = tmpChord[idx] - store.getters.nbStrings;
-        tmpChord[idx] = 1 - this.nbStrings;
+        // tmpChord[idx] = tmpChord[idx] - store.getters.instrument.strings;
+        tmpChord[idx] = 1 - this.instrument.strings;
       }
     }
     this.dexterityCorrectedChord = this.chord; // TODO when code above is ok, replace with tmpChord
@@ -215,14 +214,14 @@ export default {
      * X position for earch string
      */
     // do it better than a for loop
-    for (var i = 0; i < this.nbStrings; i++) {
+    for (var i = 0; i < this.instrument.strings; i++) {
       this.arrayStringXIndex.push(this.$store.getters.display.diagrams.chords.width * i);
       //this.$store.state.chordDiagramWidth * stringIndex
     }
   },
   computed: {
-    leftDominantHand() {
-      return this.$store.getters.instrument.leftDominantHand;
+    instrument() {
+      return this.$store.getters.instrument;
     },
     splitTuning() {
       const re = /[ABCDEFG][#b]?/g;
@@ -245,7 +244,7 @@ export default {
       }
 
       // return calculated Width based on the selected dexterity
-      return this.leftDominantHand() ? (1 / (this.i + 1)) * 2 : (this.i + 1) * 2;
+      return this.instrument.leftDominantHand() ? (1 / (this.i + 1)) * 2 : (this.i + 1) * 2;
     },
   },
 };

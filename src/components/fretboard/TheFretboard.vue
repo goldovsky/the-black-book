@@ -71,12 +71,11 @@
  * - when startng from a fret instead of the nut, le repères de touches n'apparaissent pas toutes
  *
  */
-import { useStore } from "vuex";
+//import { useStore } from "vuex";
 import computed from "./computed.js";
 export default {
   data() {
     return {
-      nbStrings: null,
       /**
        * Design Values
        */
@@ -145,11 +144,6 @@ export default {
   },
   created() {
     /**
-     * STORE
-     */
-    const store = useStore();
-    this.nbStrings = store.getters.nbStrings;
-    /**
      * Design Values
      */
     // @1
@@ -172,7 +166,8 @@ export default {
     /**
      * Reverse string order to get the low string on top of the diagram
      */
-    if (store.getters.display.diagrams.fretboard.switchStringSymmetry) {
+    // todo replace this.$store with a computedInstrument
+    if (this.$store.getters.display.diagrams.fretboard.switchStringSymmetry) {
       var reverseTuning = this.propTuning;
       reverseTuning = reverseTuning.split(" ").reverse().join(" ");
       this.tuning = reverseTuning;

@@ -25,11 +25,10 @@ const store = createStore({
           }
         }
       },
-      // instrument Related
       // todo implement this object
       instrument: {
         type: "guitar",
-        leftDominantHand: true, // leftDominantHand
+        leftDominantHand: true,
         strings: 6,
         tuning: {
           type: null,
@@ -38,7 +37,6 @@ const store = createStore({
           availableTunings: {},
         },
       },
-      nbStrings: 6,
       // Tuning Related
       tuning: {
         type: null,
@@ -68,9 +66,6 @@ const store = createStore({
     },
     database(state) {
       return state.database;
-    },
-    nbStrings(state) {
-      return state.nbStrings;
     },
     stringRangeByInstrument(state) {
       // todo move into a method?
@@ -191,10 +186,10 @@ const store = createStore({
 
       let tmpTuningsAvailable =
         state.database.tunings[state.instrument.type][
-          "nb_strings_" + state.nbStrings
+          "nb_strings_" + state.instrument.strings
         ][tmpPayloadValue.type];
 
-      // change tonality if it doesn't exist with current nbStrings
+      // change tonality if it doesn't exist with current instrument.strings
       if (!tmpTuningsAvailable[tmpTonality]) {
         tmpTonality = Object.keys(tmpTuningsAvailable)[0];
         tmpPayloadValue.tonality = tmpTonality;

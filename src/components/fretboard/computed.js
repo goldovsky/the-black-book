@@ -1,6 +1,6 @@
 export default {
-  leftDominantHand() {
-    return this.$store.getters.instrument.leftDominantHand;
+  instrument() {
+    return this.$store.getters.instrument;
   },
   ariaDescId() {
     return "dt-fretboard-desc-" + this.ariaId;
@@ -45,7 +45,7 @@ export default {
           x: rendering.y,
           color: rendering.color,
         };
-        if (this.leftDominantHand) {
+        if (this.instrument.leftDominantHand) {
           rendering.x = this.width - rendering.x - rendering.width;
         }
       }
@@ -82,7 +82,7 @@ export default {
         let rendering = {};
         rendering.radius = this.referenceRadius * 1;
         rendering.fill = this.referenceColor;
-        let mid = Math.floor(this.nbStrings / 2);
+        let mid = Math.floor(this.instrument.strings / 2);
         rendering.cx =
           1 +
           (mid > 0
@@ -111,7 +111,7 @@ export default {
           let temp = rendering.cx;
           rendering.cx = rendering.cy;
           rendering.cy = temp;
-          if (this.leftDominantHand) {
+          if (this.instrument.leftDominantHand) {
             rendering.cx = this.width - rendering.cx;
           }
         }
@@ -129,7 +129,7 @@ export default {
     let start = this.startNormalized;
     let frets = this.fretsNormalized;
     let ox = 0;
-    for (let string = 0; string < this.stringsNormalized; ++string) {
+    for (let string = 0; string < this.instrument.strings; ++string) {
       let oy = start > 0 ? (start === 1 ? this.nutSize : this.fretSize) * 1 : 0;
       for (let fret = start; fret <= frets; ++fret) {
         let rendering = {};
@@ -149,7 +149,7 @@ export default {
             let temp = rendering.x;
             rendering.x = rendering.y;
             rendering.y = temp;
-            if (this.leftDominantHand) {
+            if (this.instrument.leftDominantHand) {
               rendering.x = this.width - rendering.x;
             }
           }
@@ -249,7 +249,7 @@ export default {
     let height =
       (this.isHorizontal ? this.width : this.height) -
       (this.start == 0 ? this.noteRadius * 2 : 0);
-    for (let string = 0; string < this.stringsNormalized; ++string) {
+    for (let string = 0; string < this.instrument.strings; ++string) {
       let rendering = {
         x: ox,
         y: oy,
@@ -265,7 +265,7 @@ export default {
           height: rendering.width,
           color: rendering.color,
         };
-        if (this.leftDominantHand) {
+        if (this.instrument.leftDominantHand) {
           rendering.x = this.width - rendering.x - rendering.width;
         }
       }
@@ -280,19 +280,19 @@ export default {
       .split(/[,\s]+/)
       .filter((v) => v.match(/^[0-9]+([.][0-9]+)?$/));
     if (!stringSizes.length) stringSizes.push(1);
-    for (let i = 0; i < this.stringsNormalized; i++) {
+    for (let i = 0; i < this.instrument.strings; i++) {
       strings.push(
         stringSizes.length > 1 ? stringSizes.shift() * 1 : stringSizes[0] * 1
       );
     }
-    if (this.isHorizontal || this.leftDominantHand) {
+    if (this.isHorizontal || this.instrument.leftDominantHand) {
       strings.reverse();
     }
     return strings;
   },
   tuningNormalized() {
     let tuning = this.getValues(this.tuning).reverse();
-    if (!this.isHorizontal && !this.leftDominantHand) {
+    if (!this.isHorizontal && !this.instrument.leftDominantHand) {
       return tuning.reverse();
     } else {
       return tuning;
@@ -311,7 +311,7 @@ export default {
     height += this.fretSize * frets;
 
     let width = this.noteRadius * 2;
-    width += (this.stringsNormalized - 1) * this.stringSpace;
+    width += (this.instrument.strings - 1) * this.stringSpace;
     for (let i = 0, l = this.stringSizeNormalized.length; i < l; i++) {
       width += this.stringSizeNormalized[i];
     }
@@ -333,13 +333,10 @@ export default {
   svgStyle() {
     return `width:${this.width}px;height:${this.height}px;`;
   },
-  stringsNormalized() {
-    return this.nbStrings;
-  },
   hasNut() {
     return this.startNormalized <= 1;
   },
   isHorizontal() {
     return this.orientation === "horizontal";
-  },
+  }
 };

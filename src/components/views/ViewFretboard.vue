@@ -6,10 +6,10 @@
         <div>
           <span>Tuning: </span>
           <span
-            >{{ storeTuning.type }}
+            >{{ instrument.tuning.type }}
             {{
-              storeTuning.tonality.charAt(0).toUpperCase() +
-              storeTuning.tonality.slice(1).toLowerCase()
+              instrument.tuning.tonality.charAt(0).toUpperCase() +
+              instrument.tuning.tonality.slice(1).toLowerCase()
             }}</span
           >
         </div>
@@ -135,9 +135,11 @@ export default {
     };
   },
   created() {
-    this.storeTuning = this.$store.getters.tuning;
+    console.log("gdy instrument tuning created view fretboard")
+    console.log(this.instrument.tuning)
+    this.storeTuning = this.instrument.tuning;
     // build tuning based on Store
-    this.tuning = this.$store.getters.tuning.stringsNotes
+    this.tuning = this.instrument.tuning.stringsNotes
       .reverse()
       .join(" ")
       .replace(/[0-9]/g, "");
@@ -176,6 +178,11 @@ export default {
       this.frets = value;
     },
   },
+  computed: {
+    instrument() {
+      return this.$store.getters.instrument;
+    }
+  }
 };
 </script>
 
