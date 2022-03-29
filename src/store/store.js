@@ -19,6 +19,17 @@ const store = createStore({
       chordDiagramWidth: 16, // de base à 20
       fretboardSwitchStringSymmetry: false,
       // instrument Related
+      // todo implement this object
+      instrument: {
+        type: "guitar",
+        dexterityRightHanded: false,
+        strings: 6,
+        tuning: {
+          type: null,
+          tonality: null,
+          stringsNotes: [],
+        },
+      },
       switchToBass: false,
       leftDexterity: true,
       nbStrings: 6,
@@ -29,6 +40,13 @@ const store = createStore({
         stringsNotes: [],
       },
       //database
+      // todo implement this object and remove usage of others
+      database: {
+        chords: DATA_CHORDS,
+        scales: DATA_SCALES,
+        tetrachords: DATA_TETRACHORDS,
+        tunings: DATA_TUNINGS,
+      },
       dataChords: DATA_CHORDS,
       dataScales: DATA_SCALES,
       dataTetrachords: DATA_TETRACHORDS,
@@ -47,6 +65,12 @@ const store = createStore({
       return state.fretboardSwitchStringSymmetry;
     },
     // Instrument Related
+    instrument(state) {
+      return state.instrument;
+    },
+    database(state) {
+      return state.database;
+    },
     switchToBass(state) {
       return state.switchToBass;
     },
@@ -90,6 +114,11 @@ const store = createStore({
     switchDexterity(state) {
       state.leftDexterity = !state.leftDexterity;
     },
+    updateInstrument(state, payload) {
+      console.log('upateInstrument mutation called');
+      console.log(state);
+      console.log(payload);
+    },
     switchToBass(state, payload) {
       state.switchToBass = payload.value;
     },
@@ -130,6 +159,9 @@ const store = createStore({
     },
     switchDexterity(context) {
       context.commit("switchDexterity");
+    },
+    updateInstrument(context, payload) {
+      context.commit('updateInstrument', payload);
     },
     switchToBass(context, payload) {
       context.commit("switchToBass", payload);
