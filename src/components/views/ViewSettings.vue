@@ -51,13 +51,13 @@
           <li>
             <div>Chord Diagrams</div>
             <base-button @click="switchChordDiagramOrientation">{{
-              chordDiagramHorizontal ? "Horizontal" : "Vertical"
+              this.display.diagrams.chords.verticalOrientation ? "Vertical" : "Horizontal"
             }}</base-button>
           </li>
           <li>
             <div>Fretboard Diagram</div>
             <base-button @click="switchFretboardDiagramOrientation">{{
-              fretboardDiagramHorizontal ? "Horizontal" : "Vertical"
+              this.display.diagrams.fretboard.horizontalOrientation ? "Vertical" : "Horizontal"
             }}</base-button>
           </li>
           <li>
@@ -129,16 +129,9 @@
  * at first page loading, icon get set to dark whatever the current theme is. check created method
  * @1) not sure it is the best way, but as we associate the value at created we might need to do something so it is updated as the store change state
  * @2) switch tuning to bass ones (1: change nb Strings ? should be automatic, 2: lload new tunings and update the selects)
- * @3) do the switch in store
  *  when selecting drop and changing nb Strings, tonality doesn't update
  */
 export default {
-  data() {
-    return {
-      chordDiagramHorizontal: false,
-      fretboardDiagramHorizontal: true,
-    };
-  },
   name: "ViewSettings",
   computed: {
     display() {
@@ -198,12 +191,28 @@ export default {
       });
     },
     switchChordDiagramOrientation() {
-      //@3
-      this.chordDiagramHorizontal = !this.chordDiagramHorizontal;
+      const tmpCurrentValue = this.display.diagrams.chords.verticalOrientation;
+      this.$store.dispatch("updateDiagramOrientation", {
+        display: {
+          diagrams: {
+            chords: {
+              verticalOrientation: !tmpCurrentValue
+            }
+          }
+        },
+      });
     },
     switchFretboardDiagramOrientation() {
-      //@3
-      this.fretboardDiagramHorizontal = !this.fretboardDiagramHorizontal;
+      const tmpCurrentValue = this.display.diagrams.fretboard.horizontalOrientation;
+      this.$store.dispatch("updateDiagramOrientation", {
+        display: {
+          diagrams: {
+            fretboard: {
+              horizontalOrientation: !tmpCurrentValue
+            }
+          }
+        },
+      });
     },
   },
 };

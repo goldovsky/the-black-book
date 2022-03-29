@@ -17,13 +17,13 @@ const store = createStore({
         diagrams: {
           chords: {
             verticalOrientation: true,
-            width: 16 // de base à 20
+            width: 16, // de base à 20
           },
           fretboard: {
             horizontalOrientation: true,
-            switchStringSymmetry: false
-          }
-        }
+            switchStringSymmetry: false,
+          },
+        },
       },
       // todo implement this object
       instrument: {
@@ -37,7 +37,7 @@ const store = createStore({
           availableTunings: {},
         },
       },
-    
+
       //database
       database: {
         chords: DATA_CHORDS,
@@ -47,9 +47,7 @@ const store = createStore({
       },
     };
   },
-  methods: {
-
-  },
+  methods: {},
   getters: {
     // App Related
     display(state) {
@@ -86,7 +84,7 @@ const store = createStore({
       }
 
       return response;
-    }
+    },
   },
   mutations: {
     switchTheme(state) {
@@ -115,7 +113,8 @@ const store = createStore({
       ) {
         state.instrument.type = payload.instrument.type;
         // todo update nb Strings
-        state.instrument.strings = this.getters.stringRangeByInstrument.minStrings;
+        state.instrument.strings =
+          this.getters.stringRangeByInstrument.minStrings;
 
         // todo update tuning options
         boolUpdateAvailableTunings = true;
@@ -168,9 +167,9 @@ const store = createStore({
       }
       if (boolUpdateCurrentTonality) {
         state.instrument.tonality =
-        state.instrument.tuning.availableTunings[
-          Object.keys(state.instrument.tuning.availableTunings)[0]
-        ][0];
+          state.instrument.tuning.availableTunings[
+            Object.keys(state.instrument.tuning.availableTunings)[0]
+          ][0];
       }
       if (boolUpdateCurrentTuning) {
         this.commit("updateTuning");
@@ -192,6 +191,16 @@ const store = createStore({
       }
 
       state.instrument.tuning.stringsNotes = tmpTuningsAvailable[tmpTonality];
+    },
+    updateDiagramOrientation(state, payload) {
+      if (payload.display.diagrams["chords"] !== undefined) {
+        state.display.diagrams.chords.verticalOrientation =
+          payload.display.diagrams.chords.verticalOrientation;
+      }
+      if (payload.display.diagrams["fretboard"] !== undefined) {
+        state.display.diagrams.fretboard.horizontalOrientation =
+          payload.display.diagrams.fretboard.horizontalOrientation;
+      }
     },
     updateTuningAvailableOptions(state) {
       state.instrument.tuning.availableTunings = {};
@@ -250,6 +259,9 @@ const store = createStore({
     },
     initalizeTuning(context) {
       context.commit("initalizeTuning");
+    },
+    updateDiagramOrientation(context, payload) {
+      context.commit("updateDiagramOrientation", payload);
     },
   },
 });
