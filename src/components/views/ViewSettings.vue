@@ -7,37 +7,37 @@
         <ul>
           <li>
             <base-button
-              :mode="instrumentType === 'bass' ? '' : 'flat'"
+              :mode="this.instrument.type === 'bass' ? '' : 'flat'"
               @click="updateInstrumentType('bass')"
               >Bass</base-button
             >
             <base-button
-              :mode="instrumentType === 'guitar' ? '' : 'flat'"
+              :mode="this.instrument.type === 'guitar' ? '' : 'flat'"
               @click="updateInstrumentType('guitar')"
               >Guitar</base-button
             >
           </li>
           <li>
-            <div>nbStrings |</div>
+            <div>Strings |</div>
+            <!-- v-model="nbStrings" -->
             <base-input-number
-              v-model="nbStrings"
-              :min="minStringsForInstrument"
-              :max="maxStringsForInstrument"
-              :value="nbStrings"
-              @input="updateNbStrings"
+              :min="this.stringRangeByInstrument.minStrings"
+              :max="this.stringRangeByInstrument.maxStrings"
+              :value="this.instrument.strings"
+              @input="updateInstrumentStrings"
             />
           </li>
           <li>
             <div>Tuning</div>
             <base-select
-              :options="tuningOptions"
+              :options="this.instrument.tuning.availableTunings"
               :valueInsteadOfKey="false"
               :initialValue="tuning"
               @select="updateTuning"
             />
             <div>|</div>
             <base-select
-              :options="tuningOptions[tuning]"
+              :options="this.instrument.tuning.availableTunings[tuning]"
               :valueInsteadOfKey="true"
               :initialValue="tonality"
               @select="updateTonality"
@@ -62,7 +62,7 @@
           </li>
           <li>
             <div>Dexterity |</div>
-            <div>Right</div>
+            <div>Left</div>
             <div title="Dexterity">
               <div
                 class="slideDexterity"
@@ -72,18 +72,19 @@
                   })`,
                 }"
               >
+                <!-- v-model="leftDominantHand" -->
+                <!-- value="None" -->
                 <input
                   type="checkbox"
-                  value="None"
+                  :checked="!leftDominantHand"
                   id="slideDexterity"
                   name="check"
-                  v-model="leftDominantHand"
                   @click="switchDominantHand"
                 />
                 <label for="slideDexterity"></label>
               </div>
             </div>
-            <div>Left</div>
+            <div>Right</div>
           </li>
         </ul>
       </base-card>
@@ -127,9 +128,9 @@
  * TODO
  * at first page loading, icon get set to dark whatever the current theme is. check created method
  * @1) not sure it is the best way, but as we associate the value at created we might need to do something so it is updated as the store change state
- * @2) switch tuning to bass ones (1: change nbStrings ? should be automatic, 2: lload new tunings and update the selects)
+ * @2) switch tuning to bass ones (1: change nb Strings ? should be automatic, 2: lload new tunings and update the selects)
  * @3) do the switch in store
- *  when selecting drop and changing nbStrings, tonality doesn't update
+ *  when selecting drop and changing nb Strings, tonality doesn't update
  */
 export default {
   data() {
@@ -137,19 +138,13 @@ export default {
       darkMode: null,
       chordDiagramHorizontal: false,
       fretboardDiagramHorizontal: true,
-      nbStrings: null,
       tuning: "",
       tonality: "",
-      // scoped variables
-      tuningOptions: {},
     };
   },
   name: "ViewSettings",
   created() {
     this.darkMode = this.$store.getters.darkMode;
-    this.nbStrings = this.$store.getters.nbStrings;
-
-    this.updateTuningOptions("guitar");
 
     const storeTuning = this.$store.getters.tuning;
     if (storeTuning.type !== null) {
@@ -164,41 +159,24 @@ export default {
     tuning() {
       if (
         this.tuning !== undefined &&
-        Object.keys(this.tuningOptions).length > 0
+        Object.keys(this.instrument.tuning.availableTunings).length > 0
       ) {
-        this.tonality = this.tuningOptions[this.tuning][0]; // watcher call tonality() then updateStoreTuning()
+        this.tonality = this.instrument.tuning.availableTunings[this.tuning][0]; // watcher call tonality() then updateStoreTuning()
       }
     },
     tonality() {
-      this.updateStoreTuning(false);
+      //this.updateStoreTuning(false);
     },
   },
   computed: {
     leftDominantHand() {
       return this.$store.getters.instrument.leftDominantHand;
     },
-    instrumentType() {
-      return this.$store.getters.instrument.type;
+    instrument() {
+      return this.$store.getters.instrument;
     },
-    minStringsForInstrument() {
-      switch (this.instrumentType) {
-        case "bass":
-          return 4;
-        case "guitar":
-          return 6;
-        default:
-          return 6;
-      }
-    },
-    maxStringsForInstrument() {
-      switch (this.instrumentType) {
-        case "bass":
-          return 6;
-        case "guitar":
-          return 8;
-        default:
-          return 8;
-      }
+    stringRangeByInstrument() {
+      return this.$store.getters.stringRangeByInstrument;
     },
   },
   methods: {
@@ -206,20 +184,49 @@ export default {
       this.$store.dispatch("switchTheme");
     },
     switchDominantHand() {
-      const tmpLeftDominantHand = this.leftDominantHand;
+      console.log("switchDominantHand called");
+      const tmpLeftDominantHand = !this.leftDominantHand;
+
       this.$store.dispatch("updateInstrument", {
         instrument: {
-          leftDominantHand: !tmpLeftDominantHand,
+          leftDominantHand: tmpLeftDominantHand,
         },
       });
     },
     updateInstrumentType(value) {
       this.$store.dispatch("updateInstrument", {
         instrument: {
-            type: value
-          }
+          type: value,
+        },
       });
       // @2
+    },
+    updateInstrumentStrings(value) {
+      this.$store.dispatch("updateInstrument", {
+        instrument: {
+          strings: value,
+        },
+      });
+
+      //this.updateStoreTuning(true);
+    },
+    updateInstrumentTuningType(value) {
+      this.$store.dispatch("updateInstrument", {
+        instrument: {
+          tuning: {
+            type: value,
+          },
+        },
+      });
+    },
+    updateInstrumentTuningTonality(value) {
+      this.$store.dispatch("updateInstrument", {
+        instrument: {
+          tuning: {
+            tonality: value,
+          },
+        },
+      });
     },
     switchChordDiagramOrientation() {
       //@3
@@ -234,15 +241,6 @@ export default {
     },
     updateTonality(value) {
       this.tonality = value;
-    },
-    updateNbStrings(numberValue) {
-      this.$store.dispatch({
-        type: "updateNbStrings",
-        value: numberValue,
-      });
-      this.nbStrings = this.$store.getters.nbStrings;
-      this.updateTuningOptions("guitar"); //todo
-      this.updateStoreTuning(true);
     },
     updateStoreTuning(updatedNbStrings) {
       // todo move this function into a separate file
@@ -268,35 +266,6 @@ export default {
       });
 
       this.tonality = this.$store.getters.tuning.tonality;
-    },
-    updateTuningOptions(instrument) {
-      // todo move this function into a separate file
-      // refacto "getTuningOptions()" to do this.tuningOptions = getTuningOptions()
-      this.tuningOptions = {};
-
-      const storeGuitarTunings =
-        this.$store.getters.database.tunings[instrument];
-      // loop on number of strings available
-      for (const HowManyStrings in storeGuitarTunings) {
-        // skip loop if not in right nb of strings
-        if (
-          parseInt(HowManyStrings.substr(HowManyStrings.length - 1)) !==
-          this.nbStrings
-        ) {
-          continue;
-        }
-        // loop on type of tuning
-        for (const tuning in storeGuitarTunings[HowManyStrings]) {
-          let tmpTuningTonalities = [];
-          // loop on each tuning Tonality available
-          for (const tonality in storeGuitarTunings[HowManyStrings][tuning]) {
-            tmpTuningTonalities.push(
-              tonality.charAt(0).toUpperCase() + tonality.slice(1).toLowerCase()
-            );
-          }
-          this.tuningOptions[tuning] = tmpTuningTonalities;
-        }
-      }
     },
   },
 };

@@ -26,7 +26,7 @@ const store = createStore({
           type: null,
           tonality: null,
           stringsNotes: [],
-          availableOptions: {},
+          availableTunings: {},
         },
       },
       nbStrings: 6,
@@ -44,6 +44,9 @@ const store = createStore({
         tunings: DATA_TUNINGS,
       },
     };
+  },
+  methods: {
+    
   },
   getters: {
     // App Related
@@ -66,6 +69,30 @@ const store = createStore({
     nbStrings(state) {
       return state.nbStrings;
     },
+    stringRangeByInstrument(state) {
+      // todo move into a method?
+      let response = {
+        minStrings: null,
+        maxStrings: null,
+      };
+
+      switch (state.instrument.type) {
+        case "bass":
+          response.minStrings = 4;
+          response.maxStrings = 6;
+          break;
+        case "guitar":
+          response.minStrings = 6;
+          response.maxStrings = 8;
+          break;
+        default:
+          response.minStrings = 6;
+          response.maxStrings = 8;
+          break;
+      }
+
+      return response;
+    },
     // Tuning Related
     tuning(state) {
       return state.tuning;
@@ -85,24 +112,76 @@ const store = createStore({
       state.darkMode = !state.darkMode;
     },
     updateInstrument(state, payload) {
+      let boolUpdateAvailableTunings = false;
+      let boolUpdateCurrentTonality = false;
       /**
-       * TYPE
+       * INSTRUMENT TYPE
        */
-      if (payload.instrument['type'] !== undefined && (state.instrument.type !== payload.instrument.type)) {
+      if (
+        payload.instrument["type"] !== undefined &&
+        state.instrument.type !== payload.instrument.type
+      ) {
         state.instrument.type = payload.instrument.type;
         // todo update nb Strings
+        console.log("gdymin string");
+        console.log(this.stringRangeByInstrument.min);
+        state.instrument.strings = this.stringRangeByInstrument.min;
+
         // todo update tuning options
+        boolUpdateAvailableTunings = true;
         // todo update tuning
       }
       /**
+       * STRINGS
+       */
+      if (
+        payload.instrument["strings"] !== undefined &&
+        state.instrument.strings !== payload.instrument.srings
+      ) {
+        state.instrument.strings = payload.instrument.strings;
+        // todo update tuning options
+        boolUpdateAvailableTunings = true;
+        // todo update tuning
+      }
+
+      /**
        * DOMINANT HAND
        */
-      if (payload.instrument['leftDominantHand'] !== undefined) {
+       console.log('DOMINANT HAND TIME!!!')
+       console.log(payload.instrument["leftDominantHand"])
+      if (payload.instrument["leftDominantHand"] !== undefined) {
+        console.log('state.instrument.leftDominantHand = ' + String.valueOf(state.instrument.leftDominantHand))
+        console.log('payload.instrument.leftDominantHand = ' + String.valueOf(payload.instrument.leftDominantHand))
         state.instrument.leftDominantHand = payload.instrument.leftDominantHand;
       }
-    },
-    updateNbStrings(state, payload) {
-      state.nbStrings = payload.value;
+
+      /**
+       * TUNING TYPE
+       */
+      if (payload.instrument["tuning"] !== undefined) {
+        if (payload.instrument.tuning["type"] !== undefined) {
+          state.instrument.tuning.type = payload.instrument.tuning.type;
+          //update current tonality to first of the list
+          boolUpdateCurrentTonality = true;
+        }
+        if (payload.instrument.tuning["tonality"] !== undefined) {
+          state.instrument.tuning.tonality = payload.instrument.tuning.tonality;
+        }
+      }
+
+      /**
+       * Updates
+       */
+      if (boolUpdateAvailableTunings) {
+        this.commit("updateTuningAvailableOptions");
+      }
+      if (boolUpdateCurrentTonality) {
+        console.log("boolUpdateCurrentTonality");
+        this.state.instruent.tonality =
+          this.instrument.tuning.availableTunings[
+            Object.keys(this.instrument.tuning.availableTunings)[0]
+          ][0];
+      }
     },
     updateTuning(state, payload) {
       let tmpPayloadValue = payload.value;
@@ -124,6 +203,37 @@ const store = createStore({
 
       state.tuning = tmpPayloadValue;
     },
+    updateTuningAvailableOptions(state) {
+      state.instrument.tuning.availableTunings = {};
+
+      const stateDatabaseTunings =
+        state.database.tunings[state.instrument.type];
+      // loop on number of strings available
+      for (const HowManyStrings in stateDatabaseTunings) {
+        // skip loop if not in right nb of strings
+        if (
+          parseInt(HowManyStrings.substr(HowManyStrings.length - 1)) !==
+          state.instrument.strings
+        ) {
+          continue;
+        }
+        // loop on type of tuning
+        for (const tuning in stateDatabaseTunings[HowManyStrings]) {
+          let tmpTuningTonalities = [];
+          // loop on each tuning Tonality available
+          for (const tonality in stateDatabaseTunings[HowManyStrings][tuning]) {
+            tmpTuningTonalities.push(
+              tonality.charAt(0).toUpperCase() + tonality.slice(1).toLowerCase()
+            );
+          }
+          state.instrument.tuning.availableTunings[tuning] =
+            tmpTuningTonalities;
+        }
+      }
+
+      console.log("updateTuningAvailableOptions after creation");
+      console.log(state.instrument.tuning.availableTunings);
+    },
     initalizeTuning(state) {
       // todo use updateTuning instead
       // initialise the app with standard E
@@ -143,6 +253,8 @@ const store = createStore({
         "A2",
         "E2",
       ];
+
+      this.commit("updateTuningAvailableOptions");
     },
   },
   actions: {
@@ -151,9 +263,6 @@ const store = createStore({
     },
     updateInstrument(context, payload) {
       context.commit("updateInstrument", payload);
-    },
-    updateNbStrings(context, payload) {
-      context.commit("updateNbStrings", payload);
     },
     updateTuning(context, payload) {
       context.commit("updateTuning", payload);

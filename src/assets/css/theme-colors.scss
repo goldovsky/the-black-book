@@ -28,10 +28,10 @@
 :root {
   // light to dark
   --primary-color: #d8e3e7;
-  --secondary-color: #51C4D3;
-  --tertiary-color: #126E82;
-  --quaternary-color: #132C33;
-  
+  --secondary-color: #51c4d3;
+  --tertiary-color: #126e82;
+  --quaternary-color: #132c33;
+
   --app-background-color: var(--primary-color);
   /**
     * SIDEBAR
@@ -72,8 +72,8 @@
   /**
     * Items
     */
-  --switch-background-left: var(--secondary-color);
-  --switch-background-right: var(--quaternary-color);
+  --switch-background-left: var(--quaternary-color);
+  --switch-background-right: var(--secondary-color);
   --switch-color: var(--tertiary-color);
   --button-color: var(--tertiary-color);
   --button-hover-color: var(--secondary-color);
@@ -103,7 +103,7 @@
     */
   --fretboard-reference-color: var(--primary-color);
   --fretboard-string-color: var(--primary-color); // #a8744d;
-  --fretboard-fret-color: var(--primary-color)19; // #707070;
+  --fretboard-fret-color: var(--primary-color) 19; // #707070;
   --fretboard-note-color: #0f267b;
   --fretboard-root-color: #ba2121;
   --fretboard-noteText-color: #eeeeee;
@@ -122,8 +122,8 @@
   /**
     * Items
     */
-  --switch-background-left: var(--secondary-color);
-  --switch-background-right: var(--quaternary-color);
+  --switch-background-left: var(--quaternary-color);
+  --switch-background-right: var(--secondary-color);
   --switch-color: var(--tertiary-color);
   --button-hover-color: var(--secondary-color);
 }
