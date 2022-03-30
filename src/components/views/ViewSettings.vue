@@ -79,15 +79,14 @@
             <div>Chord Diagrams</div>
             <base-button
               @click="
-                () => {
-                  updateDisplay({
-                    diagrams: {
-                      chords: {
-                        verticalOrientation: !this.display.diagrams.chords.verticalOrientation,
-                      },
+                updateDisplay({
+                  diagrams: {
+                    chords: {
+                      verticalOrientation:
+                        !this.display.diagrams.chords.verticalOrientation,
                     },
-                  });
-                }
+                  },
+                })
               "
               >{{
                 this.display.diagrams.chords.verticalOrientation
@@ -100,15 +99,14 @@
             <div>Fretboard Diagram</div>
             <base-button
               @click="
-                () => {
-                  updateDisplay({
-                    diagrams: {
-                      fretboard: {
-                        horizontalOrientation: !this.display.diagrams.fretboard.horizontalOrientation,
-                      },
+                updateDisplay({
+                  diagrams: {
+                    fretboard: {
+                      horizontalOrientation:
+                        !this.display.diagrams.fretboard.horizontalOrientation,
                     },
-                  });
-                }
+                  },
+                })
               "
               >{{
                 this.display.diagrams.fretboard.horizontalOrientation
@@ -137,11 +135,9 @@
                   id="slideDexterity"
                   name="check"
                   @click="
-                    () => {
-                      updateInstrument({
-                        leftDominantHand: !this.instrument.leftDominantHand,
-                      });
-                    }
+                    updateInstrument({
+                      leftDominantHand: !this.instrument.leftDominantHand,
+                    })
                   "
                 />
                 <label for="slideDexterity"></label>
@@ -163,13 +159,14 @@
               class="theme-switch"
               v-model="display.darkMode"
             />
-            <label for="theme-switch" @click="
-                    () => {
-                      updateDisplay({
-                        darkMode: !this.display.darkMode,
-                      });
-                    }
-                  ">
+            <label
+              for="theme-switch"
+              @click="
+                updateDisplay({
+                  darkMode: !this.display.darkMode,
+                })
+              "
+            >
               <span v-if="display.darkMode">
                 <img
                   alt="logo"
@@ -215,7 +212,7 @@ export default {
   },
   methods: {
     updateDisplay(obj) {
-      this.$store.dispatch("updateDisplayGenericMethod", obj);
+      this.$store.dispatch("updateDisplay", obj);
     },
     updateInstrument(obj) {
       this.$store.dispatch("updateInstrumentGenericMethod", obj);

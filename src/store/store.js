@@ -6,7 +6,7 @@ import DATA_SCALES from "./../database/scales.js";
 import DATA_TETRACHORDS from "./../database/tetrachords.js";
 import DATA_TUNINGS from "./../database/tunings.js";
 import { createStore } from "vuex";
-import lodash from 'lodash';
+import lodash from "lodash";
 
 const store = createStore({
   modules: {},
@@ -87,22 +87,20 @@ const store = createStore({
     },
   },
   mutations: {
-    updateDisplayGenericMethod(state, payload) { // todo refacto      
+    updateDisplay(state, payload) {
       lodash.merge(state.display, payload); // Equivalent Object.assign()
-      
-      /**
-       * SWITCH THEME
-       */
-      if ('darkMode' in payload) {
-      // add/remove class to/from html tag
-      let htmlElement = document.documentElement;
-      htmlElement.setAttribute("theme", payload.darkMode ? "dark" : "light");
 
-      const tmpDarkMode = state.display.darkMode;
-      state.display.darkMode = !tmpDarkMode;
+      // SWITCH THEME
+      if ("darkMode" in payload) {
+        document.documentElement.setAttribute(
+          "theme",
+          payload.darkMode ? "dark" : "light"
+        );
+        state.display.darkMode = !state.display.darkMode;
       }
     },
-    updateInstrumentGenericMethod(state, payload) { // todo refacto
+    updateInstrumentGenericMethod(state, payload) {
+      // todo refacto
       lodash.merge(state.instrument, payload); // Equivalent Object.assign()
       // todo rest of the method
     },
@@ -178,12 +176,12 @@ const store = createStore({
         this.commit("updateTuningAvailableOptions");
       }
       if (boolUpdateCurrentTonality) {
-        console.log('tonality')
+        console.log("tonality");
         state.instrument.tonality =
-        state.instrument.tuning.availableTunings[
-          Object.keys(state.instrument.tuning.availableTunings)[0]
-        ][0];
-        console.log('tonality = ' + state.instrument.tonality)
+          state.instrument.tuning.availableTunings[
+            Object.keys(state.instrument.tuning.availableTunings)[0]
+          ][0];
+        console.log("tonality = " + state.instrument.tonality);
       }
       if (boolUpdateCurrentTuning) {
         this.commit("updateTuning");
@@ -198,9 +196,9 @@ const store = createStore({
           "nb_strings_" + state.instrument.strings
         ][state.instrument.tuning.type];
 
-        console.log('tmp tonality = ' + tmpTonality)
-        console.log('condition if')
-        console.log(!tmpTuningsAvailable[tmpTonality])
+      console.log("tmp tonality = " + tmpTonality);
+      console.log("condition if");
+      console.log(!tmpTuningsAvailable[tmpTonality]);
 
       // change tonality if it doesn't exist with current instrument.strings
       if (!tmpTuningsAvailable[tmpTonality]) {
@@ -267,13 +265,14 @@ const store = createStore({
     },
   },
   actions: {
-    updateDisplayGenericMethod(context, payload) { // todo refacto
-      context.commit("updateDisplayGenericMethod", payload);
+    updateDisplay(context, payload) {
+      context.commit("updateDisplay", payload);
     },
     updateInstrument(context, payload) {
       context.commit("updateInstrument", payload);
     },
-    updateInstrumentGenericMethod(context, payload) { // todo refacto
+    updateInstrumentGenericMethod(context, payload) {
+      // todo refacto
       context.commit("updateInstrumentGenericMethod", payload);
     },
     updateTuning(context) {
