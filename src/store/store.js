@@ -99,12 +99,12 @@ const store = createStore({
         state.display.darkMode = !state.display.darkMode;
       }
     },
-    updateInstrumentGenericMethod(state, payload) {
+    updateInstrument(state, payload) {
       // todo refacto
       lodash.merge(state.instrument, payload); // Equivalent Object.assign()
       // todo rest of the method
     },
-    updateInstrument(state, payload) {
+    updateInstrumentOldMethod(state, payload) {
       // todo use : state.instrument = Object.assign(state.instrument, payload);
 
       let boolUpdateAvailableTunings = false;
@@ -208,17 +208,6 @@ const store = createStore({
 
       state.instrument.tuning.stringsNotes = tmpTuningsAvailable[tmpTonality];
     },
-    updateDiagramOrientation(state, payload) {
-      // todo do a general update display function
-      if (payload.display.diagrams["chords"] !== undefined) {
-        state.display.diagrams.chords.verticalOrientation =
-          payload.display.diagrams.chords.verticalOrientation;
-      }
-      if (payload.display.diagrams["fretboard"] !== undefined) {
-        state.display.diagrams.fretboard.horizontalOrientation =
-          payload.display.diagrams.fretboard.horizontalOrientation;
-      }
-    },
     updateTuningAvailableOptions(state) {
       state.instrument.tuning.availableTunings = {};
 
@@ -268,21 +257,17 @@ const store = createStore({
     updateDisplay(context, payload) {
       context.commit("updateDisplay", payload);
     },
-    updateInstrument(context, payload) {
+    updateInstrumentOldMethod(context, payload) {
       context.commit("updateInstrument", payload);
     },
-    updateInstrumentGenericMethod(context, payload) {
-      // todo refacto
-      context.commit("updateInstrumentGenericMethod", payload);
+    updateInstrument(context, payload) {
+      context.commit("updateInstrument", payload);
     },
     updateTuning(context) {
       context.commit("updateTuning");
     },
     initalizeTuning(context) {
       context.commit("initalizeTuning");
-    },
-    updateDiagramOrientation(context, payload) {
-      context.commit("updateDiagramOrientation", payload);
     },
   },
 });

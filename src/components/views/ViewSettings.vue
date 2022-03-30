@@ -215,7 +215,7 @@ export default {
       this.$store.dispatch("updateDisplay", obj);
     },
     updateInstrument(obj) {
-      this.$store.dispatch("updateInstrumentGenericMethod", obj);
+      this.$store.dispatch("updateInstrument", obj);
     },
   },
 };
