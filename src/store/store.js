@@ -87,22 +87,24 @@ const store = createStore({
     },
   },
   mutations: {
-    switchTheme(state) {
-      // todo maybe move this somewhere else?
+    updateDisplayGenericMethod(state, payload) { // todo refacto      
+      lodash.merge(state.display, payload); // Equivalent Object.assign()
+      
+      /**
+       * SWITCH THEME
+       */
+      if ('darkMode' in payload) {
       // add/remove class to/from html tag
       let htmlElement = document.documentElement;
+      htmlElement.setAttribute("theme", payload.darkMode ? "dark" : "light");
 
-      if (state.display.darkMode) {
-        htmlElement.setAttribute("theme", "light");
-      } else {
-        htmlElement.setAttribute("theme", "dark");
-      }
       const tmpDarkMode = state.display.darkMode;
-      state.display.darkMode = tmpDarkMode;
+      state.display.darkMode = !tmpDarkMode;
+      }
     },
     updateInstrumentGenericMethod(state, payload) { // todo refacto
       lodash.merge(state.instrument, payload); // Equivalent Object.assign()
-      
+      // todo rest of the method
     },
     updateInstrument(state, payload) {
       // todo use : state.instrument = Object.assign(state.instrument, payload);
@@ -265,8 +267,8 @@ const store = createStore({
     },
   },
   actions: {
-    switchTheme(context) {
-      context.commit("switchTheme");
+    updateDisplayGenericMethod(context, payload) { // todo refacto
+      context.commit("updateDisplayGenericMethod", payload);
     },
     updateInstrument(context, payload) {
       context.commit("updateInstrument", payload);

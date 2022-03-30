@@ -77,19 +77,45 @@
         <ul>
           <li>
             <div>Chord Diagrams</div>
-            <base-button @click="switchChordDiagramOrientation">{{
-              this.display.diagrams.chords.verticalOrientation
-                ? "Vertical"
-                : "Horizontal"
-            }}</base-button>
+            <base-button
+              @click="
+                () => {
+                  updateDisplay({
+                    diagrams: {
+                      chords: {
+                        verticalOrientation: !this.display.diagrams.chords.verticalOrientation,
+                      },
+                    },
+                  });
+                }
+              "
+              >{{
+                this.display.diagrams.chords.verticalOrientation
+                  ? "Vertical"
+                  : "Horizontal"
+              }}</base-button
+            >
           </li>
           <li>
             <div>Fretboard Diagram</div>
-            <base-button @click="switchFretboardDiagramOrientation">{{
-              this.display.diagrams.fretboard.horizontalOrientation
-                ? "Horizontal"
-                : "Vertical"
-            }}</base-button>
+            <base-button
+              @click="
+                () => {
+                  updateDisplay({
+                    diagrams: {
+                      fretboard: {
+                        horizontalOrientation: !this.display.diagrams.fretboard.horizontalOrientation,
+                      },
+                    },
+                  });
+                }
+              "
+              >{{
+                this.display.diagrams.fretboard.horizontalOrientation
+                  ? "Horizontal"
+                  : "Vertical"
+              }}</base-button
+            >
           </li>
           <li>
             <div>Dexterity |</div>
@@ -110,7 +136,13 @@
                   :checked="!instrument.leftDominantHand"
                   id="slideDexterity"
                   name="check"
-                  @click="switchDominantHand"
+                  @click="
+                    () => {
+                      updateInstrument({
+                        leftDominantHand: !this.instrument.leftDominantHand,
+                      });
+                    }
+                  "
                 />
                 <label for="slideDexterity"></label>
               </div>
@@ -131,7 +163,13 @@
               class="theme-switch"
               v-model="display.darkMode"
             />
-            <label for="theme-switch" @click="switchTheme">
+            <label for="theme-switch" @click="
+                    () => {
+                      updateDisplay({
+                        darkMode: !this.display.darkMode,
+                      });
+                    }
+                  ">
               <span v-if="display.darkMode">
                 <img
                   alt="logo"
@@ -176,42 +214,11 @@ export default {
     },
   },
   methods: {
-    switchTheme() {
-      this.$store.dispatch("switchTheme");
-    },
-    switchDominantHand() {
-      const tmpLeftDominantHand = !this.instrument.leftDominantHand;
-      this.$store.dispatch("updateInstrumentGenericMethod", {
-          leftDominantHand: tmpLeftDominantHand,
-      })
+    updateDisplay(obj) {
+      this.$store.dispatch("updateDisplayGenericMethod", obj);
     },
     updateInstrument(obj) {
       this.$store.dispatch("updateInstrumentGenericMethod", obj);
-    },
-    switchChordDiagramOrientation() {
-      const tmpCurrentValue = this.display.diagrams.chords.verticalOrientation;
-      this.$store.dispatch("updateDiagramOrientation", {
-        display: {
-          diagrams: {
-            chords: {
-              verticalOrientation: !tmpCurrentValue,
-            },
-          },
-        },
-      });
-    },
-    switchFretboardDiagramOrientation() {
-      const tmpCurrentValue =
-        this.display.diagrams.fretboard.horizontalOrientation;
-      this.$store.dispatch("updateDiagramOrientation", {
-        display: {
-          diagrams: {
-            fretboard: {
-              horizontalOrientation: !tmpCurrentValue,
-            },
-          },
-        },
-      });
     },
   },
 };
