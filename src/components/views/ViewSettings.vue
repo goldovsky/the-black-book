@@ -8,23 +8,34 @@
           <li>
             <base-button
               :mode="this.instrument.type === 'bass' ? '' : 'flat'"
-              @click="updateInstrumentType('bass')"
+              @click="
+                updateInstrument({
+                  type: 'bass',
+                })
+              "
               >Bass</base-button
             >
             <base-button
               :mode="this.instrument.type === 'guitar' ? '' : 'flat'"
-              @click="updateInstrumentType('guitar')"
+              @click="
+                updateInstrument({
+                  type: 'guitar',
+                })
+              "
               >Guitar</base-button
             >
           </li>
           <li>
             <div>Strings |</div>
-            <!-- v-model="nbStrings" -->
             <base-input-number
               :min="this.stringRangeByInstrument.minStrings"
               :max="this.stringRangeByInstrument.maxStrings"
               :value="this.instrument.strings"
-              @input="updateInstrumentStrings"
+              @input="
+                updateInstrument({
+                  strings: $event,
+                })
+              "
             />
           </li>
           <li>
@@ -33,14 +44,30 @@
               :options="this.instrument.tuning.availableTunings"
               :valueInsteadOfKey="false"
               :initialValue="this.instrument.tuning.type"
-              @select="updateInstrumentTuningType"
+              @select="
+                updateInstrument({
+                  tuning: {
+                    type: $event,
+                  },
+                })
+              "
             />
             <div>|</div>
             <base-select
-              :options="this.instrument.tuning.availableTunings[this.instrument.tuning.type]"
+              :options="
+                this.instrument.tuning.availableTunings[
+                  this.instrument.tuning.type
+                ]
+              "
               :valueInsteadOfKey="true"
               :initialValue="this.instrument.tuning.tonality"
-              @select="updateInstrumentTuningTonality"
+              @select="
+                updateInstrument({
+                  tuning: {
+                    tonality: $event,
+                  },
+                })
+              "
             />
           </li>
         </ul>
@@ -51,13 +78,17 @@
           <li>
             <div>Chord Diagrams</div>
             <base-button @click="switchChordDiagramOrientation">{{
-              this.display.diagrams.chords.verticalOrientation ? "Vertical" : "Horizontal"
+              this.display.diagrams.chords.verticalOrientation
+                ? "Vertical"
+                : "Horizontal"
             }}</base-button>
           </li>
           <li>
             <div>Fretboard Diagram</div>
             <base-button @click="switchFretboardDiagramOrientation">{{
-              this.display.diagrams.fretboard.horizontalOrientation ? "Horizontal" : "Vertical"
+              this.display.diagrams.fretboard.horizontalOrientation
+                ? "Horizontal"
+                : "Vertical"
             }}</base-button>
           </li>
           <li>
@@ -150,45 +181,12 @@ export default {
     },
     switchDominantHand() {
       const tmpLeftDominantHand = !this.instrument.leftDominantHand;
-      this.$store.dispatch("updateInstrument", {
-        instrument: {
+      this.$store.dispatch("updateInstrumentGenericMethod", {
           leftDominantHand: tmpLeftDominantHand,
-        },
-      });
+      })
     },
-    // todo should do a single method, get another parameter to use as a key
-    updateInstrumentType(value) {
-      this.$store.dispatch("updateInstrument", {
-        instrument: {
-          type: value,
-        },
-      });
-      // @2
-    },
-    updateInstrumentStrings(value) {
-      this.$store.dispatch("updateInstrument", {
-        instrument: {
-          strings: value,
-        },
-      });
-    },
-    updateInstrumentTuningType(value) {
-      this.$store.dispatch("updateInstrument", {
-        instrument: {
-          tuning: {
-            type: value,
-          },
-        },
-      });
-    },
-    updateInstrumentTuningTonality(value) {
-      this.$store.dispatch("updateInstrument", {
-        instrument: {
-          tuning: {
-            tonality: value,
-          },
-        },
-      });
+    updateInstrument(obj) {
+      this.$store.dispatch("updateInstrumentGenericMethod", obj);
     },
     switchChordDiagramOrientation() {
       const tmpCurrentValue = this.display.diagrams.chords.verticalOrientation;
@@ -196,21 +194,22 @@ export default {
         display: {
           diagrams: {
             chords: {
-              verticalOrientation: !tmpCurrentValue
-            }
-          }
+              verticalOrientation: !tmpCurrentValue,
+            },
+          },
         },
       });
     },
     switchFretboardDiagramOrientation() {
-      const tmpCurrentValue = this.display.diagrams.fretboard.horizontalOrientation;
+      const tmpCurrentValue =
+        this.display.diagrams.fretboard.horizontalOrientation;
       this.$store.dispatch("updateDiagramOrientation", {
         display: {
           diagrams: {
             fretboard: {
-              horizontalOrientation: !tmpCurrentValue
-            }
-          }
+              horizontalOrientation: !tmpCurrentValue,
+            },
+          },
         },
       });
     },

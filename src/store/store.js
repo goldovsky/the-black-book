@@ -6,6 +6,7 @@ import DATA_SCALES from "./../database/scales.js";
 import DATA_TETRACHORDS from "./../database/tetrachords.js";
 import DATA_TUNINGS from "./../database/tunings.js";
 import { createStore } from "vuex";
+import lodash from 'lodash';
 
 const store = createStore({
   modules: {},
@@ -37,7 +38,6 @@ const store = createStore({
           availableTunings: {},
         },
       },
-
       //database
       database: {
         chords: DATA_CHORDS,
@@ -100,7 +100,13 @@ const store = createStore({
       const tmpDarkMode = state.display.darkMode;
       state.display.darkMode = tmpDarkMode;
     },
+    updateInstrumentGenericMethod(state, payload) { // todo refacto
+      lodash.merge(state.instrument, payload); // Equivalent Object.assign()
+      
+    },
     updateInstrument(state, payload) {
+      // todo use : state.instrument = Object.assign(state.instrument, payload);
+
       let boolUpdateAvailableTunings = false;
       let boolUpdateCurrentTuning = false;
       let boolUpdateCurrentTonality = false;
@@ -264,6 +270,9 @@ const store = createStore({
     },
     updateInstrument(context, payload) {
       context.commit("updateInstrument", payload);
+    },
+    updateInstrumentGenericMethod(context, payload) { // todo refacto
+      context.commit("updateInstrumentGenericMethod", payload);
     },
     updateTuning(context) {
       context.commit("updateTuning");
