@@ -57,7 +57,7 @@
           <li>
             <div>Fretboard Diagram</div>
             <base-button @click="switchFretboardDiagramOrientation">{{
-              this.display.diagrams.fretboard.horizontalOrientation ? "Vertical" : "Horizontal"
+              this.display.diagrams.fretboard.horizontalOrientation ? "Horizontal" : "Vertical"
             }}</base-button>
           </li>
           <li>

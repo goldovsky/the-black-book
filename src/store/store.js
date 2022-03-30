@@ -131,7 +131,11 @@ const store = createStore({
         state.instrument.strings = payload.instrument.strings;
         // todo update tuning options
         boolUpdateAvailableTunings = true;
+
         // todo update tuning
+        boolUpdateCurrentTuning = true;
+        // todo update tonality
+        boolUpdateCurrentTonality = true;
       }
 
       /**
@@ -166,10 +170,12 @@ const store = createStore({
         this.commit("updateTuningAvailableOptions");
       }
       if (boolUpdateCurrentTonality) {
+        console.log('tonality')
         state.instrument.tonality =
-          state.instrument.tuning.availableTunings[
-            Object.keys(state.instrument.tuning.availableTunings)[0]
-          ][0];
+        state.instrument.tuning.availableTunings[
+          Object.keys(state.instrument.tuning.availableTunings)[0]
+        ][0];
+        console.log('tonality = ' + state.instrument.tonality)
       }
       if (boolUpdateCurrentTuning) {
         this.commit("updateTuning");
@@ -184,6 +190,10 @@ const store = createStore({
           "nb_strings_" + state.instrument.strings
         ][state.instrument.tuning.type];
 
+        console.log('tmp tonality = ' + tmpTonality)
+        console.log('condition if')
+        console.log(!tmpTuningsAvailable[tmpTonality])
+
       // change tonality if it doesn't exist with current instrument.strings
       if (!tmpTuningsAvailable[tmpTonality]) {
         tmpTonality = Object.keys(tmpTuningsAvailable)[0];
@@ -193,6 +203,7 @@ const store = createStore({
       state.instrument.tuning.stringsNotes = tmpTuningsAvailable[tmpTonality];
     },
     updateDiagramOrientation(state, payload) {
+      // todo do a general update display function
       if (payload.display.diagrams["chords"] !== undefined) {
         state.display.diagrams.chords.verticalOrientation =
           payload.display.diagrams.chords.verticalOrientation;
