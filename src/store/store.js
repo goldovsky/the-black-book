@@ -74,10 +74,9 @@ const store = createStore({
       lodash.merge(state.instrument, payload); // ≡ Object.assign()
 
       let boolUpdate = false; // update tuning
-      // type -> strings -> tuning.type -> tonality -> stringsNotes
+      // ? TYPE -> STRINGS -> AVAILABLETUNINGS-> T.TYPE -> T.TONALITY -> STRINGNOTES
       if ("type" in payload) {
         // load minString available in database for this type of instrument
-        // todo .str() is deprecated
         state.instrument.strings = parseInt(
           String(
             Object.keys(state.database.tunings[state.instrument.type])[0]
@@ -85,22 +84,35 @@ const store = createStore({
             Object.keys(state.database.tunings[state.instrument.type])[0]
               .length - 1
           )
-        );
+        ); // todo .str() is deprecated
+        this.commit("updateTuningAvailableOptions");
         boolUpdate = true;
       }
       if ("strings" in payload && !boolUpdate) {
+        this.commit("updateTuningAvailableOptions");
         boolUpdate = true;
       }
-      // if need to u
-      if (boolUpdate) {
-        // tuning.type
+      // tuning.type
+      if (boolUpdate && payload["tuning"] === undefined) {
+        state.instrument.tuning.type = Object.keys(
+          state.instrument.tuning.availableTunings
+        )[0];
       }
       // tuning.tonality
-      if (boolUpdate) {
-        // do stuff
+      if (boolUpdate && payload["tuning"] === undefined) {
+        // check if good
+        state.instrument.tuning.tonality =
+          state.instrument.tuning.availableTunings[
+            state.instrument.tuning.type
+          ][0];
       }
-
-      // this.commit("updateTuningAvailableOptions");
+      // tuning.stringsNotes
+      state.instrument.tuning.stringsNotes =
+        state.database.tunings[state.instrument.type][
+          "nb_strings_" + state.instrument.strings
+        ][state.instrument.tuning.type][
+          state.instrument.tuning.tonality.toLowerCase()
+        ];
     },
     updateInstrumentOldMethod(state) {
       // , payload

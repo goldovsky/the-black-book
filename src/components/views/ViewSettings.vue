@@ -27,6 +27,7 @@
           </li>
           <li>
             <div>Strings |</div>
+            <!-- TODO : check why button doesn't update well when instrument type is changed -->
             <base-input-number
               :min="this.instrumentStringRange.minStrings"
               :max="this.instrumentStringRange.maxStrings"
@@ -210,22 +211,25 @@ export default {
       return this.$store.getters.database;
     },
     instrumentStringRange() {
-      // todo here instead of in store
-      console.log("instrumentStringRange() called");
       return {
         minStrings: parseInt(
-          String(Object.keys(this.database.tunings[this.instrument.type])[0]).substr(
-            Object.keys(this.database.tunings[this.instrument.type])[0].length - 1
+          String(
+            Object.keys(this.database.tunings[this.instrument.type])[0]
+          ).substr(
+            Object.keys(this.database.tunings[this.instrument.type])[0].length -
+              1
           )
         ),
         maxStrings: parseInt(
           String(
             Object.keys(this.database.tunings[this.instrument.type])[
-              Object.keys(this.database.tunings[this.instrument.type]).length - 1
+              Object.keys(this.database.tunings[this.instrument.type]).length -
+                1
             ]
           ).substr(
             Object.keys(this.database.tunings[this.instrument.type])[
-              Object.keys(this.database.tunings[this.instrument.type]).length - 1
+              Object.keys(this.database.tunings[this.instrument.type]).length -
+                1
             ].length - 1
           )
         ),
