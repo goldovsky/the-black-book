@@ -47,41 +47,14 @@ const store = createStore({
   },
   methods: {},
   getters: {
-    // App Related
     display(state) {
       return state.display;
     },
-    // Instrument Related
     instrument(state) {
       return state.instrument;
     },
     database(state) {
       return state.database;
-    },
-    instrumentStringRange(state) {
-      // todo move into a method?
-      let response = {
-        minStrings: null,
-        maxStrings: null,
-      };
-
-      // todo get the info from database
-      switch (state.instrument.type) {
-        case "bass":
-          response.minStrings = 4;
-          response.maxStrings = 5;
-          break;
-        case "guitar":
-          response.minStrings = 6;
-          response.maxStrings = 8;
-          break;
-        default:
-          response.minStrings = 6;
-          response.maxStrings = 8;
-          break;
-      }
-
-      return response;
     },
   },
   mutations: {

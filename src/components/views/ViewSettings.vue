@@ -206,9 +206,32 @@ export default {
     instrument() {
       return this.$store.getters.instrument;
     },
+    database() {
+      return this.$store.getters.database;
+    },
     instrumentStringRange() {
       // todo here instead of in store
-      return this.$store.getters.instrumentStringRange;
+      console.log("instrumentStringRange() called");
+      return {
+        minStrings: parseInt(
+          String(Object.keys(this.database.tunings[this.instrument.type])[0]).substr(
+            Object.keys(this.database.tunings[this.instrument.type])[0].length - 1
+          )
+        ),
+        maxStrings: parseInt(
+          String(
+            Object.keys(this.database.tunings[this.instrument.type])[
+              Object.keys(this.database.tunings[this.instrument.type]).length - 1
+            ]
+          ).substr(
+            Object.keys(this.database.tunings[this.instrument.type])[
+              Object.keys(this.database.tunings[this.instrument.type]).length - 1
+            ].length - 1
+          )
+        ),
+      };
+
+      //return this.$store.getters.instrumentStringRange;
     },
   },
   methods: {
