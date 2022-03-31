@@ -26,10 +26,9 @@ const store = createStore({
           },
         },
       },
-      // todo implement this object
       instrument: {
-        type: "guitar",
         leftDominantHand: true,
+        type: "guitar",
         strings: 6,
         tuning: {
           type: null,
@@ -38,7 +37,6 @@ const store = createStore({
           availableTunings: {},
         },
       },
-      //database
       database: {
         chords: DATA_CHORDS,
         scales: DATA_SCALES,
@@ -60,7 +58,7 @@ const store = createStore({
     database(state) {
       return state.database;
     },
-    stringRangeByInstrument(state) {
+    instrumentStringRange(state) {
       // todo move into a method?
       let response = {
         minStrings: null,
@@ -88,7 +86,7 @@ const store = createStore({
   },
   mutations: {
     updateDisplay(state, payload) {
-      lodash.merge(state.display, payload); // Equivalent Object.assign()
+      lodash.merge(state.display, payload); // ≡ Object.assign()
 
       // SWITCH THEME
       if ("darkMode" in payload) {
@@ -100,11 +98,39 @@ const store = createStore({
       }
     },
     updateInstrument(state, payload) {
-      // todo refacto
-      lodash.merge(state.instrument, payload); // Equivalent Object.assign()
-      // todo rest of the method
+      lodash.merge(state.instrument, payload); // ≡ Object.assign()
+
+      let boolUpdate = false; // update tuning
+      // type -> strings -> tuning.type -> tonality -> stringsNotes
+      if ("type" in payload) {
+        // load minString available in database for this type of instrument
+        // todo .str() is deprecated
+        state.instrument.strings = parseInt(
+          String(
+            Object.keys(state.database.tunings[state.instrument.type])[0]
+          ).substr(
+            Object.keys(state.database.tunings[state.instrument.type])[0]
+              .length - 1
+          )
+        );
+        boolUpdate = true;
+      }
+      if ("strings" in payload && !boolUpdate) {
+        boolUpdate = true;
+      }
+      // if need to u
+      if (boolUpdate) {
+        // tuning.type
+      }
+      // tuning.tonality
+      if (boolUpdate) {
+        // do stuff
+      }
+
+      // this.commit("updateTuningAvailableOptions");
     },
-    updateInstrumentOldMethod(state, payload) {
+    updateInstrumentOldMethod(state) {
+      // , payload
       // todo use : state.instrument = Object.assign(state.instrument, payload);
 
       let boolUpdateAvailableTunings = false;
@@ -113,61 +139,21 @@ const store = createStore({
       /**
        * INSTRUMENT TYPE
        */
-      if (
-        payload.instrument["type"] !== undefined &&
-        state.instrument.type !== payload.instrument.type
-      ) {
-        state.instrument.type = payload.instrument.type;
-        // todo update nb Strings
-        state.instrument.strings =
-          this.getters.stringRangeByInstrument.minStrings;
+      // todo update nb Strings
+      // todo update tuning options
+      // todo update tuning
 
-        // todo update tuning options
-        boolUpdateAvailableTunings = true;
-        // todo update tuning
-        boolUpdateCurrentTuning = true;
-      }
       /**
        * STRINGS
        */
-      if (
-        payload.instrument["strings"] !== undefined &&
-        state.instrument.strings !== payload.instrument.srings
-      ) {
-        state.instrument.strings = payload.instrument.strings;
-        // todo update tuning options
-        boolUpdateAvailableTunings = true;
-
-        // todo update tuning
-        boolUpdateCurrentTuning = true;
-        // todo update tonality
-        boolUpdateCurrentTonality = true;
-      }
-
-      /**
-       * DOMINANT HAND
-       */
-      if (payload.instrument["leftDominantHand"] !== undefined) {
-        state.instrument.leftDominantHand = payload.instrument.leftDominantHand;
-      }
+      // todo update tuning options
+      // todo update tuning
+      // todo update tonality
 
       /**
        * TUNING TYPE
        */
-
-      if (payload.instrument["tuning"] !== undefined) {
-        if (payload.instrument.tuning["type"] !== undefined) {
-          state.instrument.tuning.type = payload.instrument.tuning.type;
-          //update current tonality to first of the list
-          boolUpdateCurrentTonality = true;
-          // todo move what is in the if directly here
-        }
-        if (payload.instrument.tuning["tonality"] !== undefined) {
-          state.instrument.tuning.tonality = payload.instrument.tuning.tonality;
-        }
-        // todo update tuning
-        boolUpdateCurrentTuning = true;
-      }
+      // todo update tuning
 
       /**
        * Updates

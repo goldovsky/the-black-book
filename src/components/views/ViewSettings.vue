@@ -28,8 +28,8 @@
           <li>
             <div>Strings |</div>
             <base-input-number
-              :min="this.stringRangeByInstrument.minStrings"
-              :max="this.stringRangeByInstrument.maxStrings"
+              :min="this.instrumentStringRange.minStrings"
+              :max="this.instrumentStringRange.maxStrings"
               :value="this.instrument.strings"
               @input="
                 updateInstrument({
@@ -206,8 +206,9 @@ export default {
     instrument() {
       return this.$store.getters.instrument;
     },
-    stringRangeByInstrument() {
-      return this.$store.getters.stringRangeByInstrument;
+    instrumentStringRange() {
+      // todo here instead of in store
+      return this.$store.getters.instrumentStringRange;
     },
   },
   methods: {
