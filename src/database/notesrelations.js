@@ -6,7 +6,8 @@
 export default {
   notes: {
     // list: ['C', 'D', 'E', 'F', 'G', 'A', 'B'], // other possibility
-    list: [ // tod onot sure of value if they should start at 0 or 1
+    list: [
+      // tod onot sure of value if they should start at 0 or 1
       {
         name: "C",
         value: 0,
@@ -61,31 +62,31 @@ export default {
   },
   buildingbricks: {
     intervals: [
-      {
-        type: "Unison", // todo real name?
-        values: [
-          {
-            interval: "Perfect Unison",
-            short: "P1",
-            semitones: 0,
-          },
-        ],
-      },
-      {
-        type: "Secundal",
-        values: [
-          {
-            interval: "Minor second",
-            short: "m2",
-            semitones: 1,
-          },
-          {
-            interval: "Major second",
-            short: "M2",
-            semitones: 2,
-          },
-        ],
-      },
+      //   {
+      //     type: "Unison", // todo real name?
+      //     values: [
+      //       {
+      //         interval: "Perfect Unison",
+      //         short: "P1",
+      //         semitones: 0,
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     type: "Secundal",
+      //     values: [
+      //       {
+      //         interval: "Minor second",
+      //         short: "m2",
+      //         semitones: 1,
+      //       },
+      //       {
+      //         interval: "Major second",
+      //         short: "M2",
+      //         semitones: 2,
+      //       },
+      //     ],
+      //   },
       {
         type: "Tertian",
         values: [
@@ -101,98 +102,88 @@ export default {
           },
         ],
       },
-      {
-        type: "Quartal",
-        values: [
-          {
-            interval: "Perfect Fourth",
-            short: "P4",
-            semitones: 5,
-          },
-          {
-            interval: "Augmented Fourth",
-            short: "A4",
-            semitones: 6,
-          },
-        ],
-      },
-      {
-        type: "Quintal",
-        values: [
-          {
-            interval: "Diminished fifth",
-            short: "d5",
-            semitones: 6,
-          },
-          {
-            interval: "Perfect fifth",
-            short: "P5",
-            semitones: 7,
-          },
-        ],
-      },
-      {
-        type: "Hexal", // todo real name?
-        values: [
-          {
-            interval: "Minor Sixth",
-            short: "m6",
-            semitones: 8,
-          },
-          {
-            interval: "Major Sixth",
-            short: "M6",
-            semitones: 9,
-          },
-        ],
-      },
-      {
-        type: "Heptal", // todo real name?
-        values: [
-          {
-            interval: "Minor Seventh",
-            short: "m7",
-            semitones: 10,
-          },
-          {
-            interval: "Major Seventh",
-            short: "M7",
-            semitones: 11,
-          },
-        ],
-      },
-      {
-        type: "Octtal", // todo real name?
-        values: [
-          {
-            interval: "perfect Octave",
-            short: "P8",
-            semitones: 12,
-          },
-        ],
-      },
+      //   {
+      //     type: "Quartal",
+      //     values: [
+      //       {
+      //         interval: "Perfect Fourth",
+      //         short: "P4",
+      //         semitones: 5,
+      //       },
+      //       {
+      //         interval: "Augmented Fourth",
+      //         short: "A4",
+      //         semitones: 6,
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     type: "Quintal",
+      //     values: [
+      //       {
+      //         interval: "Diminished fifth",
+      //         short: "d5",
+      //         semitones: 6,
+      //       },
+      //       {
+      //         interval: "Perfect fifth",
+      //         short: "P5",
+      //         semitones: 7,
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     type: "Hexal", // todo real name?
+      //     values: [
+      //       {
+      //         interval: "Minor Sixth",
+      //         short: "m6",
+      //         semitones: 8,
+      //       },
+      //       {
+      //         interval: "Major Sixth",
+      //         short: "M6",
+      //         semitones: 9,
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     type: "Heptal", // todo real name?
+      //     values: [
+      //       {
+      //         interval: "Minor Seventh",
+      //         short: "m7",
+      //         semitones: 10,
+      //       },
+      //       {
+      //         interval: "Major Seventh",
+      //         short: "M7",
+      //         semitones: 11,
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     type: "Octal", // todo real name?
+      //     values: [
+      //       {
+      //         interval: "perfect Octave",
+      //         short: "P8",
+      //         semitones: 12,
+      //       },
+      //     ],
+      //   },
     ],
     chordTypeByNumberOfNotes: {
-      // Monochord
-      monad: {},
-      // Dichord
-      dyad: {},
-      // Trichord
-      triad: {},
-      // Tetrachord
-      tetrad: {},
-      // Pentachord
-      pentad: {},
-      // Hexachord
-      hexad: {},
-      // Heptachord
-      heptad: {},
-      // Octachord
-      octad: {},
-      // Nonachord
-      ennead: {},
-      // Decachord
-      decad: {},
+      //1: "monad", // Monochord
+      //2: "dyad", // Dichord
+      3: "triad", // Trichord
+      //4: "tetrad", // Tetrachord
+      //5: "pentad", // Pentachord
+      //6: "hexad", // Hexachord
+      //7: "heptad", // Heptachord
+      //8: "octad", // Octachord
+      //9: "ennead", // Nonachord
+      //10: "decad", // Decachord
     },
   },
   arpeggiosOrChords: {},

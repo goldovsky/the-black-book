@@ -103,7 +103,7 @@ const store = createStore({
         )[0];
       }
       // tuning.tonality
-      if (boolUpdate && payload["tuning"] === undefined) {
+      if (boolUpdate && payload["tuning"] === undefined || payload["tuning"]["type"] !== undefined) {
         // check if good
         state.instrument.tuning.tonality =
           state.instrument.tuning.availableTunings[
