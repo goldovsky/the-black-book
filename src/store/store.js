@@ -85,11 +85,11 @@ const store = createStore({
               .length - 1
           )
         ); // todo .str() is deprecated
-        this.commit("updateTuningAvailableOptions");
+        this.commit("updateAvailableTunings");
         boolUpdate = true;
       }
       if ("strings" in payload && !boolUpdate) {
-        this.commit("updateTuningAvailableOptions");
+        this.commit("updateAvailableTunings");
         boolUpdate = true;
       }
       // tuning.type
@@ -114,72 +114,7 @@ const store = createStore({
           state.instrument.tuning.tonality.toLowerCase()
         ];
     },
-    updateInstrumentOldMethod(state) {
-      // , payload
-      // todo use : state.instrument = Object.assign(state.instrument, payload);
-
-      let boolUpdateAvailableTunings = false;
-      let boolUpdateCurrentTuning = false;
-      let boolUpdateCurrentTonality = false;
-      /**
-       * INSTRUMENT TYPE
-       */
-      // todo update nb Strings
-      // todo update tuning options
-      // todo update tuning
-
-      /**
-       * STRINGS
-       */
-      // todo update tuning options
-      // todo update tuning
-      // todo update tonality
-
-      /**
-       * TUNING TYPE
-       */
-      // todo update tuning
-
-      /**
-       * Updates
-       */
-      if (boolUpdateAvailableTunings) {
-        this.commit("updateTuningAvailableOptions");
-      }
-      if (boolUpdateCurrentTonality) {
-        console.log("tonality");
-        state.instrument.tonality =
-          state.instrument.tuning.availableTunings[
-            Object.keys(state.instrument.tuning.availableTunings)[0]
-          ][0];
-        console.log("tonality = " + state.instrument.tonality);
-      }
-      if (boolUpdateCurrentTuning) {
-        this.commit("updateTuning");
-      }
-    },
-    updateTuning(state) {
-      let tmpTonality = state.instrument.tuning.tonality.toLowerCase();
-      // todo use of switch to bass not the best way to do it
-
-      let tmpTuningsAvailable =
-        state.database.tunings[state.instrument.type][
-          "nb_strings_" + state.instrument.strings
-        ][state.instrument.tuning.type];
-
-      console.log("tmp tonality = " + tmpTonality);
-      console.log("condition if");
-      console.log(!tmpTuningsAvailable[tmpTonality]);
-
-      // change tonality if it doesn't exist with current instrument.strings
-      if (!tmpTuningsAvailable[tmpTonality]) {
-        tmpTonality = Object.keys(tmpTuningsAvailable)[0];
-        state.instrument.tuning.tonality = tmpTonality;
-      }
-
-      state.instrument.tuning.stringsNotes = tmpTuningsAvailable[tmpTonality];
-    },
-    updateTuningAvailableOptions(state) {
+    updateAvailableTunings(state) {
       state.instrument.tuning.availableTunings = {};
 
       const stateDatabaseTunings =
@@ -221,21 +156,15 @@ const store = createStore({
         "E2",
       ];
 
-      this.commit("updateTuningAvailableOptions");
+      this.commit("updateAvailableTunings");
     },
   },
   actions: {
     updateDisplay(context, payload) {
       context.commit("updateDisplay", payload);
     },
-    updateInstrumentOldMethod(context, payload) {
-      context.commit("updateInstrument", payload);
-    },
     updateInstrument(context, payload) {
       context.commit("updateInstrument", payload);
-    },
-    updateTuning(context) {
-      context.commit("updateTuning");
     },
     initalizeTuning(context) {
       context.commit("initalizeTuning");
