@@ -21,6 +21,12 @@
  * add different tuning
  */
 
+/**
+ * NOTES
+ * todo for tuning maybe do an array of every notes available : ['c0', 'c1'....]
+ * and use index from that array so it can easely be shifted up and down
+ */
+
 export default {
       guitar: {
         nb_strings_6: {
