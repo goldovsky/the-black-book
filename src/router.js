@@ -6,6 +6,7 @@ import ViewMetronome from './components/views/ViewMetronome.vue';
 import ViewSignalChainSketches from './components/views/ViewSignalChainSketches.vue';
 import ViewSettings from './components/views/ViewSettings.vue';
 import ViewPlayback from './components/views/ViewPlayback.vue';
+import ViewTonalPackage from './components/views/ViewTonalPackage.vue';
 
 // TODO
 // '/' shouldn't redirect home
@@ -21,6 +22,7 @@ const router = createRouter({
     { path: '/playback', component: ViewPlayback },
     { path: '/signalchainsketches', component: ViewSignalChainSketches },
     { path: '/settings', component: ViewSettings },
+    { path: '/tonalpackage', component: ViewTonalPackage },
   ],
 });
 

@@ -193,6 +193,7 @@ function initNoteRelations() {
       data: {},
     }
 
+    // TODO INFO : Below code put on hold as we switch to using @goldovsky/tonal package 
     /**
      * * LOOP on INTERVAL TYPE which C/A will be build upon
      * e.g. Tertian (empilement de tierce)

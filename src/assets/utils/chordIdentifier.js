@@ -17,6 +17,8 @@
  * 
  * Respond with a string that identifie it
  * (e.g. : "C", "CMaj7")
+ * 
+ * TODO update: maybe this isn't useful anymore as we got tonal library
  */
 
  export default {

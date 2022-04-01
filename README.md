@@ -30,3 +30,8 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## NOTES
+To build a library for notes/keys/scales...
+- https://github.com/tonaljs
+- https://github.com/tonaljs/tonal-app -> library in use in reactJS

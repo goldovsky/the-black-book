@@ -65,11 +65,20 @@
       <li>
         <a href="#">
           <router-link to="/signalchainsketches">
-            <i class="bx bx-box"></i>
+            <i class="bx bx-notepad"></i>
             <span class="links_name">Signal Chain Sketches</span>
           </router-link>
         </a>
         <span class="tooltip">Signal Chain Sketches</span>
+      </li>
+      <li>
+        <a href="#">
+          <router-link to="/tonalpackage">
+            <i class="bx bx-package"></i>
+            <span class="links_name">Tonal Package</span>
+          </router-link>
+        </a>
+        <span class="tooltip">Tonal Package</span>
       </li>
       <li>
         <a href="#">
