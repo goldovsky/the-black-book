@@ -1,5 +1,5 @@
 <template>
-  <h1>scales</h1>
+  <h1>Scales</h1>
 </template>
 
 <script>

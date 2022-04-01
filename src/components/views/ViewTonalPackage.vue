@@ -33,16 +33,15 @@ export default {
         intervals: false,
         scales: false,
         chords: false,
-        keys: true,
+        keys: true, // todo false
       },
     };
   },
   methods: {
     switchScreen(val) {
       Object.keys(this.display).forEach((key) => {
-        this.display[key] = false;
+        this.display[key] = key === val ? true : false;
       });
-      this.display[val] = true;
     },
   },
   computed: {},
