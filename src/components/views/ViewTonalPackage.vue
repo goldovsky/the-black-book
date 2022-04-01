@@ -9,9 +9,21 @@
       >{{ screenKey }}</a
     >
   </div>
+  <base-card>
+    <tonal-tonal v-if="display.tonal"/>
+    <tonal-notes v-if="display.notes"/>
+    <tonal-intervals v-if="display.intervals"/>
+    <tonal-scales v-if="display.scales"/>
+    <tonal-chords v-if="display.chords"/>
+    <tonal-keys v-if="display.keys"/>
+  </base-card>
 </template>
 
 <script>
+/**
+ * TODO
+ * check transition
+ */
 export default {
   data() {
     return {
