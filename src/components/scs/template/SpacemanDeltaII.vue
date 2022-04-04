@@ -93,35 +93,32 @@ export default {
           /* LEFT HORIZONTAL BAR */
           -webkit-radial-gradient(
       0% 50%,
-      50% 7%,
-      hsla(0, 0%, 100%, 0.5) 0%,
+      50% 15%,
+      hsla(0, 0%, 100%, 0.9) 0%,
       hsla(0, 0%, 100%, 0) 100%
     ),
     /* RIGHT HORIZONTAL BAR */
-    -webkit-radial-gradient(100% 50%, 50% 5%, hsla(0, 0%, 100%, 0.5) 0%, hsla(
+    -webkit-radial-gradient(100% 50%, 50% 15%, hsla(0, 0%, 100%, 0.9) 0%, hsla(
             0,
             0%,
             100%,
             0
           )
           100%),
-          /* BACKGROUND CIRCLES */
-    -webkit-repeating-radial-gradient(50% 50%, 100% 100%, hsla(0, 0%, 0%, 0) 0%, hsla(
+          /* BACKGROUND CIRCLES */ -webkit-repeating-radial-gradient(
+      50% 50%,
+      100% 100%,
+      hsla(0, 0%, 0%, 0) 0%,
+      hsla(0, 0%, 0%, 0) 3%,
+      hsla(0, 0%, 0%, 0.1) 3.5%
+    ),
+    /* WHOLE STUFF */ -webkit-radial-gradient(50% 50%, 200% 50%, hsla(
             0,
             0%,
-            0%,
-            0
+            90%,
+            1
           )
-          3%, hsla(0, 0%, 0%, 0.1) 3.5%),
-          /* WHOLE STUFF */
-          -webkit-radial-gradient(
-        50% 50%,
-        200% 50%,
-        hsla(0, 0%, 90%, 1) 5%,
-        hsla(0, 0%, 85%, 1) 30%,
-        hsla(0, 0%, 60%, 1) 100%
-      )
-      ;
+          5%, hsla(0, 0%, 85%, 1) 30%, hsla(0, 0%, 60%, 1) 100%);
   animation: no-rotate 5s infinite;
 }
 
