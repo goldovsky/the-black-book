@@ -1,10 +1,43 @@
 <template>
   <div class="knob">
+  <svg viewBox="-3 -3 106 106">
+    <defs>
+      <mask id="m">
+        <rect x="-3" y="-2" width="100%" height="100%" fill="white" />
+        <!-- update the 120 below to increase/decrease the visible part-->
+        <circle
+          cx="50"
+          cy="50"
+          r="50"
+          stroke-dasharray="120, 1000"
+          fill="transparent"
+          stroke="black"
+          stroke-width="8"
+        />
+      </mask>
+    </defs>
+    <!-- 
+    The circumference of the circle is 2*PI*R ~ 314.16
+    if we want N dashed we use d=314.16/N
+    For N = 20 we have d=15.71
+    For a gap of 5 we will have "10.71,5" (d - gap,gap)
+  -->
+    <circle
+      cx="50"
+      cy="50"
+      r="50"
+      stroke-dasharray="10.71, 5"
+      fill="transparent"
+      stroke="red"
+      stroke-width="5"
+      mask="url(#m)"
+    />
+  </svg>
     <div class="knob-inner">
       <div class="knobline"></div>
     </div>
   </div>
-  <div>{{ title }}</div>
+  <div class="knobtitle">{{ title }}</div>
 </template>
 
 <script>
@@ -79,14 +112,10 @@ export default {
   background: #fff;
   margin-left: -0.06em;
 }
-/* .knob:before {
-  content: "";
-  position: absolute;
-  width: 0.125em; 
-  height: 0.5em;
-  border-top-left-radius: 0.125em;
-  border-top-right-radius: 0.125em;
-  margin-left: -0.06em;
-  background: #fff;
-} */
+
+svg {
+  position: fixed;
+  width: 65px;
+  transform: rotate(25deg); /* control the rotation here */
+}
 </style>
