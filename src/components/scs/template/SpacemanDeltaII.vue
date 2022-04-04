@@ -2,8 +2,19 @@
   <h2>Pedal Example</h2>
   <div class="pedalbox">
     <div class="pedalBody pedalBodyBorder">
-      <div style="color: white; margin: auto">
-        <base-knob />
+      <div class="controls" style="color: white; margin: auto">
+        <div>
+          <base-knob title="DEPTH" />
+          <div>LAG</div>
+        </div>
+        <div>
+          <div>VOICE</div>
+          <base-knob title="RATE" />
+        </div>
+        <div>
+          <base-knob title="FREQ" />
+          <div>RES</div>
+        </div>
       </div>
       <div style="color: white; margin: auto">Delta II</div>
     </div>
@@ -64,5 +75,8 @@ export default {
   border-radius: inherit;
   background: linear-gradient(to right, rgb(154, 177, 199), rgb(90, 119, 150));
   /* background: linear-gradient(to right, #8DEBFF, #6CACFF); */
+}
+.controls {
+  display: flex;
 }
 </style>
