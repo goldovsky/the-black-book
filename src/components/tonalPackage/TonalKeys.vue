@@ -36,8 +36,11 @@
 </template>
 
 <script>
-//import tonal from '@goldovsky/tonal';
-//import tonal from './../../../node_modules/@goldovsky/tonal/packages/tonal/index';
+/**
+ * TODO
+ * Use goldovsky-tonal instead of @tonaljs
+ */
+//import {tonal} from '@tonaljs/tonal';
 export default {
   data() {
     return {

@@ -15,6 +15,8 @@ import TonalNotes from './components/tonalPackage/TonalNotes.vue'
 import TonalScales from './components/tonalPackage/TonalScales.vue'
 import TonalTonal from './components/tonalPackage/TonalTonal.vue'
 
+import SpacemanDeltaII from './components/scs/template/SpacemanDeltaII.vue'
+
 import './assets/css/styles.scss' // custom styles
 
 const app = createApp(App)
@@ -34,6 +36,8 @@ app.component('tonal-keys', TonalKeys);
 app.component('tonal-notes', TonalNotes);
 app.component('tonal-scales', TonalScales);
 app.component('tonal-tonal', TonalTonal);
+
+app.component('spaceman-delta', SpacemanDeltaII);
 
 router.isReady().then(() => {
     app.mount('#app');
