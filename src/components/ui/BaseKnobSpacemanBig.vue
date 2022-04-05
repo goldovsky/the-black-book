@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="parenttitle">
     <span
       v-for="(letter, index) in title"
       :key="index"
@@ -70,12 +70,12 @@ export default {
   props: ["title"],
   methods: {
     letterPosition(index) {
-      let response = 1 + index + Math.floor(this.title.length / 2);
+      let response = 1 + index + this.title.length / 2;
       return response * 8 -40;
     },
     letterRotation(index) {
       let singleAngle = 10;
-      return singleAngle * -(index + -Math.floor(this.title.length / 2));
+      return singleAngle * -(index + -this.title.length / 2);
     },
   },
 };
@@ -170,11 +170,18 @@ svg {
   transform: translateX(8px) rotate(12deg);
 }
 
+.parenttitle {
+  display:flex;
+  align-items: flex-start;
+  align-content:center;
+  justify-content: center;
+}
 .letterspan {
   font: 13px Monaco, MonoSpace;
   position: absolute;
-  padding-top: 15px;
-  margin-top: 35px;
+  /* padding-top: 15px; */
+  margin-top: 50px;
+  display: block;
   transform-origin: top center;
 }
 </style>
