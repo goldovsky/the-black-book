@@ -13,22 +13,25 @@
         />
       </svg> -->
 
-    <svg viewBox="0 0 500 500">
-      <g
-        transform="translate(82.453 82.563)"
-        style="stroke-width: 3; stroke-linejoin: bevel"
-      >
+    <!-- viewBox="0 0 500 500" -->
+    <svg viewBox="-80 -80 550 550">
+      <!-- transform="translate(82.453 82.563)" -->
+      <g style="stroke-width: 3; stroke-linejoin: bevel">
         <g :style="{ transform: 'rotate(' + (180 - 45 / 2 + 2.5) + 'deg)' }">
-          <g v-for="(nb, index) in 19" :key="index" :id="'dash' + (nb + 3)">
+          <g v-for="(nb, index) in 9" :key="index" :id="'dash' + (nb + 3)">
             <g id="dash3">
               <!-- LONG DASH -->
               <path id="dash1" d="M70.5-.502h12V.503h-9z" class="longdash" />
               <!-- SHORT DASH -->
               <path id="dash2" d="M70.5-.502h5V.503h-5z" class="shortdash" />
+              <!-- half LONG DASH -->
+              <path id="dash1" d="M70.5-.502h8V.503h-9z" class="halflongdash" />
+              <!-- SHORT DASH -->
+              <path id="dash2" d="M70.5-.502h5V.503h-5z" class="shortdash2" />
             </g>
             <use
               xlink:href="#dash3"
-              :style="{ transform: 'rotate(' + 11 * nb + 'deg)' }"
+              :style="{ transform: 'rotate(' + 22 * nb + 'deg)' }"
             />
           </g>
           <!-- LAST LONG DASH -->
@@ -131,8 +134,16 @@ svg {
 .longdash {
   stroke: white;
 }
+.halflongdash {
+  stroke: lightgrey;
+  transform: rotate(11deg);
+}
 .shortdash {
   stroke: grey;
   transform: /*translateX(0px)*/ rotate(6deg);
+}
+.shortdash2 {
+  stroke: grey;
+  transform: /*translateX(0px)*/ rotate(17deg);
 }
 </style>
