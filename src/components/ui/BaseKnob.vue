@@ -1,38 +1,46 @@
 <template>
   <div class="knob">
-  <svg viewBox="-3 -3 106 106">
-    <defs>
-      <mask id="m">
-        <rect x="-3" y="-2" width="100%" height="100%" fill="white" />
-        <!-- update the 120 below to increase/decrease the visible part-->
-        <circle
-          cx="50"
-          cy="50"
-          r="50"
-          stroke-dasharray="120, 1000"
+    <!-- <svg>
+          <circle
+          cx="28"
+          cy="28"
+          r="27"
           fill="transparent"
-          stroke="black"
-          stroke-width="8"
+          stroke="red"
+          stroke-width="2"
+          strokeDasharray= "1150"
+          stroke-dashoffset="890"
         />
-      </mask>
-    </defs>
-    <!-- 
-    The circumference of the circle is 2*PI*R ~ 314.16
-    if we want N dashed we use d=314.16/N
-    For N = 20 we have d=15.71
-    For a gap of 5 we will have "10.71,5" (d - gap,gap)
-  -->
-    <circle
-      cx="50"
-      cy="50"
-      r="50"
-      stroke-dasharray="10.71, 5"
-      fill="transparent"
-      stroke="red"
-      stroke-width="5"
-      mask="url(#m)"
-    />
-  </svg>
+      </svg> -->
+
+    <svg  viewBox="0 0 500 500">
+      <g
+        transform="translate(82.453 82.563)"
+        style="stroke: orange; stroke-width: 3; stroke-linejoin: bevel"
+      >
+        <!-- <g id="e"> -->
+          <g id="d">
+            <g id="c">
+              <g id="b">
+                <g id="f">
+                  <path id="a" d="M70.5-.502h9V.503h-9z" />
+                  <use xlink:href="#a" transform="rotate(5.37)" />
+                  <use xlink:href="#a" transform="rotate(10.75)" />
+                </g>
+                <use xlink:href="#a" transform="rotate(16.12)" />
+              </g>
+              <use xlink:href="#b" transform="rotate(21.49)" />
+            </g>
+            <use xlink:href="#c" transform="rotate(42.99)" />
+          </g>
+          <use xlink:href="#d" transform="rotate(85.97)" />
+        <!-- </g> -->
+        <!-- <use xlink:href="#e" transform="rotate(171.94)" /> -->
+        <!-- <use xlink:href="#f" transform="rotate(343.88)" /> -->
+      </g>
+    </svg>
+    
+
     <div class="knob-inner">
       <div class="knobline"></div>
     </div>
@@ -114,8 +122,8 @@ export default {
 }
 
 svg {
-  position: fixed;
-  width: 65px;
-  transform: rotate(25deg); /* control the rotation here */
+  position: absolute;
+  width: 100%;
+  /* transform: rotate(25deg); control the rotation here */
 }
 </style>
