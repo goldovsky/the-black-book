@@ -19,21 +19,22 @@
         style="stroke: orange; stroke-width: 3; stroke-linejoin: bevel"
       >
         <!-- <g id="e"> -->
-          <g id="d">
-            <g id="c">
-              <g id="b">
-                <g id="f">
-                  <path id="a" d="M70.5-.502h9V.503h-9z" />
-                  <use xlink:href="#a" transform="rotate(5.37)" />
-                  <use xlink:href="#a" transform="rotate(10.75)" />
+          <!-- <g id="d"> -->
+            <g id="e">
+              <g id="d">
+                <g id="c">
+                    <!-- LONG DASH -->
+                  <path id="a" d="M70.5-.502h19V.503h-19z"/>
+                  <!-- SHORT DASH -->
+                  <path id="b" d="M70.5-.502h9V.503h-9z" class="pathb"/>
                 </g>
-                <use xlink:href="#a" transform="rotate(16.12)" />
+                <use xlink:href="#c" transform="rotate(11)" />
               </g>
-              <use xlink:href="#b" transform="rotate(21.49)" />
+              <use xlink:href="#d" transform="rotate(21.49)" />
             </g>
-            <use xlink:href="#c" transform="rotate(42.99)" />
-          </g>
-          <use xlink:href="#d" transform="rotate(85.97)" />
+            <!-- <use xlink:href="#c" transform="rotate(42.99)" /> -->
+          <!-- </g> -->
+          <!-- <use xlink:href="#d" transform="rotate(85.97)" /> -->
         <!-- </g> -->
         <!-- <use xlink:href="#e" transform="rotate(171.94)" /> -->
         <!-- <use xlink:href="#f" transform="rotate(343.88)" /> -->
@@ -125,5 +126,9 @@ svg {
   position: absolute;
   width: 100%;
   /* transform: rotate(25deg); control the rotation here */
+}
+
+.pathb {
+    transform: translateX(10px) rotate(6deg);
 }
 </style>
