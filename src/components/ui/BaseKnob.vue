@@ -16,15 +16,15 @@
     <svg viewBox="0 0 500 500">
       <g
         transform="translate(82.453 82.563)"
-        style="stroke: white; stroke-width: 3; stroke-linejoin: bevel"
+        style="stroke-width: 3; stroke-linejoin: bevel"
       >
-        <g :style="{ transform: 'rotate(' + (180 - 45 / 2) + 'deg)' }">
-          <g v-for="(nb, index) in 20" :key="index" :id="'dash' + (nb + 3)">
+        <g :style="{ transform: 'rotate(' + (180 - 45 / 2 + 2.5) + 'deg)' }">
+          <g v-for="(nb, index) in 19" :key="index" :id="'dash' + (nb + 3)">
             <g id="dash3">
               <!-- LONG DASH -->
-              <path id="dash1" d="M70.5-.502h12V.503h-9z" />
+              <path id="dash1" d="M70.5-.502h12V.503h-9z" class="longdash" />
               <!-- SHORT DASH -->
-              <path id="dash2" d="M70.5-.502h5V.503h-5z" class="shortdash"/>
+              <path id="dash2" d="M70.5-.502h5V.503h-5z" class="shortdash" />
             </g>
             <use
               xlink:href="#dash3"
@@ -33,9 +33,10 @@
           </g>
           <!-- LAST LONG DASH -->
           <path
-            id="dash999"
-            d="M70.5-.502h19V.503h-19z"
-            :style="{ transform: 'rotate(' + 11 * 21 + 'deg)' }"
+            id="dash23"
+            d="M70.5-.502h12V.503h-9z"
+            :style="{ transform: 'rotate(' + 11 * 20 + 'deg)' }"
+            class="longdash"
           />
         </g>
       </g>
@@ -127,7 +128,11 @@ svg {
   /* transform: rotate(25deg); control the rotation here */
 }
 
+.longdash {
+  stroke: white;
+}
 .shortdash {
-  transform: translateX(0px) rotate(6deg);
+  stroke: grey;
+  transform: /*translateX(0px)*/ rotate(6deg);
 }
 </style>
