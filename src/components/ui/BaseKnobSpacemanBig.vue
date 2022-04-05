@@ -6,9 +6,9 @@
       :style="{
         transform:
           'translatex(' +
-          8 * letterPosition(index) +
-          'px) rotate(-' +
-          (5 * (index + 1)) +
+          letterPosition(index) +
+          'px) rotate(' +
+          letterRotation(index) +
           'deg)',
       }"
       class="letterspan"
@@ -70,10 +70,14 @@ export default {
   props: ["title"],
   methods: {
     letterPosition(index) {
-      console.log(index)
-      return index + 1;
-    }
-  }
+      let response = 1 + index + Math.floor(this.title.length / 2);
+      return response * 8 -40;
+    },
+    letterRotation(index) {
+      let singleAngle = 10;
+      return singleAngle * -(index + -Math.floor(this.title.length / 2));
+    },
+  },
 };
 </script>
 
@@ -167,9 +171,10 @@ svg {
 }
 
 .letterspan {
-  font: 18px Monaco, MonoSpace;
+  font: 13px Monaco, MonoSpace;
   position: absolute;
-  padding-top: 24%;
+  padding-top: 15px;
+  margin-top: 35px;
   transform-origin: top center;
 }
 </style>
