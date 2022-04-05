@@ -13,34 +13,30 @@
         />
       </svg> -->
 
-    <svg  viewBox="0 0 500 500">
+    <svg viewBox="0 0 500 500">
       <g
         transform="translate(82.453 82.563)"
         style="stroke: orange; stroke-width: 3; stroke-linejoin: bevel"
       >
-        <!-- <g id="e"> -->
-          <!-- <g id="d"> -->
-            <g id="e">
-              <g id="d">
-                <g id="c">
-                    <!-- LONG DASH -->
-                  <path id="a" d="M70.5-.502h19V.503h-19z"/>
-                  <!-- SHORT DASH -->
-                  <path id="b" d="M70.5-.502h9V.503h-9z" class="pathb"/>
-                </g>
-                <use xlink:href="#c" transform="rotate(11)" />
-              </g>
-              <use xlink:href="#d" transform="rotate(21.49)" />
-            </g>
-            <!-- <use xlink:href="#c" transform="rotate(42.99)" /> -->
-          <!-- </g> -->
-          <!-- <use xlink:href="#d" transform="rotate(85.97)" /> -->
-        <!-- </g> -->
-        <!-- <use xlink:href="#e" transform="rotate(171.94)" /> -->
-        <!-- <use xlink:href="#f" transform="rotate(343.88)" /> -->
+      <g :style="{transform:'rotate(' + (180 - 45/2) + 'deg)'}">
+        <g v-for="(nb, index) in 20" :key="index" :id="'dash' + (nb + 3)">
+          <g id="dash3">
+            <!-- LONG DASH -->
+            <path id="dash1" d="M70.5-.502h19V.503h-9z" />
+            <!-- SHORT DASH -->
+            <path id="dash2" d="M70.5-.502h9V.503h-9z" class="shortdash" />
+          </g>
+          <use
+            xlink:href="#dash3"
+            :style="{ transform: 'rotate(' + 11 * nb + 'deg)' }"
+          />
+        </g>
+        <!-- LAST LONG DASH -->
+        <path id="dash999" d="M70.5-.502h19V.503h-19z" :style="{ transform: 'rotate(' + 11 * 21 + 'deg)'}"/>
+
+      </g>
       </g>
     </svg>
-    
 
     <div class="knob-inner">
       <div class="knobline"></div>
@@ -128,7 +124,7 @@ svg {
   /* transform: rotate(25deg); control the rotation here */
 }
 
-.pathb {
-    transform: translateX(10px) rotate(6deg);
+.shortdash {
+  transform: translateX(10px) rotate(6deg);
 }
 </style>
