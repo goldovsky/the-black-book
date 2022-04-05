@@ -4,15 +4,15 @@
     <div class="pedalBody pedalBodyBorder">
       <div class="controls" style="color: white; margin: auto">
         <div>
-          <base-knob title="DEPTH" />
-          <div>LAG</div>
+          <base-knob-spaceman-big title="DEPTH" />
+          <!-- <div>LAG</div> -->
         </div>
         <div>
           <div>VOICE</div>
-          <base-knob title="RATE" />
+          <base-knob-spaceman-big title="RATE" />
         </div>
         <div>
-          <base-knob title="FREQ" />
+          <base-knob-spaceman-big title="FREQ" />
           <div>RES</div>
         </div>
       </div>
@@ -48,7 +48,7 @@ export default {
 .pedalBody {
   width: 198px; /*  66mm */
   height: 360px; /*  120mm */
-  background-color: darkgrey;
+  background-color: #777777;
   border-radius: 15px;
 }
 .pedalBodyBorder {
