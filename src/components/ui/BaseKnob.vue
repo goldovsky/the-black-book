@@ -14,7 +14,7 @@
       </svg> -->
 
     <!-- viewBox="0 0 500 500" -->
-    <svg viewBox="-80 -80 550 550">
+    <svg viewBox="-82 -82 550 550">
       <!-- transform="translate(82.453 82.563)" -->
       <g style="stroke-width: 3; stroke-linejoin: bevel">
         <g :style="{ transform: 'rotate(' + (180 - 45 / 2 + 2.5) + 'deg)' }">
@@ -45,8 +45,10 @@
       </g>
     </svg>
 
-    <div class="knob-inner">
-      <div class="knobline"></div>
+    <div class="knob-edge">
+      <div class="knob-top-metal">
+        <div class="knobline"></div>
+      </div>
     </div>
   </div>
   <div class="knobtitle">{{ title }}</div>
@@ -62,7 +64,7 @@ export default {
 .knob {
   /* position: absolute; */
   display: flex;
-  background: #222;
+  /* background: #222; */
   height: 3.5em;
   width: 3.5em;
   left: -1.75em;
@@ -71,8 +73,16 @@ export default {
   /* margin-left: 50%; */
   animation: rotate 5s infinite;
 }
+.knob-edge {
+    display:flex;
+  background-color: black;
+  border-radius: 50%;
+  height: 80%;
+  width: 80%;
+  margin: auto;
+}
 
-.knob-inner {
+.knob-top-metal {
   /* position: absolute; */
   width: 80%; /* 2.5em */
   height: 80%; /* 2.5em */
