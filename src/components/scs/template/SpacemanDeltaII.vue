@@ -16,7 +16,7 @@
           <base-knob-spaceman-small title="RES" />
         </div>
       </div>
-      <div style="color: white; margin: auto">Delta II</div>
+      <div class="secondsection">Delta II</div>
     </div>
   </div>
 </template>
@@ -84,5 +84,10 @@ export default {
   display:flex;
   flex-direction: column;
   align-items: center;
+}
+
+.secondsection {
+  color: white; 
+  margin: auto;
 }
 </style>

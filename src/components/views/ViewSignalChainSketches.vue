@@ -1,6 +1,6 @@
 <template>
   <h1>Signal Chain Sketches</h1>
-  <!-- <base-card><spaceman-delta /></base-card> -->
+  <base-card><spaceman-delta /></base-card>
 </template>
 
 <script>
