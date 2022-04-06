@@ -4,15 +4,15 @@
     <div class="pedalBody pedalBodyBorder">
       <div class="controls" style="color: white; margin: auto">
         <div class="controlcolumn">
-          <!-- <base-knob-spaceman-big title="DEPTH" /> -->
+          <base-knob-spaceman-big title="DEPTH" />
           <base-knob-spaceman-small title="LAG" />
         </div>
         <div  class="controlcolumn">
           <div>VOICE</div>
-          <!-- <base-knob-spaceman-big title="RATE" /> -->
+          <base-knob-spaceman-big title="RATE" />
         </div>
         <div  class="controlcolumn">
-          <!-- <base-knob-spaceman-big title="FREQ" /> -->
+          <base-knob-spaceman-big title="FREQ" />
           <base-knob-spaceman-small title="RES" />
         </div>
       </div>

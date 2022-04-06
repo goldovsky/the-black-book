@@ -29,7 +29,7 @@
         />
       </svg> -->
 
-    <!-- viewBox="0 0 500 500" -->
+    <!-- viewBox="-82 -83 750 750" -->
     <svg viewBox="-82 -83 750 750">
       <!-- transform="translate(82.453 82.563)" -->
       <g style="stroke-width: 3; stroke-linejoin: bevel">
@@ -37,21 +37,21 @@
           <g v-for="(nb, index) in 3" :key="index" :id="'dash' + (nb + 4)">
             <g id="dash4">
               <!-- LONG DASH -->
-              <path id="dash1" d="M70.5-.502h150V.503h-9z" class="longdash" />
+              <path id="dash1" d="M70.5-.502h30V.503h-9z" class="longdash" />
               <!-- SHORT DASH -->
-              <path id="dash2" d="M70.5-.502h80V.503h-5z" class="shortdash" />
+              <path id="dash2" d="M70.5-.502h15V.503h-5z" class="shortdash" />
               <!-- SHORT DASH -->
-              <path id="dash3" d="M70.5-.502h80V.503h-5z" class="shortdash2" />
+              <path id="dash3" d="M70.5-.502h15V.503h-5z" class="shortdash2" />
             </g>
             <use
               xlink:href="#dash4"
-              :style="{ transform: 'rotate(' + 30 * nb + 'deg)' }"
+              :style="{ transform: 'rotate(' + 66 * nb + 'deg)' }"
             />
           </g>
           <!-- LAST LONG DASH -->
           <path
             id="dash23"
-            d="M70.5-.502h12V.503h-9z"
+            d="M70.5-.502h30V.503h-9z"
             :style="{ transform: 'rotate(' + 11 * 24 + 'deg)' }"
             class="longdash"
           />
@@ -136,15 +136,15 @@ svg {
 }
 
 .longdash {
-  stroke: yellow;
+  stroke: white;
 }
 .shortdash {
-  stroke: blue;
-  transform: translateX(8px) rotate(12deg);
+  stroke: white;
+  transform: translateX(8px) rotate(22deg);
 }
 .shortdash2 {
-  stroke: red;
-  transform: translateX(8px) rotate(24deg);
+  stroke: white;
+  transform: translateX(8px) rotate(44deg);
 }
 
 .parenttitle {
