@@ -1,22 +1,24 @@
 <template>
-  <h1>Tonal Package</h1>
-  <div class="fakeNav">
-    <a
-      v-for="(screenValue, screenKey) in display"
-      :key="screenKey"
-      :class="{ fakeNavActive: this.display[screenKey] }"
-      @click="switchScreen(screenKey)"
-      >{{ screenKey }}</a
-    >
+  <div>
+    <h1>Tonal Package</h1>
+    <div class="fakeNav">
+      <a
+        v-for="(screenValue, screenKey) in display"
+        :key="screenKey"
+        :class="{ fakeNavActive: this.display[screenKey] }"
+        @click="switchScreen(screenKey)"
+        >{{ screenKey }}</a
+      >
+    </div>
+    <base-card>
+      <tonal-tonal v-if="display.tonal" />
+      <tonal-notes v-if="display.notes" />
+      <tonal-intervals v-if="display.intervals" />
+      <tonal-scales v-if="display.scales" />
+      <tonal-chords v-if="display.chords" />
+      <tonal-keys v-if="display.keys" />
+    </base-card>
   </div>
-  <base-card>
-    <tonal-tonal v-if="display.tonal"/>
-    <tonal-notes v-if="display.notes"/>
-    <tonal-intervals v-if="display.intervals"/>
-    <tonal-scales v-if="display.scales"/>
-    <tonal-chords v-if="display.chords"/>
-    <tonal-keys v-if="display.keys"/>
-  </base-card>
 </template>
 
 <script>
