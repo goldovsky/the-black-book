@@ -3,17 +3,17 @@
   <div class="pedalbox">
     <div class="pedalBody pedalBodyBorder">
       <div class="controls" style="color: white; margin: auto">
-        <div>
-          <base-knob-spaceman-big title="DEPTH" />
-          <!-- <div>LAG</div> -->
+        <div class="controlcolumn">
+          <!-- <base-knob-spaceman-big title="DEPTH" /> -->
+          <base-knob-spaceman-small title="LAG" />
         </div>
-        <div>
+        <div  class="controlcolumn">
           <div>VOICE</div>
-          <base-knob-spaceman-big title="RATE" />
+          <!-- <base-knob-spaceman-big title="RATE" /> -->
         </div>
-        <div>
-          <base-knob-spaceman-big title="FREQ" />
-          <div>RES</div>
+        <div  class="controlcolumn">
+          <!-- <base-knob-spaceman-big title="FREQ" /> -->
+          <base-knob-spaceman-small title="RES" />
         </div>
       </div>
       <div style="color: white; margin: auto">Delta II</div>
@@ -39,7 +39,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .pedalbox {
   display: flex;
   align-items: center;
@@ -78,5 +78,11 @@ export default {
 }
 .controls {
   display: flex;
+}
+
+.controlcolumn{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

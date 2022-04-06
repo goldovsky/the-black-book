@@ -30,20 +30,22 @@
       </svg> -->
 
     <!-- viewBox="0 0 500 500" -->
-    <svg viewBox="-82 -83 550 550">
+    <svg viewBox="-82 -83 750 750">
       <!-- transform="translate(82.453 82.563)" -->
       <g style="stroke-width: 3; stroke-linejoin: bevel">
         <g :style="{ transform: 'rotate(' + (180 - 85 / 2) + 'deg)' }">
-          <g v-for="(nb, index) in 11" :key="index" :id="'dash' + (nb + 3)">
-            <g id="dash3">
+          <g v-for="(nb, index) in 3" :key="index" :id="'dash' + (nb + 4)">
+            <g id="dash4">
               <!-- LONG DASH -->
-              <path id="dash1" d="M70.5-.502h15V.503h-9z" class="longdash" />
+              <path id="dash1" d="M70.5-.502h150V.503h-9z" class="longdash" />
               <!-- SHORT DASH -->
-              <path id="dash2" d="M70.5-.502h5V.503h-5z" class="shortdash" />
+              <path id="dash2" d="M70.5-.502h80V.503h-5z" class="shortdash" />
+              <!-- SHORT DASH -->
+              <path id="dash3" d="M70.5-.502h80V.503h-5z" class="shortdash2" />
             </g>
             <use
-              xlink:href="#dash3"
-              :style="{ transform: 'rotate(' + 22 * nb + 'deg)' }"
+              xlink:href="#dash4"
+              :style="{ transform: 'rotate(' + 30 * nb + 'deg)' }"
             />
           </g>
           <!-- LAST LONG DASH -->
@@ -86,8 +88,8 @@ export default {
   /* position: absolute; */
   display: flex;
   /* background: #222; */
-  height: 3.5em;
-  width: 3.5em;
+  height: 2.5em;
+  width: 2.5em;
   left: -1.75em;
   top: 0.125em;
   border-radius: 50%;
@@ -111,36 +113,7 @@ export default {
   left: 0.5em;
   top: 0.5em;
   margin: auto;
-  background: #999;
-  background-image: 
-          /* LEFT HORIZONTAL BAR */ -webkit-radial-gradient(
-      0% 50%,
-      50% 15%,
-      hsla(0, 0%, 100%, 0.9) 0%,
-      hsla(0, 0%, 100%, 0) 100%
-    ),
-    /* RIGHT HORIZONTAL BAR */ -webkit-radial-gradient(100% 50%, 50% 15%, hsla(
-            0,
-            0%,
-            100%,
-            0.9
-          )
-          0%, hsla(0, 0%, 100%, 0) 100%),
-    /* BACKGROUND CIRCLES */ -webkit-repeating-radial-gradient(50% 50%, 100%
-          100%, hsla(0, 0%, 0%, 0) 0%, hsla(0, 0%, 0%, 0) 3%, hsla(
-            0,
-            0%,
-            0%,
-            0.1
-          )
-          3.5%),
-    /* WHOLE STUFF */ -webkit-radial-gradient(50% 50%, 200% 50%, hsla(
-            0,
-            0%,
-            90%,
-            1
-          )
-          5%, hsla(0, 0%, 85%, 1) 30%, hsla(0, 0%, 60%, 1) 100%);
+  background: #444444;
   animation: no-rotate 5s infinite;
 }
 
@@ -163,11 +136,15 @@ svg {
 }
 
 .longdash {
-  stroke: white;
+  stroke: yellow;
 }
 .shortdash {
-  stroke: white;
+  stroke: blue;
   transform: translateX(8px) rotate(12deg);
+}
+.shortdash2 {
+  stroke: red;
+  transform: translateX(8px) rotate(24deg);
 }
 
 .parenttitle {

@@ -9,6 +9,7 @@ import BaseInputNumber from './components/ui/BaseInputNumber.vue'
 import BaseSelect from './components/ui/BaseSelect.vue'
 import BaseKnob from './components/ui/BaseKnob.vue'
 import BaseKnobSpacemanBig from './components/ui/BaseKnobSpacemanBig.vue'
+import BaseKnobSpacemanSmall from './components/ui/BaseKnobSpacemanSmall.vue'
 
 import TonalChords from './components/tonalPackage/TonalChords.vue'
 import TonalIntervals from './components/tonalPackage/TonalIntervals.vue'
@@ -33,6 +34,7 @@ app.component('base-input-number', BaseInputNumber);
 app.component('base-select', BaseSelect);
 app.component('base-knob', BaseKnob);
 app.component('base-knob-spaceman-big', BaseKnobSpacemanBig);
+app.component('base-knob-spaceman-small', BaseKnobSpacemanSmall);
 
 app.component('tonal-chords', TonalChords);
 app.component('tonal-intervals', TonalIntervals);
