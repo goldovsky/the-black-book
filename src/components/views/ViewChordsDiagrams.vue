@@ -42,12 +42,12 @@
 
 <script>
 import ChordDiagram from "../chordDiagram/ChordDiagram.vue";
-import BaseCard from "../ui/BaseCard.vue";
+// import BaseCard from "../ui/BaseCard.vue";
 
 export default {
   components: {
     ChordDiagram,
-    BaseCard,
+    // BaseCard,
   },
   data() {
     return {

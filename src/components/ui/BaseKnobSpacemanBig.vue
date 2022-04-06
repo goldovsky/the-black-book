@@ -30,7 +30,7 @@
       </svg> -->
 
     <!-- viewBox="0 0 500 500" -->
-    <svg viewBox="-82 -83 550 550">
+    <svg class="svgclass" viewBox="-82 -83 550 550">
       <!-- transform="translate(82.453 82.563)" -->
       <g style="stroke-width: 3; stroke-linejoin: bevel">
         <g :style="{ transform: 'rotate(' + (180 - 85 / 2) + 'deg)' }">
@@ -81,7 +81,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .knob {
   /* position: absolute; */
   display: flex;
@@ -156,7 +156,7 @@ export default {
   margin-left: -0.06em;
 }
 
-svg {
+.svgclass {
   position: absolute;
   width: 100%;
   /* transform: rotate(25deg); control the rotation here */

@@ -1,10 +1,10 @@
 <template>
   <h1>Signal Chain Sketches</h1>
-  <base-card><spaceman-delta /></base-card>
+  <!-- <base-card><spaceman-delta /></base-card> -->
 </template>
 
 <script>
-import BaseCard from "../ui/BaseCard.vue";
+// import BaseCard from "../ui/BaseCard.vue";
 /**
  * NOTE
  * TODO
@@ -52,7 +52,7 @@ Do pedal setting with meris style and generic style as well
 Gradient turquoise/bleue vert? (https://uigradients.com/#PureLust)
  */
 export default {
-  components: { BaseCard },
+  // components: { BaseCard },
 };
 </script>
 
