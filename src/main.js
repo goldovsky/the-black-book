@@ -26,7 +26,22 @@ const app = createApp(App)
 app.use(router)
 app.use(store)
 
-store.commit('initalizeTuning');
+// initialise the app with standard E
+store.commit('updateAvailableTunings');
+store.commit('updateInstrument', {
+    tuning: {
+        type: 'standard',
+        tonality: 'E',
+        stringsNotes:[
+            "E4",
+            "B3",
+            "G3",
+            "D3",
+            "A2",
+            "E2",
+          ]
+    }
+});
 
 app.component('base-card', BaseCard);
 app.component('base-button', BaseButton);

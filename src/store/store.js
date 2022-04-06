@@ -146,22 +146,6 @@ const store = createStore({
         }
       }
     },
-    initalizeTuning(state) {
-      // todo use updateTuning instead
-      // initialise the app with standard E
-      state.instrument.tuning.type = "standard";
-      state.instrument.tuning.tonality = "E";
-      state.instrument.tuning.stringsNotes = [
-        "E4",
-        "B3",
-        "G3",
-        "D3",
-        "A2",
-        "E2",
-      ];
-
-      this.commit("updateAvailableTunings");
-    },
   },
   actions: {
     updateDisplay(context, payload) {
@@ -169,9 +153,6 @@ const store = createStore({
     },
     updateInstrument(context, payload) {
       context.commit("updateInstrument", payload);
-    },
-    initalizeTuning(context) {
-      context.commit("initalizeTuning");
     },
   },
 });
