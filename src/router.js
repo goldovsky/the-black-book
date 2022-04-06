@@ -8,9 +8,6 @@ import ViewSettings from './components/views/ViewSettings.vue';
 import ViewPlayback from './components/views/ViewPlayback.vue';
 import ViewTonalPackage from './components/views/ViewTonalPackage.vue';
 
-// TODO
-// '/' shouldn't redirect home
-
 const router = createRouter({
   history: createWebHistory(),
   routes: [

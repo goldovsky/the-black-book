@@ -28,10 +28,9 @@ export default {
         selected: null,
         list: [], // extract from database @tuning/nb_strings_x
       },
-      roots: [], // 6,5,4...
       root: {
         selected: null,
-        list: [],
+        list: [], // 6,5,4...
       },
       type: {
         // minor, major....
