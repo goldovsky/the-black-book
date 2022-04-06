@@ -1,0 +1,109 @@
+<template>
+  <h4>Controller</h4>
+  <div class="diagramcontrollerparentdiv">
+    <div>
+      Root : {{ root.selected }}
+      <base-button
+        v-for="root in root.list"
+        :key="root"
+        @click="setRoot(root)"
+        >{{ root }}</base-button
+      >
+    </div>
+    <div>
+      type : {{ type.selected }}
+      <base-button v-for="tp in type.list" :key="tp" @click="setType(tp)">{{
+        tp
+      }}</base-button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  emits: ["chord"],
+  data() {
+    return {
+      chord: {
+        selected: null,
+        list: [], // extract from database @tuning/nb_strings_x
+      },
+      roots: [], // 6,5,4...
+      root: {
+        selected: null,
+        list: [],
+      },
+      type: {
+        // minor, major....
+        selected: null,
+        list: [],
+      },
+    };
+  },
+  computed: {
+    display() {
+      return this.$store.getters.display;
+    },
+    instrument() {
+      return this.$store.getters.instrument;
+    },
+    database() {
+      return this.$store.getters.database;
+    },
+  },
+  created() {
+    // get data
+    this.chord.list =
+      this.database.chords["tuning_" + this.instrument.tuning.type][
+        "nb_strings_" + this.instrument.strings
+      ];
+
+    // get available roots
+    for (let item in this.chord.list) {
+      this.root.list.push(item.substr(item.length - 1));
+    }
+    this.root.selected = this.root.list[0];
+
+    // init type
+    for (const tp in this.chord.list[
+      "root_on_string_" + this.instrument.strings
+    ]) {
+      this.type.list.push(tp);
+    }
+    this.type.selected = this.type.list.includes("major")
+      ? "major"
+      : this.type.list[0];
+
+      // set chord
+      this.chord.selected = this.chord.list['root_on_string_' + this.instrument.strings][this.type.selected] // TODO check that once chord structure is done
+
+      // send it to parent
+      this.emitChord();
+  },
+  methods: {
+    setType(tp) {
+      this.type.selected = tp;
+      //...
+      this.emitChord();
+    },
+    setRoot(root) {
+      this.root.selected = root;
+      //...
+      this.emitChord();
+    },
+    emitChord() {
+        this.$emit('chord', this.chord.selected);
+    }
+  },
+};
+</script>
+
+<style>
+.diagramcontrollerparentdiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+</style>

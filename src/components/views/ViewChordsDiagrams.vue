@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1>Diagram</h1>
-    <base-card>
-      <div style="width: 250px">
+    <base-card class="chorddiagramcard">
+      <div class="chorddiagramparentdiv">
         <chord-diagram
           name="G"
           nut-position="0"
@@ -11,7 +11,7 @@
       </div>
     </base-card>
 
-    <base-card>
+    <!-- <base-card>
       <div style="width: 250px">
         <chord-diagram
           name="A blahblah7"
@@ -29,7 +29,7 @@
           :chord="dChordNotes"
         ></chord-diagram>
       </div>
-    </base-card>
+    </base-card> -->
 
     <!-- <h3>Guitar Chord Editor</h3>
     <div style="width: 250px; height: 250px">
@@ -37,17 +37,21 @@
       <guitar-chord-editor>
             </guitar-chord-editor>
     </div> -->
+
+    <base-card>
+      <chord-diagram-controller @chord="setChord"/>
+    </base-card>
   </div>
 </template>
 
 <script>
 import ChordDiagram from "../chordDiagram/ChordDiagram.vue";
-// import BaseCard from "../ui/BaseCard.vue";
+import ChordDiagramController from "../chordDiagram/ChordDiagramController.vue";
 
 export default {
   components: {
     ChordDiagram,
-    // BaseCard,
+    ChordDiagramController,
   },
   data() {
     return {
@@ -78,5 +82,21 @@ export default {
       ],
     };
   },
+  methods: {
+    setChord(chord) {
+      console.log('setChord() called')
+      console.log(chord)
+    }
+  }
 };
 </script>
+
+<style scoped>
+.chorddiagramcard {
+  width: fit-content;
+}
+.chorddiagramparentdiv {
+  width: 250px;
+  margin: auto;
+}
+</style>

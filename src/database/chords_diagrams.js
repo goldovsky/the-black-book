@@ -16,7 +16,8 @@
  * 3 : root on which string ([8/7]/6/5/4)
  * 4 : type (major, minor, fifth/powerchord)
  * 5 : inversion: root, 1st, 2nd, 3rd...
- *
+ * 6 : [x,x,x,x,x,x] from first to last string
+ * 
  * NOTES/TODO
  * OpenD and openE.... based on OpenC shifted
  */
@@ -27,7 +28,19 @@ export default {
       root_on_string_6: {
         powerChord: {},
         minor: {},
-        major: {},
+        major: {
+          caged_g: {
+            //position_open: true,
+            frets: [3,3,0,0,2,3],
+            fingers: [4,3,null,null,1,2],
+            intervals:['1P','5P','1P','5P','3M','1P']
+          },
+          caged_e: {
+            frets: [0,0,1,2,2,0],
+            fingers: [null,null,1,3,2,null]
+            // ....
+          }
+        },
         diminished: {},
         augmented: {},
         major_7th: {},
@@ -38,19 +51,19 @@ export default {
     },
     nb_strings_7: {
       root_on_string_7: {},
-      root_on_string_6: {},
-      root_on_string_5: {},
-      root_on_string_4: {},
+      root_on_string_6: null, // same as bnstring6
+      root_on_string_5: null, // same as bnstring6
+      root_on_string_4: null, // same as bnstring6
     },
     nb_strings_8: {
       root_on_string_8: {},
       root_on_string_7: {},
-      root_on_string_6: {},
-      root_on_string_5: {},
-      root_on_string_4: {},
+      root_on_string_6: null, // same as bnstring6
+      root_on_string_5: null, // same as bnstring6
+      root_on_string_4: null, // same as bnstring6
     },
   },
-  tuning_open_c: {
+  tuning_open_c: { // not specifically C, it coud be D or E for example
     nb_strings_6: {
       root_on_string_6: {},
       root_on_string_5: {},
