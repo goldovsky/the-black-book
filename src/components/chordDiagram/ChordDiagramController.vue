@@ -1,23 +1,17 @@
 <template>
   <h4>Controller</h4>
   <div class="diagramcontrollerparentdiv">
-    <base-slider :values="root.list" @valueupdate="setRoot()"  :inittolastvalue="true"></base-slider>
-    <div>
-      Root : {{ root.selected }}
-      <base-button
-        v-for="root in root.list"
-        :key="root"
-        @click="setRoot(root)"
-        >{{ root }}</base-button
-      >
-    </div>
-    <div>
+    <base-slider :values="root.list" @valueupdate="setRoot"  :inittolastvalue="true"></base-slider>
+    <base-dropdown :values="type.list" @dropdownupdate="setType"></base-dropdown>
+    <!-- <div>
       type : {{ type.selected }}
       <base-button v-for="tp in type.list" :key="tp" @click="setType(tp)">{{
         tp
       }}</base-button>
-    </div>
+    </div> -->
   </div>
+
+  
 </template>
 
 <script>
@@ -88,7 +82,6 @@ export default {
       this.emitChord();
     },
     setRoot(root) {
-      console.log('gdy set root')
       this.root.selected = root;
       //...
       this.emitChord();
@@ -103,7 +96,7 @@ export default {
 <style>
 .diagramcontrollerparentdiv {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
   margin: auto;
