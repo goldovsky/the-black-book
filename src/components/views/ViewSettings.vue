@@ -186,6 +186,10 @@
           </li>
         </ul>
       </base-card>
+      <base-card class="individualbasecard">
+        <h2>Dev test</h2>
+        <base-slider :values="[4,5,6,7,8]"></base-slider>
+      </base-card>
     </div>
   </div>
 </template>

@@ -1,6 +1,7 @@
 <template>
   <h4>Controller</h4>
   <div class="diagramcontrollerparentdiv">
+    <base-slider :values="root.list" @valueupdate="setRoot()"  :inittolastvalue="true"></base-slider>
     <div>
       Root : {{ root.selected }}
       <base-button
@@ -61,6 +62,7 @@ export default {
     for (let item in this.chord.list) {
       this.root.list.push(item.substr(item.length - 1));
     }
+    this.root.list = this.root.list.reverse();
     this.root.selected = this.root.list[0];
 
     // init type
@@ -86,6 +88,7 @@ export default {
       this.emitChord();
     },
     setRoot(root) {
+      console.log('gdy set root')
       this.root.selected = root;
       //...
       this.emitChord();
