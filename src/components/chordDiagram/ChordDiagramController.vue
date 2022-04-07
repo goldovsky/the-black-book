@@ -3,12 +3,6 @@
   <div class="diagramcontrollerparentdiv">
     <base-slider :values="root.list" @valueupdate="setRoot"  :inittolastvalue="true"></base-slider>
     <base-dropdown :values="type.list" @dropdownupdate="setType"></base-dropdown>
-    <!-- <div>
-      type : {{ type.selected }}
-      <base-button v-for="tp in type.list" :key="tp" @click="setType(tp)">{{
-        tp
-      }}</base-button>
-    </div> -->
   </div>
 
   
@@ -97,8 +91,8 @@ export default {
 .diagramcontrollerparentdiv {
   display: flex;
   /* flex-direction: column; */
-  align-items: center;
-  justify-content: center;
+  align-items: end;
+  justify-content: space-around;
   margin: auto;
 }
 </style>

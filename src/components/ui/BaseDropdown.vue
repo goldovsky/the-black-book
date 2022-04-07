@@ -1,26 +1,15 @@
 <template>
-  <!-- <select v-model="currentValue">
-    <option
-      v-for="(value, index) in values"
-      :key="value"
-      :value="value"
-      v-bind:selected="index === 0"
-    >
-      {{ value }}
-    </option>
-  </select> -->
   <div>
-    <div class="menu">
-      <div class="title" @click="toggleDropdown">
+    <div class="cursorpointer">
+      <div class="placeholdervalue" @click="toggleDropdown">
         {{ currentValue }}
         <div class="arrow" :class="{ gone: dropdownclassdown }"></div>
       </div>
       <!-- :style="{ overflow: dropdownclassdown ? 'auto' : 'hidden' }" -->
-      <div
-        class="dropdown"
-        :class="{ down: dropdownclassdown }"
-      >
-        <p v-for="value in values" :key="value" @click="setValue(value)">{{ value }}</p>
+      <div class="dropdown" :class="{ down: dropdownclassdown }">
+        <p class="pdropdown" v-for="value in values" :key="value" @click="setValue(value)">
+          {{ value }}
+        </p>
       </div>
     </div>
     <div class="dropdowntitle">Type</div>
@@ -48,9 +37,9 @@ export default {
     },
     setValue(val) {
       this.currentValue = val;
-      this.$emit('dropdownupdate', val)
+      this.$emit("dropdownupdate", val);
       this.toggleDropdown();
-    }
+    },
   },
   created() {
     this.currentValue = this.values[0];
@@ -59,37 +48,26 @@ export default {
 </script>
 
 <style scoped>
-@import "https://fonts.googleapis.com/css?family=Montserrat";
-body {
-  background: #ff7f50;
-  font-family: "Montserrat", sans-serif;
-}
-.menu {
-  width: 260px;
-  margin: 60px auto 0;
+
+.cursorpointer {
   cursor: pointer;
 }
-.title {
-  width: 100%;
-  box-sizing: border-box;
+.placeholdervalue {
   background: #fff;
   padding: 14px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   position: relative;
-  color: #505050;
+  font-weight: 500;
 }
-span {
-  float: right;
-  font-size: 18px !important;
-}
+
 .dropdown {
-  width: 100%;
+  /* width: 100%; */
   background: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 12px;
-  color: #505050;
-  margin-top: 24px;
+  /* color: #505050; */
+  margin-top: 11px;
   max-height: 0;
   overflow: hidden;
   transition: all 0.5s;
@@ -105,19 +83,19 @@ span {
   border-bottom: 10px solid #fff;
   position: absolute;
   right: 20px;
-  bottom: -24px;
+  bottom: -11px;
   display: none;
 }
 .arrow.gone {
   display: block;
 }
-p {
+.pdropdown {
   padding: 15px 14px;
   margin: 0;
   transition: all 0.1s;
 }
-p:hover {
-  background: coral;
+.pdropdown:hover {
+  background: var(--secondary-color); /* background: coral; */
   transform: scale(1.05);
   color: rgba(255, 255, 255, 0.8);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);

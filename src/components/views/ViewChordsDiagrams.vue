@@ -11,26 +11,6 @@
       </div>
     </base-card>
 
-    <!-- <base-card>
-      <div style="width: 250px">
-        <chord-diagram
-          name="A blahblah7"
-          nut-position="0"
-          :chord="aChordNotes"
-        ></chord-diagram>
-      </div>
-    </base-card>
-
-    <base-card>
-      <div style="width: 250px">
-        <chord-diagram
-          name="D"
-          nut-position="0"
-          :chord="dChordNotes"
-        ></chord-diagram>
-      </div>
-    </base-card> -->
-
     <!-- <h3>Guitar Chord Editor</h3>
     <div style="width: 250px; height: 250px">
       TODO
@@ -45,6 +25,10 @@
 </template>
 
 <script>
+/**
+ * TODO
+ * Either do a caroussel or a list of cards...
+ */
 import ChordDiagram from "../chordDiagram/ChordDiagram.vue";
 import ChordDiagramController from "../chordDiagram/ChordDiagramController.vue";
 

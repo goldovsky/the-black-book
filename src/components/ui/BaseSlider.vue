@@ -40,7 +40,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: auto;
+  /* margin: auto; */
 }
 .labelparent {
   display: flex;
