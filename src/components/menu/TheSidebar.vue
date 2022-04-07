@@ -1,22 +1,15 @@
 <template>
-  <!-- @1 -->
   <link
     href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
     rel="stylesheet"
   />
   <div class="sidebar" :class="{open: sideBarOpened}">
     <div class="logo-details" @click="openMenu">
-      <!-- <i class="bx bxl-c-plus-plus icon"></i> -->
       <img class="logo-png" src="./../../assets/images/blackPickIcon.png"> 
       <div class="logo_name">{{ display.appTitle }}</div>
       <i class="bx" :class="iconMenu" id="btn"></i>
     </div>
     <ul class="nav-list">
-      <!-- <li>
-        <i class="bx bx-search"></i>
-        <input type="text" placeholder="Search..." />
-        <span class="tooltip">Search</span>
-      </li> -->
       <li>
         <a href="#">
           <router-link to="/home">
@@ -89,16 +82,6 @@
         </a>
         <span class="tooltip">Setting</span>
       </li>
-      <!-- <li class="profile">
-         <div class="profile-details">
-           <img src="profile.jpg" alt="profileImg">
-           <div class="name_job">
-             <div class="name">Prem Shahi</div>
-             <div class="job">Web designer</div>
-           </div>
-         </div>
-         <i class='bx bx-log-out' id="log_out" ></i>
-     </li> -->
     </ul>
   </div>
   <section class="home-section">
@@ -111,11 +94,8 @@
  * TODO
  * - Cleanup unused CSS properties
  * - Modify generic Icons to definitive ones
- * @1) remove this link as it is for icons from the template
- * goo icons : hive, atom, brain, box, chalkboard, meteor
- * - do a scrollable version of it
+ * good icons : hive, atom, brain, box, chalkboard, meteor
  */
-// import { useStore } from "vuex";
 export default {
   data() {
     return {
@@ -158,7 +138,14 @@ export default {
   padding: 6px 14px;
   z-index: 99;
   transition: all 0.5s ease;
+
+  overflow-y:scroll;
+
 }
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
 .sidebar.open {
   width: 250px;
 }
@@ -214,7 +201,6 @@ export default {
 }
 .sidebar .nav-list {
   margin-top: 20px;
-  height: 100%;
 }
 .sidebar li {
   position: relative;

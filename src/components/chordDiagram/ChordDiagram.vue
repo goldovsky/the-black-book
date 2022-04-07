@@ -21,6 +21,7 @@
     <!-- ⭘/✕ Open/Muted Strings -->
     <!-- @2 -->
     <!-- base 20 this is : v-for="(note, index) in splitTuning" :x="8.6 + index * 16" y="15" :key="index" fill="black" font-size="10" -->
+    <!-- 6 -> this.instrument.strings or this.chords.any? -->
     <!-- <text
       v-for="n in 6"
       :x="n * 12.7 - 4"
@@ -89,7 +90,7 @@
 /**
  * TODO
  * 1) Is it interesting to merge BaseChord, BaseString and BaseFretboard into this one single file?
- * 2) take a look into chord diagrams to see if we need more frets, and if so how to implement it
+ * 2) take a look into chord diagrams to see if we need more frets, and if so how to implement it, calculate delta between lowest and highest frets in chord object
  * 3) calculate everything from a multiple of current strings used
  * @1) instead of 6 use current strings number used in app
  * @2) based on the variable leftDominantHand,

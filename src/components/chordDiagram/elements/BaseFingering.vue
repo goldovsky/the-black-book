@@ -1,5 +1,4 @@
 <template>
-<!-- TODO did change position with (x)-2, (y)-1 and with/height at 13 instead of 10 -->
     <svg :x="x-2" :y="y-1.5" :width="isBar ? barWidth + 20 : 18">
         <barred-finger :y="0 + 1.5" :x="0 + 1.5" v-if="isBar" :label="finger"
             :width="barWidth" height="10"/>

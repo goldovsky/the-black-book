@@ -55,6 +55,7 @@ export default {
   },
   data() {
     return {
+      chord: {},
       // Inspiration from vue-guitar-chord
       // TODO : change chord data to this :
       // "fret: 0": open string
@@ -84,8 +85,7 @@ export default {
   },
   methods: {
     setChord(chord) {
-      console.log('setChord() called')
-      console.log(chord)
+      this.chord = chord;
     }
   }
 };
