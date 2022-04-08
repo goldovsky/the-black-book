@@ -1,18 +1,5 @@
 <template>
   <div class="knob">
-    <!-- <svg>
-          <circle
-          cx="28"
-          cy="28"
-          r="27"
-          fill="transparent"
-          stroke="red"
-          stroke-width="2"
-          strokeDasharray= "1150"
-          stroke-dashoffset="890"
-        />
-      </svg> -->
-
     <!-- viewBox="0 0 500 500" -->
     <svg class="svgclass" viewBox="-82 -82 550 550">
       <!-- transform="translate(82.453 82.563)" -->
@@ -74,7 +61,7 @@ export default {
   animation: rotate 5s infinite;
 }
 .knob-edge {
-    display:flex;
+  display: flex;
   background-color: black;
   border-radius: 50%;
   height: 80%;

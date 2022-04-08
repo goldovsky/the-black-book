@@ -7,6 +7,7 @@ import ViewSignalChainSketches from './components/views/ViewSignalChainSketches.
 import ViewSettings from './components/views/ViewSettings.vue';
 import ViewPlayback from './components/views/ViewPlayback.vue';
 import ViewTonalPackage from './components/views/ViewTonalPackage.vue';
+import ViewSandbox from './components/views/ViewSandbox.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -20,6 +21,7 @@ const router = createRouter({
     { path: '/signalchainsketches', component: ViewSignalChainSketches },
     { path: '/settings', component: ViewSettings },
     { path: '/tonalpackage', component: ViewTonalPackage },
+    { path: '/sandbox', component: ViewSandbox },
   ],
 });
 

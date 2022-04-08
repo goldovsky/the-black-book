@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>Tonal Package</h1>
+    <h1>Sandbox/Tools</h1>
+
     <div class="fakeNav">
       <a
         v-for="(screenValue, screenKey) in display"
@@ -11,12 +12,13 @@
       >
     </div>
     <base-card>
-      <tonal-tonal v-if="display.tonal" />
-      <tonal-notes v-if="display.notes" />
-      <tonal-intervals v-if="display.intervals" />
-      <tonal-scales v-if="display.scales" />
-      <tonal-chords v-if="display.chords" />
-      <tonal-keys v-if="display.keys" />
+      <div v-if="display.carousel">
+        <h2>Carousel For displaying Chord Diagrams</h2>
+        <a href="https://wlada.github.io/vue-carousel-3d/">vue-carousel-3d</a>
+        <br />
+        <a href="https://codepen.io/EJ92/pen/BaBvqOK?editors=1010">EJ92</a>
+      </div>
+      <string-tension v-if="display.stringtension" />
     </base-card>
   </div>
 </template>
@@ -24,18 +26,15 @@
 <script>
 /**
  * TODO
- * do a component for thefakenavbar
+ * - Import a carousel for Chord Diagram?
+ * - do a similar nav bar from tonal package
  */
 export default {
   data() {
     return {
       display: {
-        tonal: false,
-        notes: false,
-        intervals: false,
-        scales: false,
-        chords: false,
-        keys: true, // todo false
+        carousel: true,
+        stringtension: false,
       },
     };
   },

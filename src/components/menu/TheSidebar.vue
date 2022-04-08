@@ -75,6 +75,15 @@
       </li>
       <li>
         <a href="#">
+          <router-link to="/sandbox">
+            <i class='bx bx-meteor'></i>
+            <span class="links_name">Sandbox</span>
+          </router-link>
+        </a>
+        <span class="tooltip">Sandbox</span>
+      </li>
+      <li>
+        <a href="#">
           <router-link to="/settings">
             <i class="bx bx-cog"></i>
             <span class="links_name">Settings</span>

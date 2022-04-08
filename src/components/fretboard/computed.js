@@ -338,5 +338,5 @@ export default {
   },
   isHorizontal() {
     return this.orientation === "horizontal";
-  }
+  },
 };
