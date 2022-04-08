@@ -20,16 +20,12 @@
 
     <!-- ⭘/✕ Open/Muted Strings -->
     <!-- @2 -->
-    <!-- base 20 this is : v-for="(note, index) in splitTuning" :x="8.6 + index * 16" y="15" :key="index" fill="black" font-size="10" -->
-    <!-- 6 -> this.instrument.strings or this.chords.any? -->
-    <!-- <text
-      v-for="n in 6"
-      :x="n * 12.7 - 4"
+    <text class="openmutedstrings"
+      v-for="n in this.instrument.strings"
+      :x="n * 12.7 - 3"
       y="15"
       :key="n"
-      fill="black"
-      font-size="10"
-    >✕</text> -->
+    >✕</text>
 
     <!-- Side number to know where to position the diagram on the fretboard | @5) -->
     <text v-if="nutPosition !== '0'" x="2" y="24" fill="black" font-size="8">
@@ -290,5 +286,10 @@ export default {
   stroke-linejoin: round;
   stroke-width: 0.5;
   /* transition: 0.2s; */
+}
+
+.openmutedstrings {
+  fill: var(--diagram-stroke);
+  font-size:7px;
 }
 </style>
