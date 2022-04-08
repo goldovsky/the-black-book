@@ -1,9 +1,17 @@
 <template>
   <div class="baseslider">
     <div class="labelparent">
-      <label class="labelbefore" v-if="currentValue !== min">{{ min }}</label>
+      <label
+        class="labelbefore"
+        :style="{ visibility: currentValue !== min ? 'visible' : 'hidden' }"
+        >{{ min }}</label
+      >
       <label class="labelvalue">{{ currentValue }}</label>
-      <label class="labelafter" v-if="currentValue !== max">{{ max }}</label>
+      <label
+        class="labelafter"
+        :style="{ visibility: currentValue !== max ? 'visible' : 'hidden' }"
+        >{{ max }}</label
+      >
     </div>
     <input type="range" :min="min" :max="max" step="1" v-model="currentValue" />
     <div class="slidertitle">Root</div>
@@ -28,7 +36,7 @@ export default {
   },
   watch: {
     currentValue() {
-      this.$emit('valueupdate', this.currentValue)
+      this.$emit("valueupdate", this.currentValue);
     },
   },
 };
