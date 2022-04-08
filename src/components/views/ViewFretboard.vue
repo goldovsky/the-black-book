@@ -60,32 +60,20 @@
 
           <fieldset class="form-group">
             <legend>Frets</legend>
-
+             <div class="controlfrets">
               <base-slider
                  title="# of Frets"
                 :values="fretsrange"
                 :initialvalue="13"
                 @valueupdate="updateNumberOfFrets"
               ></base-slider>
-
-            <div class="form-group">
               <base-slider
                  title="Starting Fret"
                 :values="fretsrange"
                 :initialvalue="0"
                 @valueupdate="updateStartingNumber"
               ></base-slider>
-              <!-- <label for="startingFret">Starting Fret</label>
-              <base-input-number
-                id="startingFret"
-                class="form-control"
-                :min="0"
-                :max="23"
-                :value="start"
-                v-model="start"
-                @input="updateStartingNumber"
-              /> -->
-            </div>
+               </div>
           </fieldset>
         </section>
       </base-card>
@@ -209,5 +197,13 @@ export default {
   border-left: 5px solid #888;
   /* height: 100vh; */
   overflow-y: scroll;
+}
+
+.controlfrets{
+  display: flex;
+  /* flex-direction: column; */
+  align-items: end;
+  justify-content: space-around;
+  margin: auto;
 }
 </style>
