@@ -211,4 +211,5 @@ export default {
 </script>
 
 <style>
+/* cf: ./src/assets/css/shape-intervals.scss */
 </style>

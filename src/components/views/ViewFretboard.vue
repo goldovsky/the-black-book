@@ -206,4 +206,9 @@ export default {
   justify-content: space-around;
   margin: auto;
 }
+
+fieldset{
+  /* TODO check if we wanna get it  */
+  border-radius: 12px; 
+}
 </style>

@@ -1,0 +1,149 @@
+/* 1P 2m 2M 3m 3M 4P 4+/5- 5P 5+/6m 6M 7m 7M */
+.tonic {
+    width: 100px;
+    height: 100px;
+    background: red;
+    border-radius: 50%;
+  }
+  .secondminor {
+  }
+  .secondmajor {
+  }
+  .thirdminor {
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-top: 100px solid red;
+  }
+  .thirdmajor {
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 100px solid red;
+  }
+  .perfectfourth {
+    width: 100px;
+    height: 100px;
+    background: red;
+  }
+  /* For harmonic maybe use two reverse corner together (bottom-right above top-left) : https://css-tricks.com/the-shapes-of-css/ */
+  .harmonic {
+    width: 0;
+    height: 0;
+    border: 50px solid transparent;
+    border-bottom: 70px solid red;
+    position: relative;
+    top: -50px;
+  }
+  .harmonic:after {
+    content: "";
+    position: absolute;
+    left: -50px;
+    top: 70px;
+    width: 0;
+    height: 0;
+    border: 50px solid transparent;
+    border-top: 70px solid red;
+  }
+  .augmentedfourth {
+  }
+  .perfectfifth {
+    position: relative;
+    width: 54px;
+    box-sizing: content-box;
+    border-width: 50px 18px 0;
+    border-style: solid;
+    border-color: red transparent;
+  }
+  .perfectfifth:before {
+    content: "";
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: -85px;
+    left: -18px;
+    border-width: 0 45px 35px;
+    border-style: solid;
+    border-color: transparent transparent red;
+  }
+  .augmentedfifth {
+  }
+  .sixthminor {
+    margin: 50px 0;
+    position: relative;
+    display: block;
+    color: red;
+    width: 0px;
+    height: 0px;
+    border-right: 100px solid transparent;
+    border-bottom: 70px solid red;
+    border-left: 100px solid transparent;
+    transform: rotate(35deg);
+  }
+  .sixthminor:before {
+    border-bottom: 80px solid red;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: -45px;
+    left: -65px;
+    display: block;
+    content: "";
+    transform: rotate(-35deg);
+  }
+  .sixthminor:after {
+    position: absolute;
+    display: block;
+    color: red;
+    top: 3px;
+    left: -105px;
+    width: 0px;
+    height: 0px;
+    border-right: 100px solid transparent;
+    border-bottom: 70px solid red;
+    border-left: 100px solid transparent;
+    transform: rotate(-70deg);
+    content: "";
+  }
+  .sixthmajor {
+    width: 100px;
+    height: 57.735px;
+    background: red;
+    position: relative;
+  }
+  .sixthmajor::before {
+    content: "";
+    position: absolute;
+    top: -28.8675px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 28.8675px solid red;
+  }
+  .sixthmajor::after {
+    content: "";
+    position: absolute;
+    bottom: -28.8675px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-top: 28.8675px solid red;
+  }
+  .seventhminor {
+  }
+  .seventhmajor {
+  }
+  
+  .square {
+    width: 100px;
+    height: 100px;
+    background: red;
+  }
