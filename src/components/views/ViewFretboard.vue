@@ -60,20 +60,22 @@
 
           <fieldset class="form-group">
             <legend>Frets</legend>
+
+              <base-slider
+                 title="# of Frets"
+                :values="fretsrange"
+                :initialvalue="13"
+                @valueupdate="updateNumberOfFrets"
+              ></base-slider>
+
             <div class="form-group">
-              <label for="numberOfFrets"># of Frets</label>
-              <base-input-number
-                id="numberOfFrets"
-                class="form-control"
-                :min="1"
-                :max="30"
-                :value="frets"
-                v-model="frets"
-                @input="updateNumberOfFrets"
-              />
-            </div>
-            <div class="form-group">
-              <label for="startingFret">Starting Fret</label>
+              <base-slider
+                 title="Starting Fret"
+                :values="fretsrange"
+                :initialvalue="0"
+                @valueupdate="updateStartingNumber"
+              ></base-slider>
+              <!-- <label for="startingFret">Starting Fret</label>
               <base-input-number
                 id="startingFret"
                 class="form-control"
@@ -82,7 +84,7 @@
                 :value="start"
                 v-model="start"
                 @input="updateStartingNumber"
-              />
+              /> -->
             </div>
           </fieldset>
         </section>
@@ -118,7 +120,9 @@ export default {
       tuning: null, // build in created()
       orientation: "horizontal",
       start: 0,
-      frets: 13,
+      frets: null,
+      fretsrange: [],
+      startingfretrange: [], // todo
       // below come from <script> inside html
       scales: {
         Major: [2, 2, 1, 2, 2, 2, 1],
@@ -166,6 +170,11 @@ export default {
     // 		data[key] = value;
     // 	}
     // });
+
+    //init fretsrange
+    for (let frt = 0; frt < 25; ++frt) {
+      this.fretsrange.push(frt);
+    }
   },
   methods: {
     updateStartingNumber(value) {
@@ -179,8 +188,8 @@ export default {
   computed: {
     instrument() {
       return this.$store.getters.instrument;
-    }
-  }
+    },
+  },
 };
 </script>
 

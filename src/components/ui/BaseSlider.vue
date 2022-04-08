@@ -1,26 +1,34 @@
 <template>
-  <div class="baseslider">
-    <div class="labelparent">
-      <label
-        class="labelbefore"
-        :style="{ visibility: currentValue !== min ? 'visible' : 'hidden' }"
-        >{{ min }}</label
-      >
-      <label class="labelvalue">{{ currentValue }}</label>
-      <label
-        class="labelafter"
-        :style="{ visibility: currentValue !== max ? 'visible' : 'hidden' }"
-        >{{ max }}</label
-      >
+  <div class="sliderparentdiv">
+    <div class="baseslider">
+      <div class="labelparent">
+        <label
+          class="labelbefore"
+          :style="{ visibility: currentValue !== min ? 'visible' : 'hidden' }"
+          >{{ min }}</label
+        >
+        <label class="labelvalue">{{ currentValue }}</label>
+        <label
+          class="labelafter"
+          :style="{ visibility: currentValue !== max ? 'visible' : 'hidden' }"
+          >{{ max }}</label
+        >
+      </div>
+      <input
+        type="range"
+        :min="min"
+        :max="max"
+        step="1"
+        v-model="currentValue"
+      />
+      <div class="slidertitle">{{title}}</div>
     </div>
-    <input type="range" :min="min" :max="max" step="1" v-model="currentValue" />
-    <div class="slidertitle">Root</div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["values", "inittolastvalue"],
+  props: ["title", "values", "inittolastvalue", "initialvalue"],
   emits: ["valueupdate"],
   data() {
     return {
@@ -32,11 +40,11 @@ export default {
   created() {
     this.min = this.values[0];
     this.max = this.values[this.values.length - 1];
-    this.currentValue = this.inittolastvalue ? this.max : this.min;
+    this.currentValue = this.initialvalue ? this.initialvalue : this.inittolastvalue ? this.max : this.min;
   },
   watch: {
     currentValue() {
-      this.$emit("valueupdate", this.currentValue);
+      this.$emit("valueupdate", parseInt(this.currentValue));
     },
   },
 };
@@ -63,5 +71,10 @@ export default {
 
 .slidertitle {
   font-weight: 500;
+}
+.sliderparentdiv {
+  display: flex;
+  align-items: end;
+  justify-content: space-around;
 }
 </style>

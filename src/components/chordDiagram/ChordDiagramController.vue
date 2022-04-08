@@ -1,7 +1,7 @@
 <template>
   <h4>Controller</h4>
   <div class="diagramcontrollerparentdiv">
-    <base-slider :values="root.list" @valueupdate="setRoot"  :inittolastvalue="true"></base-slider>
+    <base-slider title="Root" :values="root.list" @valueupdate="setRoot"  :inittolastvalue="true"></base-slider>
     <base-dropdown :values="type.list" @dropdownupdate="setType"></base-dropdown>
   </div>
 
