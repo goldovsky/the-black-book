@@ -32,6 +32,11 @@
   --tertiary-color: #126e82;
   --quaternary-color: #132c33;
 
+  --color-1: var(--primary-color);
+  --color-2: var(--secondary-color);
+  --color-3: var(--tertiary-color);
+  --color-4: var(--quaternary-color);
+
   --app-background-color: var(--primary-color);
   /**
     * SIDEBAR
@@ -82,6 +87,13 @@
 }
 
 [theme="dark"] {
+
+  // Dark to Light
+  --color-1: var(--quaternary-color);
+  --color-2: var(--tertiary-color);
+  --color-3: var(--secondary-color);
+  --color-4: var(--primary-color);
+
   --app-background-color: var(--quaternary-color);
   /**
     * SIDEBAR
