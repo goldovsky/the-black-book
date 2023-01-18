@@ -17,6 +17,7 @@ const store = createStore({
     return {
       display: {
         appTitle: "TheBlackBook",
+        logoInsteadOfIcon: true,
         darkMode: false,
         diagrams: {
           chords: {

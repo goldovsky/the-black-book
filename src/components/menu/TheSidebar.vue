@@ -5,9 +5,9 @@
   />
   <div class="sidebar" :class="{open: sideBarOpened}">
     <div class="logo-details" @click="openMenu">
-      <img class="logo-png" src="./../../assets/images/blackPickIcon.png"> 
+      <img v-if="display.logoInsteadOfIcon" class="logo-png" src="./../../assets/images/blackPickIcon.png"> 
       <div class="logo_name">{{ display.appTitle }}</div>
-      <i class="bx" :class="iconMenu" id="btn"></i>
+      <i v-if="!display.logoInsteadOfIcon" class="bx" :class="iconMenu" id="btn"></i>
     </div>
     <ul class="nav-list">
       <li>
@@ -37,7 +37,7 @@
         </a>
         <span class="tooltip">Fretboard</span>
       </li>
-      <li>
+      <!-- <li>
         <a href="#">
           <router-link to="/metronome">
             <i class="bx bx-tachometer"></i>
@@ -45,8 +45,8 @@
           </router-link>
         </a>
         <span class="tooltip">Metronome</span>
-      </li>
-       <li>
+      </li> -->
+       <!-- <li>
         <a href="#">
           <router-link to="/playback">
             <i class="bx bx-equalizer"></i>
@@ -54,7 +54,7 @@
           </router-link>
         </a>
         <span class="tooltip">Playback</span>
-      </li>
+      </li> -->
       <li>
         <a href="#">
           <router-link to="/signalchainsketches">
@@ -184,6 +184,7 @@ export default {
 .sidebar.open .logo-details .icon,
 .sidebar.open .logo-details .logo_name {
   opacity: 1;
+  flex: auto;
 }
 .sidebar .logo-details #btn {
   position: absolute;
