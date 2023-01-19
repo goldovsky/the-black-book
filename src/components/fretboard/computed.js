@@ -23,6 +23,7 @@ export default {
 
   fretRenderings() {
     let renderings = [];
+    let fretMarkers = [3, 5, 7, 9, 12, 15, 17, 19, 21, 24]
     let oy = this.start == 0 ? this.noteRadius * 2 : 0;
     for (
       let fret = 0, length = this.fretsNormalized + 1;
@@ -35,7 +36,10 @@ export default {
           (this.isHorizontal ? this.height : this.width) - this.noteRadius * 2,
         y: oy,
         x: this.noteRadius * 1,
-        color: fret == 0 && this.hasNut ? this.nutColor : this.fretColor,
+        color: fret == 0 && this.hasNut ? this.nutColor : 
+        // TODO change color of fret when part of fret markers?
+        fretMarkers.includes(fret) ? this.fretColor : this.fretColor,
+
       };
       if (this.isHorizontal) {
         rendering = {
@@ -74,7 +78,7 @@ export default {
     Object.entries(neck).forEach((referenceDot) => {
       if (
         referenceDot[0] < this.startNormalized ||
-        referenceDot[0] > this.frets - this.startNormalized
+        referenceDot[0] > this.frets + this.startNormalized
       )
         return;
       for (let dot = 0; dot < referenceDot[1]; ++dot) {
