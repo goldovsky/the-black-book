@@ -175,7 +175,7 @@ export default {
   beforeCreate() {
     // Register 1, 2, 3, 4 as fingerings
     // Note: need numpad too (96,...)
-    // todo
+    // TODO
     // Vue.config.keyCodes = {
     //     fingers: [49, 50, 51, 52, 97, 98, 99, 100],
     // };

@@ -37,4 +37,4 @@ export default {
     ],
   },
 };
-// todo add manual and info from webpage/notion
+// TODO add manual and info from webpage/notion

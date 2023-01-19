@@ -35,7 +35,7 @@ export default {
         intervals: false,
         scales: false,
         chords: false,
-        keys: true, // todo false
+        keys: true, // TODO false
       },
     };
   },

@@ -99,7 +99,7 @@
  * - Change the proportion of the object to match the chordify's example (w:360 | h:450)
  * @1) check my books to see if the name shouldn't be displayed bellow instead of above
  * @2) The open/Muted Strings ned to be based on the object, so need to modify it, symbols(X☓╳✕✖◯○⭘)
- * @3.5) todo get global store data to determine if rotation or not
+ * @3.5) TODO get global store data to determine if rotation or not
  * @4) optimize Rotate way to do it
  * @5) check which should be calculated, do the positioning on the Y axis
  * @6) do a v-if to check if it need to be displayed or not
@@ -142,7 +142,7 @@ export default {
       nutPath: null,
       bottomDiagramPath: null, // from baseFretboard
       x2DiagramWidth: 100, // Diagram width, from a string to another
-      nutline: false, // todo calculate if nut isn't part of diagram,
+      nutline: false, // TODO calculate if nut isn't part of diagram,
       arrayStringXIndex: [],
       // else
       chordNameXPosition: null,

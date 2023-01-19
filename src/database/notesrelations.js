@@ -10,7 +10,7 @@ function initNoteRelations() {
     let obj =  {
       notes: {
         list: [
-          // todo not sure of value if they should start at 0 or 1
+          // TODO not sure of value if they should start at 0 or 1
           {
             name: "C",
             value: 1,
@@ -65,31 +65,31 @@ function initNoteRelations() {
       },
       buildingbricks: {
         intervals: [
-          //   {
-          //     type: "Unison", // todo real name?
-          //     values: [
-          //       {
-          //         interval: "Perfect Unison",
-          //         short: "P1",
-          //         semitones: 0,
-          //       },
-          //     ],
-          //   },
-          //   {
-          //     type: "Secundal",
-          //     values: [
-          //       {
-          //         interval: "Minor second",
-          //         short: "m2",
-          //         semitones: 1,
-          //       },
-          //       {
-          //         interval: "Major second",
-          //         short: "M2",
-          //         semitones: 2,
-          //       },
-          //     ],
-          //   },
+          {
+            type: "Primal",
+            values: [
+              {
+                interval: "Perfect Unison",
+                short: "P1",
+                semitones: 0,
+              },
+            ],
+          },
+          {
+            type: "Secundal",
+            values: [
+              {
+                interval: "Minor second",
+                short: "m2",
+                semitones: 1,
+              },
+              {
+                interval: "Major second",
+                short: "M2",
+                semitones: 2,
+              },
+            ],
+          },
           {
             type: "Tertian",
             values: [
@@ -105,88 +105,88 @@ function initNoteRelations() {
               },
             ],
           },
-          //   {
-          //     type: "Quartal",
-          //     values: [
-          //       {
-          //         interval: "Perfect Fourth",
-          //         short: "P4",
-          //         semitones: 5,
-          //       },
-          //       {
-          //         interval: "Augmented Fourth",
-          //         short: "A4",
-          //         semitones: 6,
-          //       },
-          //     ],
-          //   },
-          //   {
-          //     type: "Quintal",
-          //     values: [
-          //       {
-          //         interval: "Diminished fifth",
-          //         short: "d5",
-          //         semitones: 6,
-          //       },
-          //       {
-          //         interval: "Perfect fifth",
-          //         short: "P5",
-          //         semitones: 7,
-          //       },
-          //     ],
-          //   },
-          //   {
-          //     type: "Hexal", // todo real name?
-          //     values: [
-          //       {
-          //         interval: "Minor Sixth",
-          //         short: "m6",
-          //         semitones: 8,
-          //       },
-          //       {
-          //         interval: "Major Sixth",
-          //         short: "M6",
-          //         semitones: 9,
-          //       },
-          //     ],
-          //   },
-          //   {
-          //     type: "Heptal", // todo real name?
-          //     values: [
-          //       {
-          //         interval: "Minor Seventh",
-          //         short: "m7",
-          //         semitones: 10,
-          //       },
-          //       {
-          //         interval: "Major Seventh",
-          //         short: "M7",
-          //         semitones: 11,
-          //       },
-          //     ],
-          //   },
-          //   {
-          //     type: "Octal", // todo real name?
-          //     values: [
-          //       {
-          //         interval: "perfect Octave",
-          //         short: "P8",
-          //         semitones: 12,
-          //       },
-          //     ],
-          //   },
+          {
+            type: "Quartal",
+            values: [
+              {
+                interval: "Perfect Fourth",
+                short: "P4",
+                semitones: 5,
+              },
+              {
+                interval: "Augmented Fourth",
+                short: "A4",
+                semitones: 6,
+              },
+            ],
+          },
+          {
+            type: "Quintal",
+            values: [
+              {
+                interval: "Diminished fifth",
+                short: "d5",
+                semitones: 6,
+              },
+              {
+                interval: "Perfect fifth",
+                short: "P5",
+                semitones: 7,
+              },
+            ],
+          },
+          {
+            type: "Sextal",
+            values: [
+              {
+                interval: "Minor Sixth",
+                short: "m6",
+                semitones: 8,
+              },
+              {
+                interval: "Major Sixth",
+                short: "M6",
+                semitones: 9,
+              },
+            ],
+          },
+          {
+            type: "Septimal",
+            values: [
+              {
+                interval: "Minor Seventh",
+                short: "m7",
+                semitones: 10,
+              },
+              {
+                interval: "Major Seventh",
+                short: "M7",
+                semitones: 11,
+              },
+            ],
+          },
+          {
+            type: "Octavial",
+            values: [
+              {
+                interval: "perfect Octave",
+                short: "P8",
+                semitones: 12,
+              },
+            ],
+          },
         ],
         chordTypeByNumberOfNotes: {
-          //1: "monad", // Monochord
-          //2: "dyad", // Dichord
+          1: "monad", // Monochord
+          2: "dyad", // Dichord
           3: "triad", // Trichord
-          //4: "tetrad", // Tetrachord
-          //5: "pentad", // Pentachord
-          //6: "hexad", // Hexachord
-          //7: "heptad", // Heptachord
-          //8: "octad", // Octachord
-          //9: "ennead", // Nonachord
-          //10: "decad", // Decachord
+          4: "tetrad", // Tetrachord
+          5: "pentad", // Pentachord
+          6: "hexad", // Hexachord
+          7: "heptad", // Heptachord
+          8: "octad", // Octachord
+          9: "ennead", // Nonachord
+          10: "decad", // Decachord
         },
       },
       //arpeggiosOrChords

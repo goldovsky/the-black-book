@@ -105,7 +105,7 @@ export default {
       start: 0,
       frets: null,
       fretsrange: [],
-      startingfretrange: [], // todo
+      startingfretrange: [], // TODO
       // below come from <script> inside html
       scales: {
         Major: [2, 2, 1, 2, 2, 2, 1],
@@ -162,11 +162,21 @@ export default {
   methods: {
     updateStartingNumber(value) {
       this.start = value;
-      // todo check relation betwen this and number of frets
+      this.verifyFretboardValidity();
     },
     updateNumberOfFrets(value) {
       this.frets = value;
+      this.verifyFretboardValidity();
     },
+    verifyFretboardValidity() {
+      let fretboardLimit = 25;
+      // TODO check relation betwen this and number of frets
+
+      // starting fret
+      if (this.start + this.frets > fretboardLimit) {
+        this.frets = this.frets - (this.start + this.frets - fretboardLimit);
+      }
+    }
   },
   computed: {
     instrument() {

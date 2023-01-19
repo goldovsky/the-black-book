@@ -23,7 +23,7 @@
 
 /**
  * NOTES
- * todo for tuning maybe do an array of every notes available : ['c0', 'c1'....]
+ * TODO for tuning maybe do an array of every notes available : ['c0', 'c1'....]
  * and use index from that array so it can easely be shifted up and down
  */
 

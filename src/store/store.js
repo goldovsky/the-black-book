@@ -1,13 +1,13 @@
 /**
  * NOTES
- * todo for tuning maybe do an array of every notes available : ['c0', 'c1'....]
+ * TODO for tuning maybe do an array of every notes available : ['c0', 'c1'....]
  * and use index from that array so it can easely be shifted up and down
  */
-import DATA_CHORDS_DIAGRAMS from "../database/chords_diagrams.js"; // todo is it really chords or chord diagrams? if so e might need another one for chords/arpeggios
+import DATA_CHORDS_DIAGRAMS from "../database/chords_diagrams.js";
 import DATA_SCALES from "./../database/scales.js";
 import DATA_TETRACHORDS from "./../database/tetrachords.js";
 import DATA_TUNINGS from "./../database/tunings.js";
-import DATA_NOTES_RELATIONS from "../database/notesrelations.js"; // todo same as arppegios?
+import DATA_NOTES_RELATIONS from "../database/notesrelations.js";
 import { createStore } from "vuex";
 import lodash from "lodash";
 
@@ -89,7 +89,7 @@ const store = createStore({
             Object.keys(state.database.tunings[state.instrument.type])[0]
               .length - 1
           )
-        ); // todo .str() is deprecated
+        );
         this.commit("updateAvailableTunings");
         boolUpdate = true;
       }
