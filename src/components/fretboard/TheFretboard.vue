@@ -165,7 +165,6 @@ export default {
     /**
      * Reverse string order to get the low string on top of the diagram
      */
-    // TODO replace this.$store with a computedInstrument
     if (this.$store.getters.display.diagrams.fretboard.switchStringSymmetry) {
       var reverseTuning = this.propTuning;
       reverseTuning = reverseTuning.split(" ").reverse().join(" ");

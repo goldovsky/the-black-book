@@ -168,11 +168,9 @@ export default {
       this.frets = value;
       this.verifyFretboardValidity();
     },
+    // So we don't go beyond 24th
     verifyFretboardValidity() {
       let fretboardLimit = 25;
-      // TODO check relation betwen this and number of frets
-
-      // starting fret
       if (this.start + this.frets > fretboardLimit) {
         this.frets = this.frets - (this.start + this.frets - fretboardLimit);
       }
