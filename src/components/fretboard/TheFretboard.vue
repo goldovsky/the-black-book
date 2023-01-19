@@ -32,7 +32,7 @@
       v-for="string in stringRenderings"
       :key="string"
       role="presentation"
-      :x="string.x"
+      :x="stopStringAtNut(string.x)"
       :y="string.y"
       :height="string.height"
       :width="string.width"
@@ -88,6 +88,7 @@ export default {
       nutSize: null,
       fretSize: null,
       fretColor: null,
+      nutColor: null,
       stringColor: null,
       noteColor: null,
       rootColor: null,
@@ -158,6 +159,7 @@ export default {
     this.reference = "3 5 7 9 12 12 15 17 19 21 24 24"; // enter number twice to get two dots
     this.orientation = "horizontal";
     this.fretColor = "var(--fretboard-fret-color)";
+    this.nutColor = "var(--nut-color)";
     this.stringColor = "var(--fretboard-string-color)";
     this.noteColor = "var(--fretboard-note-color)";
     this.rootColor = "var(--fretboard-root-color)";
@@ -206,6 +208,13 @@ export default {
     validNoteList(list) {
       return list.match(/^\s*[A-F][#b]*(\s+[A-F][#b]*)*\s*$/);
     },
+    stopStringAtNut(stringX) {
+      // nut not displayed
+      if (this.start != 0) {
+        return stringX;
+      }
+      return stringX + (this.instrument.leftDominantHand ? -(this.nutSize) : this.nutSize);
+    }
   },
   computed,
 };

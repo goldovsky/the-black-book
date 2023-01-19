@@ -35,7 +35,7 @@ export default {
           (this.isHorizontal ? this.height : this.width) - this.noteRadius * 2,
         y: oy,
         x: this.noteRadius * 1,
-        color: this.fretColor,
+        color: fret == 0 && this.hasNut ? this.nutColor : this.fretColor,
       };
       if (this.isHorizontal) {
         rendering = {
