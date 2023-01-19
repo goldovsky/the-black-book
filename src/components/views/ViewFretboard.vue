@@ -47,8 +47,8 @@
                 list="scaleOptions"
               />
               <!-- <datalist id="scaleOptions">
-            <option></option>
-          </datalist> -->
+                <option></option>
+              </datalist> -->
               <span class="form-text text-muted"
                 >1 or more space separated note names or a scale name (e.g. C
                 Major)</span
@@ -84,11 +84,8 @@
 <script>
 /**
  * TODO
- * put fretboard into basecard
- * position of settings bellow, without a basecard
  *
  * info: frets start and # of frets can be used to display shapes (penta...)
- * - move repère touche suivant le nombre de cordes
  * - always display strings notes, in grey if not part of the scale, in shape and color if so
  * - switch b <-> # (bemol/sharp)
  * - last fret in dotted line if not the 21/22/24th fret
@@ -208,7 +205,6 @@ export default {
 }
 
 fieldset{
-  /* TODO check if we wanna get it  */
   border-radius: 12px; 
 }
 </style>

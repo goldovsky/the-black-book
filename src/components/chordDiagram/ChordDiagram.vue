@@ -32,7 +32,7 @@
       {{ nutPosition }}
     </text>
 
-    <!-- NUT | @6-->
+    <!-- NUT | @6 -->
     <svg viewBox="0 0 100 100" class="nut">
       <path :d="nutPath"></path>
     </svg>

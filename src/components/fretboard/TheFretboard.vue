@@ -7,13 +7,14 @@
   >
     <title :id="ariaTitleId">{{ ariaTitleText }}</title>
     <desc :id="ariaDescId">{{ ariaDescText }}</desc>
-    <circle
-      v-for="ref in referenceRendering"
+    <ellipse
+      v-for="ref in fretMarkerRendering"
       :key="ref"
       role="presentation"
       :cx="ref.cx"
       :cy="ref.cy"
-      :r="ref.radius"
+      :rx="7"
+      :ry="(instrument.strings % 2 == 0) ? 7 : 17"
       :stroke="ref.stroke"
       :fill="ref.fill"
     />
@@ -140,7 +141,7 @@ export default {
       type: Number,
       default: 5,
       validator: (v) => v >= 1 && v <= 30,
-    },
+    }
   },
   created() {
     /**

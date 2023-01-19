@@ -56,7 +56,7 @@ export default {
     return renderings;
   },
 
-  referenceRendering() {
+  fretMarkerRendering() {
     if (!(this.reference + "").length) {
       return [];
     }
@@ -70,7 +70,6 @@ export default {
     });
 
     let ox = 0;
-    //let oy = 0;
     let renderings = [];
     Object.entries(neck).forEach((referenceDot) => {
       if (
@@ -110,7 +109,22 @@ export default {
         if (this.isHorizontal) {
           let temp = rendering.cx;
           rendering.cx = rendering.cy;
-          rendering.cy = temp;
+        
+          // TODO : this is dirty... but at least the functionality is here
+          switch(this.instrument.strings) { 
+            case 5: { 
+              rendering.cy = temp * 5.3/4;
+              break;
+            }
+            case 7: { 
+              rendering.cy = temp * 7.2/6;
+              break;
+            }
+            default: { 
+              rendering.cy = temp;
+              break;
+            }
+          } 
           if (this.instrument.leftDominantHand) {
             rendering.cx = this.width - rendering.cx;
           }

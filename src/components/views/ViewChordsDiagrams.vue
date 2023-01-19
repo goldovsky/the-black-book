@@ -1,15 +1,13 @@
 <template>
   <div>
     <h1>Diagram</h1>
-    <base-card class="chorddiagramcard">
-      <div class="chorddiagramparentdiv">
+    <div class="chorddiagramparentdiv">
         <chord-diagram
           name="G"
           nut-position="0"
           :chord="gChordNotes"
         ></chord-diagram>
-      </div>
-    </base-card>
+    </div>
 
     <!-- <h3>Guitar Chord Editor</h3>
     <div style="width: 250px; height: 250px">

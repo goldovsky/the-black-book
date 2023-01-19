@@ -20,20 +20,26 @@
  * TODO
  * - in pentatonic add japanese scale
  * 
- * use an attribute to describe each chrods build from each note?
+ * use an attribute to describe each chords build from each note?
  * or use chordIdentifier.js to determine it dynamically
  */
 
-// nb of notes by scale
-// 2 Ditonic
-// 3 Tritonic
-// 4 Tetratonic
-// 5 Pentatonic
-// 6 Hexatonic
-// 7 Heptatonic
-// 8 Octatonic
-// 9 Nonatonic
-// 12 Chromatic/Dodecatonic
+/*
+  nb of notes by scale
+
+  | notes | name                  |
+  |------:|:----------------------|
+  |     2 | Ditonic               |
+  |     3 | Tritonic              |
+  |     4 | Tetratonic            |
+  |     5 | Pentatonic            |
+  |     6 | Hexatonic             |
+  |     7 | Heptatonic            |
+  |     8 | Octatonic             |
+  |     9 | Nonatonic             |
+  |    12 | Chromatic/Dodecatonic |
+*/
+
 export default {
   pentatonic: { //nb_notes_5
     pentatonic: {
@@ -92,6 +98,18 @@ export default {
         "Locrian",
       ],
       intervals: [0, 2, 4, 5, 7, 9, 11],
+    },
+    harmonic_major: {
+      modes: [
+        "Harmonic Major",
+        "Locrian ♮2 ♮6 / Dorian ♭5",
+        "Altered Dominant ♮5 / Phrygian ♭4",
+        "Melodic Minor ♯4 / Lydian ♭3",
+        "Mixolydian ♭2",
+        "Lydian Augmented ♯2",
+        "Locrian double flat7"
+      ],
+      intervals: [0, 2, 4, 5, 7, 8, 11],
     },
     natural_minor: {
       modes: [
