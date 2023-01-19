@@ -68,7 +68,6 @@
  * @1) Change rendered/set values to CSS
  * @displayIntervalsInsteadOfNotes prop option to not display number in notes or interval instead
  * - change notes circle to shape and color based on intervals
- * - when startng from a fret instead of the nut, le repères de touches n'apparaissent pas toutes
  *
  */
 //import { useStore } from "vuex";

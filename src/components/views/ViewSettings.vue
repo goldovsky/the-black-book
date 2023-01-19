@@ -235,8 +235,6 @@ export default {
           )
         ),
       };
-
-      //return this.$store.getters.instrumentStringRange;
     },
   },
   methods: {

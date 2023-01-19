@@ -121,11 +121,11 @@ export default {
               break;
             }
             case 7: { 
-              rendering.cy = temp * 7.2/6;
+              rendering.cy = (temp + 1) * 7.2/6;
               break;
             }
             default: { 
-              rendering.cy = temp;
+              rendering.cy = temp + 2;
               break;
             }
           } 

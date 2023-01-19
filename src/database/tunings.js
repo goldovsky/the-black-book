@@ -64,7 +64,7 @@ export default {
         },
         nb_strings_8: {
           standard: {
-            fsharp: [ "E4", "B3", "G3", "D3", "A2", "E2", "B1", "F#1" ]
+            gb: [ "E4", "B3", "G3", "D3", "A2", "E2", "B1", "Gb1" ]
           },
           drop: {
             e: [ "E4", "B3", "G3", "D3", "A2", "E2", "B1", "E1" ],
