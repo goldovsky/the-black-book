@@ -37,8 +37,7 @@ export default {
         y: oy,
         x: this.noteRadius * 1,
         color: fret == 0 && this.hasNut ? this.nutColor : 
-        // TODO change color of fret when part of fret markers?
-        fretMarkers.includes(fret) ? this.fretColor : this.fretColor,
+        fretMarkers.includes(fret) ? this.coloredFretColor : this.fretColor,
 
       };
       if (this.isHorizontal) {
@@ -113,7 +112,6 @@ export default {
         if (this.isHorizontal) {
           let temp = rendering.cx;
           rendering.cx = rendering.cy;
-        
           // TODO : this is dirty... but at least the functionality is here
           switch(this.instrument.strings) { 
             case 5: { 

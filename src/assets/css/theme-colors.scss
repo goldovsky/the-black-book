@@ -60,6 +60,7 @@
   --fretboard-reference-color: var(--quaternary-color); // #7c27b4;
   --fretboard-string-color: var(--tertiary-color); // #a8744d;
   --fretboard-fret-color: #00000019; //#707070;
+  --fretboard-colored-fret-color: #00000030; 
   --fretboard-note-color: #0f267b;
   --fretboard-root-color: #ba2121;
   --fretboard-noteText-color: #eeeeee;
@@ -117,6 +118,7 @@
   --fretboard-reference-color: var(--primary-color);
   --fretboard-string-color: var(--primary-color); // #a8744d;
   --fretboard-fret-color: var(--primary-color) 19; // #707070;
+  --fretboard-colored-fret-color: #00000030;
   --fretboard-note-color: #0f267b;
   --fretboard-root-color: #ba2121;
   --fretboard-noteText-color: #eeeeee;

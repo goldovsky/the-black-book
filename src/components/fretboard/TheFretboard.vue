@@ -86,6 +86,7 @@ export default {
       nutSize: null,
       fretSize: null,
       fretColor: null,
+      coloredFretColor: null,
       nutColor: null,
       stringColor: null,
       noteColor: null,
@@ -123,23 +124,19 @@ export default {
     },
     scale: {
       type: String,
-      default: "C D E F G A B",
-      //validation: this.validNoteList,
+      default: "C D E F G A B"
     },
     propTuning: {
       type: String,
-      default: "G C E A",
-      //validation: this.validNoteList,
+      default: "G C E A"
     },
     start: {
       type: Number,
-      default: 0,
-      validator: (v) => v >= 0 && v <= 30,
+      default: 0
     },
     frets: {
       type: Number,
-      default: 5,
-      validator: (v) => v >= 1 && v <= 30,
+      default: 5
     }
   },
   created() {
@@ -157,6 +154,7 @@ export default {
     this.reference = "3 5 7 9 12 12 15 17 19 21 24 24 27 29 31"; // enter number twice to get two dots
     this.orientation = "horizontal";
     this.fretColor = "var(--fretboard-fret-color)";
+    this.coloredFretColor = "var(--fretboard-colored-fret-color)";
     this.nutColor = "var(--nut-color)";
     this.stringColor = "var(--fretboard-string-color)";
     this.noteColor = "var(--fretboard-note-color)";

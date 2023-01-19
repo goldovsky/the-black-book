@@ -25,10 +25,8 @@
         <the-fretboard
           :scale="scale"
           :prop-tuning="tuning"
-          :strumming-hand="strummingHand"
           :start="start"
           :frets="frets + start - 1"
-          :fret-color="fretColor"
           title="Test"
         ></the-fretboard>
       </section>
