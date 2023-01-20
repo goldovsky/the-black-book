@@ -6,7 +6,12 @@
                 :width="barWidth" height="10"/> -->
                 
         <!-- SINGLE FINGER -->
-        <base-finger v-if="fingers != null" :x="0+0.5" width="13" height="13" :label="chord['fingers'][index]"/>
+        <svg viewBox="0 0 100 100" v-if="fingers != null" :x="0+0.5" width="13" height="13" >
+            <circle cx="50" cy="50" r="49" stroke="var(--diagram-finger)" fill="var(--diagram-finger)" />
+            <text class="fingerLabel" x="50" y="70">
+            {{ chord['fingers'][index] }}
+            </text>
+        </svg>
     </svg>
 </template>
 
@@ -15,12 +20,10 @@
  * TODO
  * Merge base finger and base fingering here
  */
-import BaseFinger from './fingers/BaseFinger.vue';
 // import BarredFinger from './fingers/BarredFinger.vue';
 
 export default {
     components: {
-        BaseFinger,
         // BarredFinger,
     },
     props: [
@@ -60,3 +63,24 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.fingerLabel {
+  fill: var(--diagram-finger-indication);
+  font-size: 65px;
+  font-weight: 500;
+  text-anchor: middle;
+}
+/* .interval1 {} */
+/* .interval2 {} */
+/* .interval3 {} */
+/* .interval4 {} */
+/* .interval5 {} */
+/* .interval6 {} */
+/* .interval7 {} */
+/* .interval8 {} */
+/* .interval9 {} */
+/* .interval10 {} */
+/* .interval11 {} */
+/* .interval12 {} */
+</style>
