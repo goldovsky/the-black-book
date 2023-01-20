@@ -20,6 +20,11 @@
  * 
  * NOTES/TODO
  * OpenD and openE.... based on OpenC shifted
+ * 
+ * LEXIQUE
+ * "fret: 0": open string
+ * "fret: null": string not played
+ * "interval": used to change shape from circle to intervalBasedShapes
  */
 
 export default {

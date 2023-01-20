@@ -40,9 +40,6 @@ export default {
       chord: {},
       // Inspiration from vue-guitar-chord
       // TODO : change chord data to this :
-      // "fret: 0": open string
-      // "fret: null": string not played
-      // "interval": used to change shape from circle to intervalBasedShapes
       // switch strings from starting to 0 to starting to 1
       gMajor: [
         { string: 1, fret: 3, finger: 2, interval: 1 },
@@ -55,6 +52,7 @@ export default {
       gChordNotes: [
         { string: 0, fret: 3, finger: 2 },
         { string: 1, fret: 2, finger: 1 },
+        // { string: [2, 3], fret: 0, finger: null },
         { string: 4, fret: 3, finger: 3 },
         { string: 5, fret: 3, finger: 4 },
       ],
