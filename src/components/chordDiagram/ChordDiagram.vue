@@ -19,13 +19,12 @@
     </text>
 
     <!-- ⭘/✕ Open/Muted Strings -->
-    <!-- @2 -->
     <text class="openmutedstrings"
       v-for="n in this.instrument.strings"
       :x="n * 12.7 - 3"
       y="15"
       :key="n"
-    >✕</text>
+    >{{openmutedstrings(n)}}</text>
 
     <!-- Side number to know where to position the diagram on the fretboard | @5) -->
     <text v-if="nutPosition !== '0'" x="2" y="24" fill="black" font-size="8">
@@ -69,7 +68,7 @@
 
       <!-- Fingers -->
       <base-fingering
-        :chord="dexterityCorrectedChord"
+        :chord="chord"
       ></base-fingering>
 
       <!-- Bottom diagram -->
@@ -85,16 +84,11 @@
  * 2) take a look into chord diagrams to see if we need more frets, and if so how to implement it, calculate delta between lowest and highest frets in chord object
  * 3) calculate everything from a multiple of current strings used
  * @1) instead of 6 use current strings number used in app
- * @2) based on the variable leftDominantHand,
- * create a function  on created()
- * that will mirror every string on the chord based instrument.strings
- *
  *
  *
  *  * - Refacto the whole object and it's components
  * - Change the proportion of the object to match the chordify's example (w:360 | h:450)
  * @1) check my books to see if the name shouldn't be displayed bellow instead of above
- * @2) The open/Muted Strings ned to be based on the object, so need to modify it, symbols(X☓╳✕✖◯○⭘)
  * @3.5) TODO get global store data to determine if rotation or not
  * @4) optimize Rotate way to do it
  * @5) check which should be calculated, do the positioning on the Y axis
@@ -131,7 +125,6 @@ export default {
     return {
       // store
       // chord data
-      dexterityCorrectedChord: null,
       // computed graphical properties
       rotationLeft: null,
       rotationRight: null,
@@ -152,29 +145,6 @@ export default {
     if (!this.instrument.leftDominantHand) {
       return;
     }
-    //this.instrument.strings = store.getters.instrument.strings;
-
-    /**
-     * Modify CHORD DATA based on Dexterity
-     * WIP
-     */
-    let tmpChord = JSON.parse(JSON.stringify(this.chord));
-    // loop for each fingering
-    for (const idx in tmpChord) {
-      // fingering is type 'barre'
-      if (typeof tmpChord[idx].string === "object") {
-        for (const arrayIdx in tmpChord[idx].string) {
-          console.log(arrayIdx);
-          // tmpChord[idx].string[arrayIdx] =
-        }
-        // fingering is type standard
-      } else {
-        // tmpChord[idx] = tmpChord[idx] - store.getters.instrument.strings;
-        tmpChord[idx] = 1 - this.instrument.strings;
-      }
-    }
-    //this.dexterityCorrectedChord = this.chord; // TODO when code above is ok, replace with tmpChord
-    this.dexterityCorrectedChord = this.chord; // TODO when code above is ok, replace with tmpChord
 
     /**
      * PATH
@@ -213,6 +183,22 @@ export default {
       //this.$store.state.chordDiagramWidth * stringIndex
     }
   },
+  methods: {
+    openmutedstrings(n) {
+      // (X☓╳✕✖◯○⭘)
+      if (this.chord['frets'] !== undefined) {
+        switch (this.chord['frets'][n-1]) {
+          case null:
+            return "✕";
+            case 0:
+            return "⭘";
+          default:
+            return "";
+        }
+      }
+      return "";
+    }
+  },
   computed: {
     instrument() {
       return this.$store.getters.instrument;
@@ -239,7 +225,7 @@ export default {
 
       // return calculated Width based on the selected dexterity
       return this.instrument.leftDominantHand() ? (1 / (this.i + 1)) * 2 : (this.i + 1) * 2;
-    },
+    }
   },
 };
 </script>

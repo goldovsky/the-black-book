@@ -17,7 +17,8 @@
     </div> -->
 
     <base-card>
-      <chord-diagram-controller @chord="setChord"/>
+      <chord-diagram-controller />
+      <!-- <chord-diagram-controller @chord="setChord"/> -->
     </base-card>
   </div>
 </template>
