@@ -1,6 +1,6 @@
 /**
  * USAGE
- * import DATA_CHORDS from './.../data/chords.js';
+ * import DATA_CHORDS from './../../database/chords_diagrams.js';
  * 
  * data() {
     return {

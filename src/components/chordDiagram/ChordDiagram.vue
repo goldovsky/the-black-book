@@ -130,7 +130,7 @@ export default {
   components: {
     BaseFingering,
   },
-  props: ["name", "chord", "nutPosition"],
+  props: ['name', 'chord', 'nutPosition', 'goodFormatChord'],
   data() {
     return {
       // store
@@ -149,6 +149,8 @@ export default {
     };
   },
   created() {
+    console.log("GDY good chord");
+    console.log(this.goodFormatChord);
     /**
      * STORE
      */

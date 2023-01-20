@@ -6,6 +6,7 @@
           name="G"
           nut-position="0"
           :chord="gChordNotes"
+          :goodFormatChord="dataChords['tuning_standard']['nb_strings_6']['root_on_string_6']['major']['caged_g']"
         ></chord-diagram>
     </div>
 
@@ -29,6 +30,7 @@
  */
 import ChordDiagram from "../chordDiagram/ChordDiagram.vue";
 import ChordDiagramController from "../chordDiagram/ChordDiagramController.vue";
+import DATA_CHORDS from './../../database/chords_diagrams.js';
 
 export default {
   components: {
@@ -37,6 +39,7 @@ export default {
   },
   data() {
     return {
+      dataChords: DATA_CHORDS,
       chord: {},
       // Inspiration from vue-guitar-chord
       // TODO : change chord data to this :
