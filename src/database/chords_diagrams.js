@@ -51,7 +51,15 @@ export default {
         major_7th: {},
         major_7th_add9: {},
       },
-      root_on_string_5: {},
+      root_on_string_5: {
+        major: {
+          caged_a: {
+            frets: [null,2,2,2,0,null],
+            fingers: [null,1,1,1,null,null],
+            intervals:[null, '3M','1P','5P','1P',null]
+          }
+        }
+      },
       root_on_string_4: {},
     },
     nb_strings_7: {

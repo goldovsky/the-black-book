@@ -1,11 +1,13 @@
 <template>
     <!-- BASE FINGERING -->
-    <svg v-for="(fingers, index) in chord.frets" :key="index" :string="index" :fret="chord['frets'][index]" :x="this.calculatedX(index)-2" :y="calculatedY(index)-1.5" :width="isBar(index) ? svgBarredWidth + this.barWidth() : svgWidth">
+    <!-- :width="isBar(index) ? svgBarredWidth + this.barWidth() : svgWidth" -->
+    <svg v-for="(fingers, index) in chord.frets" :key="index" :string="index" :fret="chord['frets'][index]" :x="this.calculatedX(index)-2" :y="calculatedY(index)-1.5" :width="svgWidth">
         <!-- BARRED FINGER -->
         <!-- <barred-finger :y="0 + 1.5" :x="0 + 1.5" v-if="isBar" :label="finger"
                 :width="barWidth" height="10"/> -->
                 
         <!-- SINGLE FINGER -->
+        <!-- v-if="fingers != null && (not part of barred chord)" -->
         <svg viewBox="0 0 100 100" v-if="fingers != null" :x="0+0.5" width="13" height="13" >
             <circle cx="50" cy="50" r="49" stroke="var(--diagram-finger)" fill="var(--diagram-finger)" />
             <text class="fingerLabel" x="50" y="70">
@@ -17,8 +19,7 @@
 
 <script>
 /**
- * TODO
- * Merge base finger and base fingering here
+ * TODO merge barred-finger here
  */
 // import BarredFinger from './fingers/BarredFinger.vue';
 
@@ -41,6 +42,7 @@ export default {
         },
         barWidth() {
             return (15.5 + this.string.length/2) * this.string.length;
+            // return (15.5 + this.string.length/2) * this.string.length;
         },
         calculatedX(string) {
             return this.rightDexterity ? 

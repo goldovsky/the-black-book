@@ -8,6 +8,8 @@
           :chord="chord"
         ></chord-diagram>
     </div>
+    <!-- TODO nut position -->
+    <!-- TODO chord name -->
 
     <!-- <h3>Guitar Chord Editor</h3>
     <div style="width: 250px; height: 250px">
@@ -44,7 +46,10 @@ export default {
     };
   },
   created() {
-    this.setChord(this.dataChords['tuning_standard']['nb_strings_6']['root_on_string_6']['major']['caged_g']);
+    // G
+    //this.setChord(this.dataChords['tuning_standard']['nb_strings_6']['root_on_string_6']['major']['caged_g']);
+    // A
+    this.setChord(this.dataChords['tuning_standard']['nb_strings_6']['root_on_string_5']['major']['caged_a']);
   },
   methods: {
     setChord(chord) {
