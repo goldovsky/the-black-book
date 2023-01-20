@@ -95,7 +95,7 @@
  *
  *
  *
- *  * - Refacto the whole opbject and it's components
+ *  * - Refacto the whole object and it's components
  * - Change the proportion of the object to match the chordify's example (w:360 | h:450)
  * @1) check my books to see if the name shouldn't be displayed bellow instead of above
  * @2) The open/Muted Strings ned to be based on the object, so need to modify it, symbols(X☓╳✕✖◯○⭘)

@@ -130,9 +130,11 @@ export default {
       .replace(/[0-9]/g, "");
 
     //let html = "";
+    // TODO
+    /*
     Object.keys(this.scales).forEach((scale) => {
-      console.log("GDY Scale");
-      console.log(scale);
+      // console.log("GDY Scale");
+      // console.log(scale);
 
       // notes.forEach((note, i) => {
       //   let scale_notes = [];
@@ -144,6 +146,7 @@ export default {
       //   html += `<option value="${note} ${scale}">${scale_notes}</option>`;
       // });
     });
+    */
     //document.currentScript.parentNode.innerHTML = html;
 
     // Object.keys(data).forEach((key) => {

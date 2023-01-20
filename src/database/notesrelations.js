@@ -220,11 +220,11 @@ function initNoteRelations() {
 
             // build list of possibilities of placing the diferent type of intervals together
             //example: [['m3', 'M3'], ['M3', 'm3'], ['m3', 'm3'], ['M3', 'M3']]
-            console.log(tmpIntervalList)
+            console.log("not yet : " + tmpIntervalList)
         }
         
     }
-    console.log(obj);
+    // console.log(obj);
 
     return obj;
 }
