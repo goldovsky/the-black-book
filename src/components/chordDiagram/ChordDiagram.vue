@@ -69,11 +69,7 @@
 
       <!-- Fingers -->
       <base-fingering
-        v-for="note in dexterityCorrectedChord"
-        :key="note"
-        :string="note.string"
-        :fret="note.fret"
-        :finger="note.finger"
+        :chord="dexterityCorrectedChord"
       ></base-fingering>
 
       <!-- Bottom diagram -->
@@ -149,8 +145,6 @@ export default {
     };
   },
   created() {
-    console.log("GDY good chord");
-    console.log(this.goodFormatChord);
     /**
      * STORE
      */
@@ -179,7 +173,8 @@ export default {
         tmpChord[idx] = 1 - this.instrument.strings;
       }
     }
-    this.dexterityCorrectedChord = this.chord; // TODO when code above is ok, replace with tmpChord
+    //this.dexterityCorrectedChord = this.chord; // TODO when code above is ok, replace with tmpChord
+    this.dexterityCorrectedChord = this.goodFormatChord; // TODO when code above is ok, replace with tmpChord
 
     /**
      * PATH

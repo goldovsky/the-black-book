@@ -1,8 +1,12 @@
 <template>
-    <svg :x="x-2" :y="y-1.5" :width="isBar ? barWidth + 20 : 18">
-        <barred-finger :y="0 + 1.5" :x="0 + 1.5" v-if="isBar" :label="finger"
-            :width="barWidth" height="10"/>
-        <base-finger :x="0+0.5" v-else width="13" height="13" :label="finger"/>
+    <!-- BASE FINGERING -->
+    <svg v-for="(fingers, index) in chord.frets" :key="index" :string="index" :fret="chord['frets'][index]" :x="this.calculatedX(index)-2" :y="calculatedY(index)-1.5" :width="isBar(index) ? svgBarredWidth + this.barWidth() : svgWidth">
+        <!-- BARRED FINGER -->
+        <!-- <barred-finger :y="0 + 1.5" :x="0 + 1.5" v-if="isBar" :label="finger"
+                :width="barWidth" height="10"/> -->
+                
+        <!-- SINGLE FINGER -->
+        <base-finger v-if="fingers != null" :x="0+0.5" width="13" height="13" :label="chord['fingers'][index]"/>
     </svg>
 </template>
 
@@ -11,38 +15,37 @@
  * TODO
  * Merge base finger and base fingering here
  */
-import BarredFinger from './fingers/BarredFinger.vue';
 import BaseFinger from './fingers/BaseFinger.vue';
+// import BarredFinger from './fingers/BarredFinger.vue';
 
 export default {
     components: {
-        BarredFinger,
         BaseFinger,
+        // BarredFinger,
     },
     props: [
-        'string',
-        'fret',
-        'finger',
+        'chord'
     ],
-    computed: {
-        isBar() {
-            return Array.isArray(this.string);
+    data() {
+        return {
+            svgBarredWidth : 20,
+            svgWidth: 18
+        };
+    },
+    methods: {
+        isBar(index) {
+            return this.chord['fingers'].filter((v) => (v === index)).length > 1;
         },
-
         barWidth() {
             return (15.5 + this.string.length/2) * this.string.length;
         },
-
-        x () {
-            let string = this.isBar
-                ? this.string[0]
-                : this.string;
+        calculatedX(string) {
             return -5 + string * this.$store.getters.display.diagrams.chords.width;
         },
-
-        y () {
-            return (this.fret - 1) * 20 + 5;
-        },
+        calculatedY(index) {
+            return (this.chord['frets'][index] - 1) * 20 + 5;
+            // return (this.fret - 1) * 20 + 5;
+        }
     }
 };
 </script>
