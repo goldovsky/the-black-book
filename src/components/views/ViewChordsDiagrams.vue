@@ -5,8 +5,7 @@
         <chord-diagram
           name="G"
           nut-position="0"
-          :chord="gChordNotes"
-          :goodFormatChord="dataChords['tuning_standard']['nb_strings_6']['root_on_string_6']['major']['caged_g']"
+          :chord="chord"
         ></chord-diagram>
     </div>
 
@@ -40,31 +39,11 @@ export default {
   data() {
     return {
       dataChords: DATA_CHORDS,
-      chord: {},
-      // Inspiration from vue-guitar-chord
-      // TODO : change chord data to this :
-      // switch strings from starting to 0 to starting to 1
-      gMajor: [
-        { string: 1, fret: 3, finger: 2, interval: 1 },
-        { string: 2, fret: 2, finger: 1, interval: 5 },
-        { string: 3, fret: 0, interval: 7 },
-        { string: 4, fret: 0, interval: 1 },
-        { string: 5, fret: 3, finger: 3, interval: 7 },
-        { string: 6, fret: 3, finger: 4, interval: 1 },
-      ],
-      gChordNotes: [
-        { string: 0, fret: 3, finger: 2 },
-        { string: 1, fret: 2, finger: 1 },
-        // { string: [2, 3], fret: 0, finger: null },
-        { string: 4, fret: 3, finger: 3 },
-        { string: 5, fret: 3, finger: 4 },
-      ],
-      aChordNotes: [{ string: [2, 3, 4], fret: 2, finger: 1 }],
-      dChordNotes: [
-        { string: [3, 4, 5], fret: 2, finger: 1 },
-        { string: 4, fret: 3, finger: 2 },
-      ],
+      chord: {}
     };
+  },
+  created() {
+    this.setChord(this.dataChords['tuning_standard']['nb_strings_6']['root_on_string_6']['major']['caged_g']);
   },
   methods: {
     setChord(chord) {

@@ -40,11 +40,22 @@ export default {
             return (15.5 + this.string.length/2) * this.string.length;
         },
         calculatedX(string) {
-            return -5 + string * this.$store.getters.display.diagrams.chords.width;
+            return this.rightDexterity ? 
+            // RIGHT HANDED - we use the opposite string from what 'string' is
+            -5 + (this.instrument.strings - string - 1) * this.$store.getters.display.diagrams.chords.width : 
+            // LEFT HANDED
+            -5 + string * this.$store.getters.display.diagrams.chords.width;
         },
         calculatedY(index) {
             return (this.chord['frets'][index] - 1) * 20 + 5;
-            // return (this.fret - 1) * 20 + 5;
+        },
+    },
+    computed: {
+        instrument() {
+            return this.$store.getters.instrument;
+        },
+        rightDexterity() {
+            return this.$store.getters.leftDominantHand;  
         }
     }
 };

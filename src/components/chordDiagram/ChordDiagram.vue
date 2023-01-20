@@ -126,7 +126,7 @@ export default {
   components: {
     BaseFingering,
   },
-  props: ['name', 'chord', 'nutPosition', 'goodFormatChord'],
+  props: ['name', 'chord', 'nutPosition'],
   data() {
     return {
       // store
@@ -174,7 +174,7 @@ export default {
       }
     }
     //this.dexterityCorrectedChord = this.chord; // TODO when code above is ok, replace with tmpChord
-    this.dexterityCorrectedChord = this.goodFormatChord; // TODO when code above is ok, replace with tmpChord
+    this.dexterityCorrectedChord = this.chord; // TODO when code above is ok, replace with tmpChord
 
     /**
      * PATH
