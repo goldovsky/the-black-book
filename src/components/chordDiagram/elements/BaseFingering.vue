@@ -34,7 +34,7 @@
 
             <!-- TODO  -->
             <svg >
-                <text class="fingerLabel" :x="(barred.string[1] - barred.string[0]) * 10 + 5" y="51">
+                <text class="fingerLabel" :x="(barred.string[1] - barred.string[0]) * 10 + 5" y="50">
                     {{ barred.label }}
                 </text>
             </svg>
@@ -126,7 +126,7 @@ export default {
 <style scoped>
 .fingerLabel {
   fill: var(--diagram-finger-indication);
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 500;
   text-anchor: middle;
 }
