@@ -213,14 +213,14 @@ function initNoteRelations() {
 
             // fetch available intervals
             // example: ['m3','M3']
-            const tmpIntervalList = obj.buildingbricks.intervals[intervalIndex].values.map((filterInterval) => {
-                return filterInterval.short;
-            })
+            // const tmpIntervalList = obj.buildingbricks.intervals[intervalIndex].values.map((filterInterval) => {
+            //     return filterInterval.short;
+            // })
 
 
             // build list of possibilities of placing the diferent type of intervals together
             //example: [['m3', 'M3'], ['M3', 'm3'], ['m3', 'm3'], ['M3', 'M3']]
-            console.log("not yet : " + tmpIntervalList)
+            // console.log("not yet : " + tmpIntervalList)
         }
         
     }

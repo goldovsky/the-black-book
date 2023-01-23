@@ -19,12 +19,12 @@
     </text>
 
     <!-- ⭘/✕ Open/Muted Strings -->
-    <text class="openmutedstrings"
+    <text class="openMutedstringSymbol"
       v-for="n in this.instrument.strings"
-      :x="n * 12.7 - 3"
+      :x="openMutedStringPosition(n)"
       y="15"
       :key="n"
-    >{{openmutedstrings(n)}}</text>
+    >{{openMutedstringSymbol(n)}}</text>
 
     <!-- Side number to know where to position the diagram on the fretboard | @5) -->
     <text v-if="nutPosition !== '0'" x="2" y="24" fill="black" font-size="8">
@@ -184,7 +184,7 @@ export default {
     }
   },
   methods: {
-    openmutedstrings(n) {
+    openMutedstringSymbol(n) {
       // (X☓╳✕✖◯○⭘)
       if (this.chord['frets'] !== undefined) {
         switch (this.chord['frets'][n-1]) {
@@ -197,6 +197,12 @@ export default {
         }
       }
       return "";
+    },
+    openMutedStringPosition(n) {
+      let instrument = this.$store.getters.instrument;
+      return instrument.leftDominantHand ?
+      n * 12.7 - 3 : 
+      (instrument.strings - n + 1) * 12.7 - 3;
     }
   },
   computed: {
@@ -271,7 +277,7 @@ export default {
   /* transition: 0.2s; */
 }
 
-.openmutedstrings {
+.openMutedstringSymbol {
   fill: var(--diagram-stroke);
   font-size:7px;
 }
