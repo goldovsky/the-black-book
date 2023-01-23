@@ -142,9 +142,6 @@ export default {
      * STORE
      */
     //const store = useStore();
-    if (!this.instrument.leftDominantHand) {
-      return;
-    }
 
     /**
      * PATH
