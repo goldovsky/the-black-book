@@ -15,16 +15,16 @@
         - : add barred.label at the center of the rectangle via <text>
         -->
         <!-- :width="isIncludedInABar(index) ? svgBarredWidth + this.barWidth() : svgWidth" -->
-    <svg v-for="(barred, index) in barredFingering" :key="index" class="BarredFingerMain" :x="this.XforMainSVG(index)" :y="YforMainSVG(index)" width="100">
+    <svg v-for="(barred, index) in barredFingering" :key="index" class="BarredFingerMain" :y="YforMainSVG(index)" width="100">
         <svg viewBox="0 0 100 100" :y="YforBarredSVG(barred.fret)" :x="XforBarredSVG(barred.string)" width="100" height="100" fill="var(--diagram-finger)">
             <rect x="0" y="40" :width="barWidth(barred.string)" height="13" rx="5" ry="5" />
 
             <!-- TODO  -->
-            <!-- <svg >
-                <text class="fingerLabel" :x="(barred.string[1] - barred.string[0]) * 10 + 5" y="50">
+            <svg height="50" :y="YforMainSVG(index) + (barred.fret * 8.9)">
+                <text class="fingerLabel" style="font-size: 12px;" :x="(barred.string[1] - barred.string[0]) * 10 + 5" y="50">
                     {{ barred.label }}
                 </text>
-            </svg> -->
+            </svg>
 
         </svg>
     </svg>
@@ -108,26 +108,7 @@ export default {
             // RIGHT HANDED - we use the opposite string from what 'string' is
             (barredString[1] + addSymetry);
             
-
-            console.group("COMMON");
-            console.log("barredString: " + barredString);
-            console.log("diagramWidth: " + diagramWidth);
-            console.log("addSymetry: " + addSymetry);
-
-            console.group("LEFT");
-            console.log("barredStringBasedOnDexterity: " + (barredString[0] - 1));
-            console.log("return: " + (13 + (barredString[0] - 1) * diagramWidth));
-            console.groupEnd();
-
-            console.group("RIGHT");
-            console.log("barredStringBasedOnDexterity: " + (barredString[1] + addSymetry));
-            console.log("return: " + (13 + ((barredString[1] + addSymetry)) * diagramWidth));
-            console.groupEnd();
-
-            console.groupEnd();
-
-
-            return 13 + barredStringBasedOnDexterity * diagramWidth;
+            return 9 + barredStringBasedOnDexterity * diagramWidth;
         }
     },
     computed: {

@@ -44,7 +44,13 @@ export default {
             frets: [0,0,1,2,2,0],
             fingers: [null,null,1,3,2,null]
             // ....
-          }
+          },
+          f: {
+            //position_open: true,
+            frets: [1,1,2,3,3,1],
+            fingers: [1,1,2,4,3,1],
+            intervals:['1P','5P','3M','1P','5P','1P']
+          },
         },
         diminished: {},
         augmented: {},

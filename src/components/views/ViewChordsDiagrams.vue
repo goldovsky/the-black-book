@@ -47,6 +47,8 @@ export default {
     };
   },
   created() {
+    // F
+    // this.setChord(this.dataChords['tuning_standard']['nb_strings_6']['root_on_string_6']['major']['f']);
     // G
     // this.setChord(this.dataChords['tuning_standard']['nb_strings_6']['root_on_string_6']['major']['caged_g']);
     // A
