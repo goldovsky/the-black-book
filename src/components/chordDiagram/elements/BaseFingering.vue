@@ -1,12 +1,12 @@
 <template>
     <!-- SINGLE FINGER -->
     <svg v-for="(fret, index) in chord.frets" :key="index" :string="index" :fret="chord['frets'][index]" :x="this.XforMainSVG(index)" :y="YforMainSVG(index)" :width="svgWidth">                
-        <!-- <svg viewBox="0 0 100 100" v-if="fret != null && (!isBar(index+indexArrayToStringOffset))" :x="0+0.5" width="13" height="13" >
+        <svg viewBox="0 0 100 100" v-if="fret != null && !isIncludedInABar(index)" :x="0+0.5" width="13" height="13" >
             <circle cx="50" cy="50" r="49" stroke="var(--diagram-finger)" fill="var(--diagram-finger)" />
             <text class="fingerLabel" x="50" y="70">
                 {{ chord.fingers[index] }}
             </text>
-        </svg> -->
+        </svg>
     </svg>
     
     <!-- BARRED FINGER -->
@@ -14,7 +14,7 @@
         - : y  de barredIndex
         - : add barred.label at the center of the rectangle via <text>
         -->
-        <!-- :width="isBar(index) ? svgBarredWidth + this.barWidth() : svgWidth" -->
+        <!-- :width="isIncludedInABar(index) ? svgBarredWidth + this.barWidth() : svgWidth" -->
     <svg v-for="(barred, index) in barredFingering" :key="index" class="BarredFingerMain" :x="this.XforMainSVG(index)" :y="YforMainSVG(index)" width="100">
         <svg viewBox="0 0 100 100" :y="YforBarredSVG(barred.fret)" :x="barred.string[0] +13" width="100" height="100" fill="var(--diagram-finger)">
             <rect x="0" y="40" width="50" height="13" rx="5" ry="5" />
@@ -44,38 +44,42 @@ export default {
         };
     },
     created() {
-
-        // TODO GOAL
-        // this.barredFingering = [[2,3], [1.6]];
-        this.chord.fingers.forEach((finger, idx) => {
-            // used to access chord in the following loop
-            let self = this;
-            // si ce doigt n'est pas déjà enregistré
-            let fingerNotAlreadyRegistered = !this.barredFingering.filter((v) => (v.label === finger)).length  > 0;
-            // not null
-            if (finger != null && fingerNotAlreadyRegistered) {
-                let currentLoop = true;
-                // on parcours l'objet finger dans l'autre sens pour trouver la fin
-                Object.keys(this.chord.fingers).reverse().forEach(function(reverseIndex) {
-                    // si on retrouve le doigt actuellement utilisé et que ce n'est pas le même index
-                    if(currentLoop && idx !== reverseIndex && self.chord.fingers[reverseIndex] !== null && self.chord.fingers[reverseIndex] === finger) {
-                        let bar = {
-                            label: finger,
-                            string: [idx, Number(reverseIndex)],
-                            fret: self.chord.frets[idx]
-                        };
-                        
-                        self.barredFingering.push(bar);
-                        currentLoop = false;
-                    }
-                });
-            }
-        });
+        this.buildBarredFingering();
     },
     methods: {
-        isBar(index) {
-            let calculateIsBar = this.chord['fingers'].filter((v) => (v === index)).length  > 1;
-            return calculateIsBar;
+        isIncludedInABar(index) {
+            let included = this.chord['fingers']
+            .filter((v) => (v === this.chord['fingers'][index]))
+            .length  > 1;
+            return included;
+        },
+        buildBarredFingering() {
+            // TODO GOAL
+            // this.barredFingering = [[2,3], [1.6]];
+            this.chord.fingers.forEach((finger, idx) => {
+                // used to access chord in the following loop
+                let self = this;
+                // si ce doigt n'est pas déjà enregistré
+                let fingerNotAlreadyRegistered = !this.barredFingering.filter((v) => (v.label === finger)).length  > 0;
+                // not null
+                if (finger != null && fingerNotAlreadyRegistered) {
+                    let currentLoop = true;
+                    // on parcours l'objet finger dans l'autre sens pour trouver la fin
+                    Object.keys(this.chord.fingers).reverse().forEach(function(reverseIndex) {
+                        // si on retrouve le doigt actuellement utilisé et que ce n'est pas le même index
+                        if(currentLoop && idx !== reverseIndex && self.chord.fingers[reverseIndex] !== null && self.chord.fingers[reverseIndex] === finger) {
+                            let bar = {
+                                label: finger,
+                                string: [idx, Number(reverseIndex)],
+                                fret: self.chord.frets[idx]
+                            };
+                            
+                            self.barredFingering.push(bar);
+                            currentLoop = false;
+                        }
+                    });
+                }
+            });
         },
         barLength(finger, index) {
             let length = 0;
@@ -116,7 +120,7 @@ export default {
 <style scoped>
 .fingerLabel {
   fill: var(--diagram-finger-indication);
-  font-size: 10px;
+  font-size: 10px; /* TODO correction on this 60px for single finger*/
   font-weight: 500;
   text-anchor: middle;
 }
