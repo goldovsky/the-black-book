@@ -54,6 +54,9 @@ export default {
             return included;
         },
         buildBarredFingering() {
+            console.log("buildBarredFingering() before");
+            console.log(this.barredFingering);
+
             // TODO GOAL
             // this.barredFingering = [[2,3], [1.6]];
             this.chord.fingers.forEach((finger, idx) => {
@@ -67,7 +70,8 @@ export default {
                     // on parcours l'objet finger dans l'autre sens pour trouver la fin
                     Object.keys(this.chord.fingers).reverse().forEach(function(reverseIndex) {
                         // si on retrouve le doigt actuellement utilisé et que ce n'est pas le même index
-                        if(currentLoop && idx !== reverseIndex && self.chord.fingers[reverseIndex] !== null && self.chord.fingers[reverseIndex] === finger) {
+                        if(currentLoop && idx !== Number(reverseIndex) && self.chord.fingers[Number(reverseIndex)] !== null && self.chord.fingers[Number(reverseIndex)] === finger) {
+                            
                             let bar = {
                                 label: finger,
                                 string: [idx, Number(reverseIndex)],
@@ -80,6 +84,9 @@ export default {
                     });
                 }
             });
+
+            console.log("buildBarredFingering() after");
+            console.log(this.barredFingering);
         },
         barWidth(barredString) {
             let valeForSVGWidth = 25;
