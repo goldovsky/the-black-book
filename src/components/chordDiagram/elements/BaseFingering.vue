@@ -1,35 +1,22 @@
 <template>
-    <!-- BASE FINGERING -->
-    <!-- :width="isBar(index) ? svgBarredWidth + this.barWidth() : svgWidth" -->
-    <svg v-for="(fret, index) in chord.frets" :key="index" :string="index" :fret="chord['frets'][index]" :x="this.calculatedX(index)-2" :y="calculatedY(index)-1.5" :width="svgWidth">
-        <!-- BARRED FINGER -->
-        <!-- <barred-finger :y="0 + 1.5" :x="0 + 1.5" v-if="isBar(index)" :label="chord.fingers[index]"
-        :width="svgWidth" height="10" :length="barLength(chord.fingers[index], index)"/> -->
-                
-        <!-- SINGLE FINGER -->
+    <!-- SINGLE FINGER -->
+    <svg v-for="(fret, index) in chord.frets" :key="index" :string="index" :fret="chord['frets'][index]" :x="this.XforMainSVG(index)" :y="YforMainSVG(index)" :width="svgWidth">                
         <!-- <svg viewBox="0 0 100 100" v-if="fret != null && (!isBar(index+indexArrayToStringOffset))" :x="0+0.5" width="13" height="13" >
             <circle cx="50" cy="50" r="49" stroke="var(--diagram-finger)" fill="var(--diagram-finger)" />
             <text class="fingerLabel" x="50" y="70">
-            {{ chord.fingers[index] }}
+                {{ chord.fingers[index] }}
             </text>
         </svg> -->
     </svg>
-
+    
     <!-- BARRED FINGER -->
     <!-- TODO  
-    - : x de startToFinish
-    - : y  de barredIndex
-    - : add barred.label at the center of the rectangle via <text>
-    -->
-    <svg v-for="(barred, index) in barredFingering" :key="index" class="BarredFingerMain" :x="this.calculatedX(index)-2" :y="calculatedY(index)-1.5" width="100">
-
-        <!-- Finger start and finger end -->
-       <svg viewBox="0 0 100 100" v-for="(startToFinish, barredIndex) in barred.string" :key="barredIndex" :y="calculatedY(barred.fret)*barred.fret- 10" :x="startToFinish * 16" width="13" height="13" >
-            <circle cx="50" cy="50" r="49" stroke="var(--diagram-finger)" fill="var(--diagram-finger)" />
-        </svg>
-
-        <!-- Rectangle linking the two ends -->
-        <svg viewBox="0 0 100 100" :y="calculatedY(barred.fret)*barred.fret/5 - 10" :x="barred.string[0] +13" width="100" height="100" fill="var(--diagram-finger)">
+        - : y  de barredIndex
+        - : add barred.label at the center of the rectangle via <text>
+        -->
+        <!-- :width="isBar(index) ? svgBarredWidth + this.barWidth() : svgWidth" -->
+    <svg v-for="(barred, index) in barredFingering" :key="index" class="BarredFingerMain" :x="this.XforMainSVG(index)" :y="YforMainSVG(index)" width="100">
+        <svg viewBox="0 0 100 100" :y="YforBarredSVG(barred.fret)" :x="barred.string[0] +13" width="100" height="100" fill="var(--diagram-finger)">
             <rect x="0" y="40" width="50" height="13" rx="5" ry="5" />
 
             <!-- TODO  -->
@@ -101,16 +88,19 @@ export default {
             });
             return length;
         },
-        calculatedX(string) {
+        XforMainSVG(string) {
             return this.rightDexterity ? 
             // RIGHT HANDED - we use the opposite string from what 'string' is
-            -5 + (this.instrument.strings - string - this.$data.indexArrayToStringOffset) * this.$store.getters.display.diagrams.chords.width : 
+            -7 + (this.instrument.strings - string - this.$data.indexArrayToStringOffset) * this.$store.getters.display.diagrams.chords.width : 
             // LEFT HANDED
-            -5 + string * this.$store.getters.display.diagrams.chords.width;
+            -7 + string * this.$store.getters.display.diagrams.chords.width;
         },
-        calculatedY(index) {
-            return (this.chord['frets'][index] - this.$data.indexArrayToStringOffset) * 20 + 5;
+        YforMainSVG(index) {
+            return (this.chord['frets'][index] - this.$data.indexArrayToStringOffset) * 20 + 3.5;
         },
+        YforBarredSVG(barredFret) {
+            return this.YforMainSVG(barredFret)*barredFret/5 - 9;
+        }
     },
     computed: {
         instrument() {

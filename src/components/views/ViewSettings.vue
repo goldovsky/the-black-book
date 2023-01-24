@@ -117,6 +117,7 @@
               }}</base-button
             >
           </li>
+          <!-- TODO change it to "left dexterity []" -->
           <li>
             <div>Dexterity |</div>
             <div>Left</div>

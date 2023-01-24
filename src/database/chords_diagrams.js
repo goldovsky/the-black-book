@@ -57,6 +57,11 @@ export default {
             frets: [null,2,2,2,0,null],
             fingers: [null,1,1,1,null,null],
             intervals:[null, '3M','1P','5P','1P',null]
+          },
+          caged_a_sus_4: {
+            frets: [null,3,2,2,0,null],
+            fingers: [null,2,1,1,null,null],
+            intervals:[null, '4P','1P','5P','1P',null]
           }
         }
       },
