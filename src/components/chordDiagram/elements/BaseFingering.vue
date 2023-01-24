@@ -17,14 +17,14 @@
         <!-- :width="isIncludedInABar(index) ? svgBarredWidth + this.barWidth() : svgWidth" -->
     <svg v-for="(barred, index) in barredFingering" :key="index" class="BarredFingerMain" :x="this.XforMainSVG(index)" :y="YforMainSVG(index)" width="100">
         <svg viewBox="0 0 100 100" :y="YforBarredSVG(barred.fret)" :x="barred.string[0] +13" width="100" height="100" fill="var(--diagram-finger)">
-            <rect x="0" y="40" width="50" height="13" rx="5" ry="5" />
+            <rect x="0" y="40" :width="barWidth(barred.string)" height="13" rx="5" ry="5" />
 
             <!-- TODO  -->
-            <svg >
+            <!-- <svg >
                 <text class="fingerLabel" :x="(barred.string[1] - barred.string[0]) * 10 + 5" y="50">
                     {{ barred.label }}
                 </text>
-            </svg>
+            </svg> -->
 
         </svg>
     </svg>
@@ -47,9 +47,9 @@ export default {
         this.buildBarredFingering();
     },
     methods: {
-        isIncludedInABar(index) {
+        isIncludedInABar(fingerIndex) {
             let included = this.chord['fingers']
-            .filter((v) => (v === this.chord['fingers'][index]))
+            .filter((v) => (v === this.chord['fingers'][fingerIndex]))
             .length  > 1;
             return included;
         },
@@ -81,16 +81,10 @@ export default {
                 }
             });
         },
-        barLength(finger, index) {
-            let length = 0;
-            this.chord.fingers.forEach((value, idx) => {
-                if (idx >= index) {
-                    if(value === finger) {
-                        length++;
-                    }
-                }
-            });
-            return length;
+        barWidth(barredString) {
+            let valeForSVGWidth = 25;
+            let length = (barredString[1] - barredString[0] + 1);
+            return valeForSVGWidth * length;
         },
         XforMainSVG(string) {
             return this.rightDexterity ? 
@@ -120,7 +114,7 @@ export default {
 <style scoped>
 .fingerLabel {
   fill: var(--diagram-finger-indication);
-  font-size: 10px; /* TODO correction on this 60px for single finger*/
+  font-size: 60px;
   font-weight: 500;
   text-anchor: middle;
 }
