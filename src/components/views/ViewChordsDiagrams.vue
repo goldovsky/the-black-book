@@ -48,11 +48,12 @@ export default {
   },
   created() {
     // G
-    //this.setChord(this.dataChords['tuning_standard']['nb_strings_6']['root_on_string_6']['major']['caged_g']);
+    // this.setChord(this.dataChords['tuning_standard']['nb_strings_6']['root_on_string_6']['major']['caged_g']);
     // A
-    //this.setChord(this.dataChords['tuning_standard']['nb_strings_6']['root_on_string_5']['major']['caged_a']);
+    // this.setChord(this.dataChords['tuning_standard']['nb_strings_6']['root_on_string_5']['major']['caged_a']);
     // Asus4
     this.setChord(this.dataChords['tuning_standard']['nb_strings_6']['root_on_string_5']['major']['caged_a_sus_4']);
+    
     this.setChordName('Asus4');
   },
   methods: {

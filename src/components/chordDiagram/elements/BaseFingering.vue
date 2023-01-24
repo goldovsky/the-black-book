@@ -1,7 +1,7 @@
 <template>
     <!-- SINGLE FINGER -->
     <svg v-for="(fret, index) in chord.frets" :key="index" :string="index" :fret="chord['frets'][index]" :x="this.XforMainSVG(index)" :y="YforMainSVG(index)" :width="svgWidth">                
-        <svg viewBox="0 0 100 100" v-if="fret != null && !isIncludedInABar(index)" :x="0+0.5" width="13" height="13" >
+        <svg viewBox="0 0 100 100" v-if="fret != null && !isIncludedInABar(index)" :x="0.5" width="13" height="13" >
             <circle cx="50" cy="50" r="49" stroke="var(--diagram-finger)" fill="var(--diagram-finger)" />
             <text class="fingerLabel" x="50" y="70">
                 {{ chord.fingers[index] }}
@@ -16,7 +16,7 @@
         -->
         <!-- :width="isIncludedInABar(index) ? svgBarredWidth + this.barWidth() : svgWidth" -->
     <svg v-for="(barred, index) in barredFingering" :key="index" class="BarredFingerMain" :x="this.XforMainSVG(index)" :y="YforMainSVG(index)" width="100">
-        <svg viewBox="0 0 100 100" :y="YforBarredSVG(barred.fret)" :x="barred.string[0] +13" width="100" height="100" fill="var(--diagram-finger)">
+        <svg viewBox="0 0 100 100" :y="YforBarredSVG(barred.fret)" :x="XforBarredSVG(barred.string)" width="100" height="100" fill="var(--diagram-finger)">
             <rect x="0" y="40" :width="barWidth(barred.string)" height="13" rx="5" ry="5" />
 
             <!-- TODO  -->
@@ -54,9 +54,6 @@ export default {
             return included;
         },
         buildBarredFingering() {
-            console.log("buildBarredFingering() before");
-            console.log(this.barredFingering);
-
             // TODO GOAL
             // this.barredFingering = [[2,3], [1.6]];
             this.chord.fingers.forEach((finger, idx) => {
@@ -71,7 +68,6 @@ export default {
                     Object.keys(this.chord.fingers).reverse().forEach(function(reverseIndex) {
                         // si on retrouve le doigt actuellement utilisé et que ce n'est pas le même index
                         if(currentLoop && idx !== Number(reverseIndex) && self.chord.fingers[Number(reverseIndex)] !== null && self.chord.fingers[Number(reverseIndex)] === finger) {
-                            
                             let bar = {
                                 label: finger,
                                 string: [idx, Number(reverseIndex)],
@@ -84,27 +80,54 @@ export default {
                     });
                 }
             });
-
-            console.log("buildBarredFingering() after");
-            console.log(this.barredFingering);
         },
         barWidth(barredString) {
-            let valeForSVGWidth = 25;
+            let valeForSVGWidth = 16;
             let length = (barredString[1] - barredString[0] + 1);
             return valeForSVGWidth * length;
         },
         XforMainSVG(string) {
             return this.rightDexterity ? 
             // RIGHT HANDED - we use the opposite string from what 'string' is
-            -7 + (this.instrument.strings - string - this.$data.indexArrayToStringOffset) * this.$store.getters.display.diagrams.chords.width : 
+            -7 + string * this.$store.getters.display.diagrams.chords.width :
             // LEFT HANDED
-            -7 + string * this.$store.getters.display.diagrams.chords.width;
+            -7 + (this.instrument.strings - string - this.$data.indexArrayToStringOffset) * this.$store.getters.display.diagrams.chords.width;
         },
         YforMainSVG(index) {
             return (this.chord['frets'][index] - this.$data.indexArrayToStringOffset) * 20 + 3.5;
         },
         YforBarredSVG(barredFret) {
             return this.YforMainSVG(barredFret)*barredFret/5 - 9;
+        },
+        XforBarredSVG(barredString) {
+            let diagramWidth = this.$store.getters.display.diagrams.chords.width;
+            let addSymetry =  barredString[1] - this.instrument.strings + 1;
+            let barredStringBasedOnDexterity = this.$store.getters.instrument.leftDominantHand ? 
+            // LEFT HANDED
+            barredString[0] - 1 :
+            // RIGHT HANDED - we use the opposite string from what 'string' is
+            (barredString[1] + addSymetry);
+            
+
+            console.group("COMMON");
+            console.log("barredString: " + barredString);
+            console.log("diagramWidth: " + diagramWidth);
+            console.log("addSymetry: " + addSymetry);
+
+            console.group("LEFT");
+            console.log("barredStringBasedOnDexterity: " + (barredString[0] - 1));
+            console.log("return: " + (13 + (barredString[0] - 1) * diagramWidth));
+            console.groupEnd();
+
+            console.group("RIGHT");
+            console.log("barredStringBasedOnDexterity: " + (barredString[1] + addSymetry));
+            console.log("return: " + (13 + ((barredString[1] + addSymetry)) * diagramWidth));
+            console.groupEnd();
+
+            console.groupEnd();
+
+
+            return 13 + barredStringBasedOnDexterity * diagramWidth;
         }
     },
     computed: {
@@ -112,7 +135,7 @@ export default {
             return this.$store.getters.instrument;
         },
         rightDexterity() {
-            return this.$store.getters.leftDominantHand;  
+            return this.$store.getters.instrument.leftDominantHand;  
         }
     }
 };
