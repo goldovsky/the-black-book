@@ -51,6 +51,12 @@ export default {
             fingers: [1,1,2,4,3,1],
             intervals:['1P','5P','3M','1P','5P','1P']
           },
+          // TODO remove this
+          test: {
+            frets: [null,null,4,null,4,null],
+            fingers: [null,null,4,null,4,null],
+            intervals:['x','x','x','x','x','x']
+          },
         },
         diminished: {},
         augmented: {},

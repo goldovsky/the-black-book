@@ -182,6 +182,16 @@ export default {
   },
   methods: {
     openMutedstringSymbol(n) {
+      // TODO correction on: 
+      /**
+       * test: {
+            frets: [4,null,4,null,null,null],
+            fingers: [4,null,4,null,null,null],
+            intervals:['x','x','x','x','x','x']
+          },
+        * X at 2nd string, shouldn't be there 
+       */
+
       // (X☓╳✕✖◯○⭘)
       if (this.chord['frets'] !== undefined) {
         switch (this.chord['frets'][n-1]) {

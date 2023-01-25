@@ -98,15 +98,27 @@ export default {
             return yValues[barredFret]; // this.YforMainSVG(barredFret)*barredFret/5 - 9;
         },
         XforBarredSVG(barredString) {
-            let diagramWidth = this.$store.getters.display.diagrams.chords.width;
             let addSymetry =  barredString[1] - this.instrument.strings + 1;
+            let diagramWidth = this.$store.getters.display.diagrams.chords.width;
             let barredStringBasedOnDexterity = this.$store.getters.instrument.leftDominantHand ? 
             // LEFT HANDED
             barredString[0] - 1 :
             // RIGHT HANDED - we use the opposite string from what 'string' is
             (barredString[1] + addSymetry);
-            
             return 9 + barredStringBasedOnDexterity * diagramWidth;
+            
+
+            /*
+            let barredLength = (barredString[1] - barredString[0] + 1);
+            console.log("barredLength: " + barredLength);
+            let leftValues = [0, 0, 25, -7, -7, -7, -7];
+            let rightValues = [0, 0, 25, 40, 25, 7, -7];
+            return this.$store.getters.instrument.leftDominantHand ? 
+            // LEFT HANDED
+            leftValues[barredLength] :
+            // RIGHT HANDED - we use the opposite string from what 'string' is
+            rightValues[barredLength] + addSymetry ;
+            */
         },
         xforBarredLabel(barredString) {
             let xValues = [0, 0, 15, 23, 31.5, 39, 47];
@@ -125,7 +137,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+/* TODO optimize this */
 .fingerLabel {
   fill: var(--diagram-finger-indication);
   font-size: 60px;
