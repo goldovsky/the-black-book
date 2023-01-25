@@ -20,11 +20,8 @@
             <rect x="0" y="0" :width="barWidth(barred.string)" height="13" rx="5" ry="5" />
 
             <!-- TODO  -->
-            <svg height="50" :y="YforMainSVG(index) + (barred.fret * 8.9)">
-                <text class="fingerLabel" style="font-size: 12px;" :x="(barred.string[1] - barred.string[0]) * 10 + 5" y="50">
-                    {{ barred.label }}
-                </text>
-            </svg>
+            <!-- :x="(barred.string[1] - barred.string[0]) * 10 + 5" y="50" -->
+            <text class="barredLabel" :x="xforBarredLabel(barred.string)" y="10">{{ barred.label }}</text>
 
         </svg>
     </svg>
@@ -110,6 +107,11 @@ export default {
             (barredString[1] + addSymetry);
             
             return 9 + barredStringBasedOnDexterity * diagramWidth;
+        },
+        xforBarredLabel(barredString) {
+            let xValues = [0, 0, 15, 23, 31.5, 39, 47];
+            let barredLength = (barredString[1] - barredString[0] + 1);
+            return xValues[barredLength];
         }
     },
     computed: {
@@ -127,6 +129,13 @@ export default {
 .fingerLabel {
   fill: var(--diagram-finger-indication);
   font-size: 60px;
+  font-weight: 500;
+  text-anchor: middle;
+}
+
+.barredLabel {
+    fill: var(--diagram-finger-indication);
+  font-size: 10px;
   font-weight: 500;
   text-anchor: middle;
 }
