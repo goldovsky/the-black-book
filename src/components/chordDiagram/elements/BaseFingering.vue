@@ -15,8 +15,8 @@
         - : add barred.label at the center of the rectangle via <text>
         -->
         <!-- :width="isIncludedInABar(index) ? svgBarredWidth + this.barWidth() : svgWidth" -->
-    <svg v-for="(barred, index) in barredFingering" :key="index" class="BarredFingerMain" :y="YforMainSVG(index)" width="100">
-        <svg viewBox="0 0 100 100" :y="YforBarredSVG(barred.fret)" :x="XforBarredSVG(barred.string)" width="100" height="100" fill="var(--diagram-finger)">
+    <svg v-for="(barred, index) in barredFingering" :key="index" class="BarredFingerMain" :y="YforMainSVG(index)" width="100" :x="XforBarredSVG(barred.string)">
+        <svg viewBox="0 0 100 100" :y="YforBarredSVG(barred.fret)" width="100" height="100" fill="var(--diagram-finger)">
             <rect x="0" y="40" :width="barWidth(barred.string)" height="13" rx="5" ry="5" />
 
             <!-- TODO  -->

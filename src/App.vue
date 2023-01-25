@@ -40,5 +40,5 @@ export default {
 </script>
 
 <style>
-/* All of style are in ./assets/css/style.scss */
+/* cf ./assets/css/style.scss */
 </style>
