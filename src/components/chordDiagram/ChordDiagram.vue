@@ -1,5 +1,6 @@
 <template>
   <!-- @4 -->
+  <!-- TODO Calculate first attribute to -x depending on the number of strings -->
   <svg
     width="100%"
     viewBox="0 0 100 110"

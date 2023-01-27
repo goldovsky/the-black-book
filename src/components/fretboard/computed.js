@@ -113,6 +113,7 @@ export default {
           let temp = rendering.cx;
           rendering.cx = rendering.cy;
           // TODO : this is dirty... but at least the functionality is here
+          // calculate the y placement of the dot based on the width of the neck 
           switch(this.instrument.strings) { 
             case 5: { 
               rendering.cy = temp * 5.3/4;
