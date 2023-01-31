@@ -8,9 +8,7 @@
           :chord="chord"
         ></chord-diagram>
     </div>
-    <!-- TODO nut position -->
-    <!-- TODO chord name -->
-
+    
     <!-- <h3>Guitar Chord Editor</h3>
     <div style="width: 250px; height: 250px">
       TODO
