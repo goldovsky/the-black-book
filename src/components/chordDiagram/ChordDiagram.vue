@@ -1,13 +1,10 @@
 <template>
-  <!-- @4 -->
-  <!-- TODO Calculate first attribute to -x depending on the number of strings -->
   <svg
     width="100%"
     viewBox="0 0 100 110"
     :class="{ rotateLeft: rotationLeft, rotateRight: rotationRight }"
   >
     <!-- Chord name -->
-    <!-- @1 -->
     <text
       y="8"
       :x="chordNameXPosition"
@@ -81,17 +78,15 @@
 <script>
 /**
  * TODO
- * 1) Is it interesting to merge BaseChord, BaseString and BaseFretboard into this one single file?
  * 2) take a look into chord diagrams to see if we need more frets, and if so how to implement it, calculate delta between lowest and highest frets in chord object
  * 3) calculate everything from a multiple of current strings used
- * @1) instead of 6 use current strings number used in app
- *
- *
+ * 
+ * ...
+ * 
  *  * - Refacto the whole object and it's components
  * - Change the proportion of the object to match the chordify's example (w:360 | h:450)
  * @1) check my books to see if the name shouldn't be displayed bellow instead of above
  * @3.5) TODO get global store data to determine if rotation or not
- * @4) optimize Rotate way to do it
  * @5) check which should be calculated, do the positioning on the Y axis
  * @6) do a v-if to check if it need to be displayed or not
  *

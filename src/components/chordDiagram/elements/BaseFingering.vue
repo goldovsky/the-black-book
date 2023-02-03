@@ -10,18 +10,13 @@
     </svg>
     
     <!-- BARRED FINGER -->
-    <!-- TODO  
-        - : y  de barredIndex
-        - : add barred.label at the center of the rectangle via <text>
-        -->
-        <!-- :width="isIncludedInABar(index) ? svgBarredWidth + this.barWidth() : svgWidth" -->
     <svg v-for="(barred, index) in barredFingering" :key="index" class="BarredFingerMain" width="100" :x="XforBarredSVG(barred.string)">
         <svg viewBox="0 0 100 100" :y="YforBarredSVG(barred.fret)" width="100" height="100" fill="var(--diagram-finger)">
             <rect x="0" y="0" :width="barWidth(barred.string)" height="13" rx="5" ry="5" />
 
             <!-- TODO  -->
             <!-- :x="(barred.string[1] - barred.string[0]) * 10 + 5" y="50" -->
-            <text class="barredLabel" :x="xforBarredLabel(barred.string)" y="10">{{ barred.label }}</text>
+            <text class="barreLabel" :x="xforlabelBarre(barred.string)" y="10">{{ barred.label }}</text>
 
         </svg>
     </svg>
@@ -51,8 +46,18 @@ export default {
             return included;
         },
         buildBarredFingering() {
-            // TODO GOAL
-            // this.barredFingering = [[2,3], [1.6]];
+            /**
+             * Goal of this method is to create an object 
+             * listing every barre used in this diagram
+             * 
+             * [
+                {
+                    label: 1,
+                    string: [0, 5],
+                    fret: 1
+                }
+             * ]
+             */
             this.chord.fingers.forEach((finger, idx) => {
                 // used to access chord in the following loop
                 let self = this;
@@ -120,7 +125,7 @@ export default {
             rightValues[barredLength] + addSymetry ;
             */
         },
-        xforBarredLabel(barredString) {
+        xforlabelBarre(barredString) {
             let xValues = [0, 0, 15, 23, 31.5, 39, 47];
             let barredLength = (barredString[1] - barredString[0] + 1);
             return xValues[barredLength];
@@ -138,30 +143,34 @@ export default {
 </script>
 
 <style scoped lang="scss">
-/* TODO optimize this */
-.fingerLabel {
-  fill: var(--diagram-finger-indication);
-  font-size: 60px;
-  font-weight: 500;
-  text-anchor: middle;
-}
-
-.barredLabel {
+text {
     fill: var(--diagram-finger-indication);
-  font-size: 10px;
-  font-weight: 500;
-  text-anchor: middle;
+    font-weight: 500;
+    text-anchor: middle;
+    
 }
-/* .interval1 {} */
-/* .interval2 {} */
-/* .interval3 {} */
-/* .interval4 {} */
-/* .interval5 {} */
-/* .interval6 {} */
-/* .interval7 {} */
-/* .interval8 {} */
-/* .interval9 {} */
-/* .interval10 {} */
-/* .interval11 {} */
-/* .interval12 {} */
+.fingerLabel {
+    font-size: 60px;
+}
+.barreLabel {
+    font-size: 10px;
+}
+/*
+ * TODO: this is were we construct shape based on interval 
+
+.intervalP1 {}
+.intervalm2 {}
+.intervalM2 {}
+.intervalm3 {}
+.intervalM3 {}
+.intervalP4 {}
+.intervalA4 {}
+.intervald5 {}
+.intervalP5 {}
+.intervalm6 {}
+.intervalM6 {}
+.intervalm7 {}
+.intervalM7 {}
+.intervalP8 {}
+*/
 </style>
