@@ -2,27 +2,12 @@
   <div class="sliderparentdiv">
     <div class="basesliderarray">
       <div class="labelparent">
-        <label
-          v-if="currentValue != min"
-          class="labelbefore"
-          :style="{ visibility: currentValue !== min ? 'visible' : 'hidden' }"
-          >{{ values[min] }}</label
-        >
-        <label class="labelvalue">{{ values[currentValue] }}</label>
-        <label
-          v-if="currentValue != max"
-          class="labelafter"
-          :style="{ visibility: currentValue !== max ? 'visible' : 'hidden' }"
-          >{{ values[max] }}</label
-        >
+        <label v-for="item in values" :key="item" :class="itemClass(item)">
+          {{ item }} 
+          <br />
+        </label>
       </div>
-      <input
-        type="range"
-        :min="min"
-        :max="max"
-        list="values"
-        v-model="currentValue"
-      />
+      <input type="range" list="values" :min="min" :max="max" v-model="currentValue" />
       <div class="slidertitle">{{title}}</div>
     </div>
   </div>
@@ -40,10 +25,14 @@ export default {
     };
   },
   created() {
-    console.log(this.values);
     this.min = 0;
     this.max = this.values.length - 1;
     this.currentValue = this.indexInitialValue;
+  },
+  methods: {
+    itemClass(item) {
+      return this.values[this.currentValue] == item ? 'labelvalue' : '';
+    }
   },
   watch: {
     currentValue() {

@@ -19,14 +19,14 @@
       <section
         class="col-9 align-middle"
         v-bind:style="{
-          alignItems: orientation == 'horizontal' ? 'center' : '',
+          alignItems: fretboard.orientation == 'horizontal' ? 'center' : '',
         }"
       >
         <the-fretboard
           :scale="scale"
           :prop-tuning="tuning"
-          :start="start"
-          :frets="frets + start - 1"
+          :start="fretboard.startingFret"
+          :frets="frets + fretboard.startingFret - 1"
           title="Test"
         ></the-fretboard>
       </section>
@@ -58,18 +58,22 @@
 
           <fieldset class="form-group mt-4">
             <legend>Scale</legend>
-            <!-- <div class="scale">
+            <div class="scale">
               <base-slider-array
                  title="Tonal"
-                :values="scale"
-                :indexInitialValue="scale[0]"
+                :values="selector.notes"
+                :indexInitialValue="0"
 
               ></base-slider-array>
-            </div> -->
+            </div>
+
+            <base-dropdown :values="selector.scales.extends.list" @dropdownupdate="nbNotesByScaleSelected" title="type"></base-dropdown>
+
+
             <div class="scalealteration">
               <base-slider-array
                  title="alteration"
-                :values="scaleAlteration"
+                :values="selector.accidental"
                 :indexInitialValue="1"
               ></base-slider-array>
             </div>
@@ -112,6 +116,7 @@
  */
 import TheFretboard from "./../fretboard/TheFretboard.vue";
 import BaseCard from "./../ui/BaseCard.vue";
+import scalesDatabase from "./../../database/scales.js";
 export default {
   components: {
     TheFretboard,
@@ -119,74 +124,47 @@ export default {
   },
   data() {
     return {
+      scalesDatabase: null,
       scale: "C Major",
-      scaleAlteration: ["bemol", "none", "sharp"],
-      storeTuning: null,
+      selector: {
+        notes: ["C","D","E","F","G","A","B"],
+        accidental: ["♭","♮","♯"],
+        scales: {
+          currentSelection: null,
+          extends: {
+            selected: null,
+            list: ["5 - Pentatonic","6 - Hexatonic","7 - Heptatonic"]
+          }
+        }
+      },
       tuning: null, // build in created()
-      orientation: "horizontal",
-      start: 0,
+      fretboard: {
+        orientation: "horizontal",
+        startingFret: 0
+      },
       frets: null,
       fretsrange: [],
       startingfretrange: [], // TODO
-      // below come from <script> inside html
-      scales: {
-        Major: [2, 2, 1, 2, 2, 2, 1],
-        Minor: [2, 1, 2, 2, 1, 2, 2],
-        Dorian: [2, 1, 2, 2, 2, 1, 2],
-        Locrian: [1, 2, 2, 1, 2, 2, 2],
-        Lydian: [2, 2, 2, 1, 2, 2, 1],
-        Mixolydian: [2, 2, 1, 2, 2, 1, 2],
-        Phrygian: [1, 2, 2, 2, 1, 2, 2],
-        "Major Pentatonic": [2, 2, 3, 2, 3],
-        "Minor Pentatonic": [3, 2, 2, 3, 2],
-      },
-      notes: ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"],
     };
   },
   created() {
-    this.storeTuning = this.instrument.tuning;
     // build tuning based on Store
     this.tuning = this.instrument.tuning.stringsNotes
       .reverse()
       .join(" ")
       .replace(/[0-9]/g, "");
 
-    //let html = "";
-    // TODO
-    /*
-    Object.keys(this.scales).forEach((scale) => {
-      // console.log("GDY Scale");
-      // console.log(scale);
-
-      // notes.forEach((note, i) => {
-      //   let scale_notes = [];
-      //   for (let k = 0, j = 0, l = this.scales[scale].length; k < l; ++k) {
-      //     scale_notes.push(notes[(i + j) % 12]);
-      //     j += this.scales[scale][k];
-      //   }
-      //   scale_notes = scale_notes.join(" ");
-      //   html += `<option value="${note} ${scale}">${scale_notes}</option>`;
-      // });
-    });
-    */
-    //document.currentScript.parentNode.innerHTML = html;
-
-    // Object.keys(data).forEach((key) => {
-    // 	watch[key] = (val) => window.localStorage.setItem(key, val);
-    // 	let value = window.localStorage.getItem(key);
-    // 	if (value !== null) {
-    // 		data[key] = value;
-    // 	}
-    // });
-
     // Initialise Frets Range
     for (let frt = 0; frt < 25; ++frt) {
       this.fretsrange.push(frt);
     }
+
+    // load scale database
+    this.scalesDatabase = scalesDatabase;
   },
   methods: {
     updateStartingNumber(value) {
-      this.start = value;
+      this.fretboard.startingFret = value;
       this.verifyFretboardValidity();
     },
     updateNumberOfFrets(value) {
@@ -196,9 +174,12 @@ export default {
     // So we don't go beyond 24th
     verifyFretboardValidity() {
       let fretboardLimit = 25;
-      if (this.start + this.frets > fretboardLimit) {
-        this.frets = this.frets - (this.start + this.frets - fretboardLimit);
+      if (this.fretboard.startingFret + this.frets > fretboardLimit) {
+        this.frets = this.frets - (this.fretboard.startingFret + this.frets - fretboardLimit);
       }
+    },
+    nbNotesByScaleSelected(nb) {
+      this.selector.scales.extends.selected = nb;
     }
   },
   computed: {
@@ -237,10 +218,6 @@ export default {
 
 .scale {
   width: 80%;
-}
-
-.scalealteration {
-  /* width: 80%; */
 }
 
 fieldset{

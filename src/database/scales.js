@@ -52,6 +52,16 @@ export default {
       ],
       intervals: [0, 2, 4, 7, 9],
     },
+    hirajoshi: {
+      modes: [
+        "Hirajoshi/Koto",
+        "?",
+        "?",
+        "?",
+        "?",
+      ],
+      intervals: [0, 2, 3, 7, 8],
+    },
   },
   hexatonic: { //nb_notes_6
     whole_tone: {

@@ -12,7 +12,7 @@
         </p>
       </div>
     </div>
-    <div class="dropdowntitle">Type</div>
+    <div class="dropdowntitle">{{ title }}</div>
   </div>
 </template>
 
@@ -23,7 +23,7 @@
  * - source : https://codetea.com/pretty-dropdown-menu/
  */
 export default {
-  props: ["values"],
+  props: ["values", "title"],
   emits: ["dropdownupdate"],
   data() {
     return {
