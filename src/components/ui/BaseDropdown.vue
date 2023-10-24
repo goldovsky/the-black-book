@@ -23,7 +23,7 @@
  * - source : https://codetea.com/pretty-dropdown-menu/
  */
 export default {
-  props: ["values", "title"],
+  props: ["values", "title", "initialIndex"],
   emits: ["dropdownupdate"],
   data() {
     return {
@@ -42,7 +42,7 @@ export default {
     },
   },
   created() {
-    this.currentValue = this.values[0];
+    this.currentValue = this.initialIndex ? this.values[this.initialIndex] : this.values[0];
   },
 };
 </script>
