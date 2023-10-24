@@ -127,7 +127,7 @@ export default {
       nutPath: null,
       bottomDiagramPath: null, // from baseFretboard
       x2DiagramWidth: 100, // Diagram width, from a string to another
-      nutline: false, // TODO calculate if nut isn't part of diagram,
+      nutline: false, // TODO calculate if nut need to be displayed in the diagram,
       arrayStringXIndex: [],
       // else
       chordNameXPosition: null,

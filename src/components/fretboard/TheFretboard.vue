@@ -7,6 +7,8 @@
   >
     <title :id="ariaTitleId">{{ ariaTitleText }}</title>
     <desc :id="ariaDescId">{{ ariaDescText }}</desc>
+
+    <!-- Repère de touche -->
     <ellipse
       v-for="ref in fretMarkerRendering"
       :key="ref"
@@ -18,6 +20,8 @@
       :stroke="ref.stroke"
       :fill="ref.fill"
     />
+
+    <!-- Frette -->
     <rect
       v-for="fret in fretRenderings"
       :key="fret"
@@ -28,6 +32,8 @@
       :width="fret.width"
       :fill="fret.color"
     />
+
+    <!-- Corde -->
     <rect
       v-for="string in stringRenderings"
       :key="string"
@@ -38,6 +44,8 @@
       :width="string.width"
       :fill="string.color"
     />
+
+    <!-- Note : Shape -->
     <circle
       v-for="note in scaleRendering"
       :key="note"
@@ -48,6 +56,8 @@
       :stroke="note.stroke"
       :fill="note.fill"
     />
+
+    <!-- Note : Nom de la note -->
     <text
       v-for="text in scaleText"
       :key="text"

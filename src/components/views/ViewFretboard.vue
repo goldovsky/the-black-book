@@ -56,21 +56,42 @@
 
           <hr />
 
+          <fieldset class="form-group mt-4">
+            <legend>Scale</legend>
+            <!-- <div class="scale">
+              <base-slider-array
+                 title="Tonal"
+                :values="scale"
+                :indexInitialValue="scale[0]"
+
+              ></base-slider-array>
+            </div> -->
+            <div class="scalealteration">
+              <base-slider-array
+                 title="alteration"
+                :values="scaleAlteration"
+                :indexInitialValue="1"
+              ></base-slider-array>
+            </div>
+          </fieldset>
+
+          <hr />
+
           <fieldset class="form-group">
             <legend>Frets</legend>
              <div class="controlfrets">
-              <base-slider
+              <base-slider-numerical
                  title="# of Frets"
                 :values="fretsrange"
                 :initialvalue="13"
                 @valueupdate="updateNumberOfFrets"
-              ></base-slider>
-              <base-slider
+              ></base-slider-numerical>
+              <base-slider-numerical
                  title="Starting Fret"
                 :values="fretsrange"
                 :initialvalue="0"
                 @valueupdate="updateStartingNumber"
-              ></base-slider>
+              ></base-slider-numerical>
                </div>
           </fieldset>
         </section>
@@ -99,6 +120,7 @@ export default {
   data() {
     return {
       scale: "C Major",
+      scaleAlteration: ["bemol", "none", "sharp"],
       storeTuning: null,
       tuning: null, // build in created()
       orientation: "horizontal",
@@ -157,7 +179,7 @@ export default {
     // 	}
     // });
 
-    //init fretsrange
+    // Initialise Frets Range
     for (let frt = 0; frt < 25; ++frt) {
       this.fretsrange.push(frt);
     }
@@ -205,12 +227,20 @@ export default {
   overflow-y: scroll;
 }
 
-.controlfrets{
+.controlfrets {
   display: flex;
   /* flex-direction: column; */
   align-items: end;
   justify-content: space-around;
   margin: auto;
+}
+
+.scale {
+  width: 80%;
+}
+
+.scalealteration {
+  /* width: 80%; */
 }
 
 fieldset{
