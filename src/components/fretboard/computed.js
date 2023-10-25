@@ -31,13 +31,13 @@ export default {
       fret++
     ) {
       let rendering = {
-        height: fret == 0 && this.hasNut ? this.nutSize * 1 : this.fretSize * 1,
+        height: fret == 0 && this.hasNut ? this.nutSize * 1 : this.fret.size * 1,
         width:
           (this.isHorizontal ? this.height : this.width) - this.noteRadius * 2,
         y: oy,
         x: this.noteRadius * 1,
         color: fret == 0 && this.hasNut ? this.nutColor : 
-        fretMarkers.includes(fret) ? this.coloredFretColor : this.fretColor,
+        fretMarkers.includes(fret) ? this.fret.colored : this.fret.color,
 
       };
       if (this.isHorizontal) {
@@ -53,18 +53,18 @@ export default {
         }
       }
       renderings.push(rendering);
-      oy += fret == 0 && this.hasNut ? this.nutSize * 1 : this.fretSize * 1;
-      oy += this.fretSpace * 1;
+      oy += fret == 0 && this.hasNut ? this.nutSize * 1 : this.fret.size * 1;
+      oy += this.fret.space * 1;
     }
     return renderings;
   },
 
   fretMarkerRendering() {
-    if (!(this.reference + "").length) {
+    if (!(this.inlay.positions + "").length) {
       return [];
     }
     let neck = {};
-    let referenceDots = this.reference.trim().split(/\s+/);
+    let referenceDots = this.inlay.positions.trim().split(/\s+/);
     referenceDots.forEach(function (referenceDot) {
       if (!Object.prototype.hasOwnProperty.call(neck, referenceDot)) {
         neck[referenceDot] = 0;
@@ -82,8 +82,8 @@ export default {
         return;
       for (let dot = 0; dot < referenceDot[1]; ++dot) {
         let rendering = {};
-        rendering.radius = this.referenceRadius * 1;
-        rendering.fill = this.referenceColor;
+        rendering.radius = this.inlay.radius * 1;
+        rendering.fill = this.inlay.color;
         let mid = Math.floor(this.instrument.strings / 2);
         rendering.cx =
           1 +
@@ -92,7 +92,7 @@ export default {
             : 0) +
           this.stringSpace * (mid - 0.5) +
           this.noteRadius / 2 +
-          this.referenceRadius / 2 +
+          this.inlay.radius / 2 +
           ox;
         if (referenceDot[1] > 1) {
           rendering.cx +=
@@ -103,10 +103,10 @@ export default {
         let cy = 0;
         if (this.startNormalized === 0) cy += this.noteRadius * 2;
         let offset = referenceDot[0] - (this.startNormalized || 1);
-        cy += this.hasNut ? this.nutSize * 1 : this.fretSize * 1;
-        cy += this.fretSize * offset;
-        cy += this.fretSpace * offset;
-        cy += this.fretSpace / 2;
+        cy += this.hasNut ? this.nutSize * 1 : this.fret.size * 1;
+        cy += this.fret.size * offset;
+        cy += this.fret.space * offset;
+        cy += this.fret.space / 2;
         rendering.cy = cy;
         renderings.push(rendering);
         if (this.isHorizontal) {
@@ -147,7 +147,7 @@ export default {
     let frets = this.fretsNormalized;
     let ox = 0;
     for (let string = 0; string < this.instrument.strings; ++string) {
-      let oy = start > 0 ? (start === 1 ? this.nutSize : this.fretSize) * 1 : 0;
+      let oy = start > 0 ? (start === 1 ? this.nutSize : this.fret.size) * 1 : 0;
       for (let fret = start; fret <= frets; ++fret) {
         let rendering = {};
         rendering.x =
@@ -155,7 +155,7 @@ export default {
         let value = (fret + this.tuningNormalized[string]) % 12;
         let index = this.scaleNormalized.indexOf(value);
         if (~index) {
-          let ny = fret === 0 ? this.noteRadius * 1 : this.fretSpace / 2;
+          let ny = fret === 0 ? this.noteRadius * 1 : this.fret.space / 2;
           rendering.y = oy + ny;
           rendering.fret = fret;
           rendering.note = this.noteNames[value];
@@ -175,7 +175,7 @@ export default {
         if (fret === 0) {
           oy += this.noteRadius * 2 + this.nutSize * 1;
         } else {
-          oy += this.fretSpace * 1 + this.fretSize * 1;
+          oy += this.fret.space * 1 + this.fret.size * 1;
         }
       }
       ox += this.stringSpace * 1 + this.stringSizeNormalized[string];
@@ -244,6 +244,7 @@ export default {
   },
   scaleText() {
     return this.scaleInfo.map((rendering) => {
+      // TODO
       // @displayIntervalsInsteadOfNotes
       return {
         text: rendering.note,
@@ -321,11 +322,11 @@ export default {
       height += this.nutSize * 1;
       if (this.start == 0) height += this.noteRadius * 2;
     } else {
-      height += this.fretSize * 1;
+      height += this.fret.size * 1;
     }
     let frets = this.fretsNormalized - Math.max(0, this.startNormalized - 1);
-    height += frets * this.fretSpace;
-    height += this.fretSize * frets;
+    height += frets * this.fret.space;
+    height += this.fret.size * frets;
 
     let width = this.noteRadius * 2;
     width += (this.instrument.strings - 1) * this.stringSpace;

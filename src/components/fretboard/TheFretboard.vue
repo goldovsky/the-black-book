@@ -88,24 +88,34 @@ export default {
       /**
        * Design Values
        */
-      stringSize: null,
-      noteRadius: null,
-      noteTextColor: null,
-      rootTextColor: null,
-      fretSpace: null,
       nutSize: null,
-      fretSize: null,
-      fretColor: null,
-      coloredFretColor: null,
       nutColor: null,
-      stringColor: null,
+      noteTextColor: null,
+      noteRadius: null,
       noteColor: null,
+      rootTextColor: null,
       rootColor: null,
-      stringSpace: null,
-      referenceRadius: null, // repère de touche
-      referenceColor: null,
+      inlay: {
+        radius: 5,
+        color: "var(--fretboard-reference-color)",
+        positions: "3 5 7 9 12 12 15 17 19 21 24 24 27 29 31" // enter number twice to get two dots
+      },
+      fret: {
+        size: 6, //2
+        color: "var(--fretboard-fret-color)",
+        colored: "var(--fretboard-colored-fret-color)",
+        space: 66,
+        
+      },
+      string: {
+        size: 3,
+        space: "40",
+        color: "var(--fretboard-string-color)"
+      },
+      stringSize: null,
+      stringSpace: "40",
+      stringColor: null,
       orientation: null,
-      reference: null,
       tuning: null,
       /**
        *
@@ -160,22 +170,15 @@ export default {
     // @1
     this.stringSize = 3;
     this.noteRadius = 12;
-    this.fretSpace = 66;
     this.nutSize = 10;
     this.fretSize = 6; //2;
-    this.stringSpace = "40";
-    this.referenceRadius = 5;
-    this.reference = "3 5 7 9 12 12 15 17 19 21 24 24 27 29 31"; // enter number twice to get two dots
     this.orientation = "horizontal";
     this.fretColor = "var(--fretboard-fret-color)";
-    this.coloredFretColor = "var(--fretboard-colored-fret-color)";
     this.nutColor = "var(--nut-color)";
-    this.stringColor = "var(--fretboard-string-color)";
     this.noteColor = "var(--fretboard-note-color)";
     this.rootColor = "var(--fretboard-root-color)";
     this.noteTextColor = "var(--fretboard-noteText-color)";
     this.rootTextColor = "var(--fretboard-rootText-color)";
-    this.referenceColor = "var(--fretboard-reference-color)";
     /**
      * Reverse string order to get the low string on top of the diagram
      */
