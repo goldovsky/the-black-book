@@ -136,6 +136,10 @@ export default {
       type: String,
       default: "C D E F G A B"
     },
+    convertedIntervals: {
+      type: Array[Number],
+      default: [0, 2, 2, 1, 2, 2, 2, 1] // Major scale
+    },
     propTuning: {
       type: String,
       default: "G C E A"

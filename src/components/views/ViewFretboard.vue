@@ -24,6 +24,7 @@
       >
         <the-fretboard
           :scale="scale"
+          :convertedIntervals="convertedIntervals"
           :prop-tuning="tuning"
           :start="fretboard.startingFret"
           :frets="fretboard.frets + fretboard.startingFret - 1"
@@ -204,6 +205,33 @@ export default {
     setScalesLevel3(name) {
       this.selector.scales.level3 = this.getScaleLevel3.indexOf(name);
     },
+    /**
+     * convert current scale to a different mode
+     * Example for the Major scale:
+     * IN : [0, 2, 4, 5, 7, 9, 11]
+     * OUT : [0, 2, 3, 5, 7, 9, 10]
+     */
+     applyModeToScale(intervals, modeIndex){
+      // no modification needed for the first mode
+      if (modeIndex == 0) { return intervals; }
+      const octave = 12;
+      const startingPoint = intervals[modeIndex];
+      
+      // First, we add notes to the octave before our starting point at the end of the array
+      for (var j = 0; j < modeIndex; j++) {
+        intervals.push(intervals[j] + octave);
+      }
+
+      // Secondly we remove the unwanted values before our starting point based on the mode
+      intervals.splice(0, modeIndex);
+
+      // Thirdly ...
+      for (var i = 0; i < intervals.length; i++) {
+        intervals[i] = intervals[i] - startingPoint;
+      }
+
+      return intervals;
+    }
   },
   computed: {
     instrument() {
@@ -234,6 +262,31 @@ export default {
       + ' ' 
       + this.getScaleLevel3[[this.selector.scales.level3]] 
       + displaylevel2;
+    },
+    /**
+     * convert current interval system in scale.js to the system used in TheFretboard.vue/computed.js
+     * Example for the Major scale:
+     * IN : [0, 2, 4, 5, 7, 9, 11]
+     * OUT : [0, 2, 2, 1, 2, 2, 2, 1]
+     */
+    convertedIntervals() {
+      let intervals = this.selector.scales.database[this.getScaleLevel1[this.selector.scales.level1]][this.getScaleLevel2[this.selector.scales.level2]]['intervals'];
+      // apply mode
+      intervals = this.applyModeToScale(intervals, this.selector.scales.level3);
+
+      let convertedIntervals = [];
+      for (var i = 0; i <= intervals.length; i++) {
+        let interval = null;
+        if (i == 0) {
+          interval = i;
+        }else if (i == intervals.length) {
+          interval = 12 - intervals[i - 1]; // 12 -> octave
+        } else {
+          interval = intervals[i] - intervals[i - 1];
+        }
+        convertedIntervals.push(interval);
+      }
+      return convertedIntervals;
     }
   },
 };
