@@ -61,7 +61,7 @@
               <!-- C, D, E, F, G, A, B -->
               <div class="scale">
                 <base-slider-array
-                   title="Tonal"
+                   title="Tonality"
                   :values="selector.notes"
                   :indexInitialValue="0"
   
@@ -80,7 +80,7 @@
 
             <div class="baseflex dropdowns">
               <!-- ... Pentatonic ... -->
-              <base-dropdown class="scaledropdown" :values="getScaleLevel1" :initialIndex="selector.scales.level1" @dropdownupdate="setScalesLevel1" ></base-dropdown>
+              <base-dropdown class="scaledropdown level1" :values="getScaleLevel1" :initialIndex="selector.scales.level1" @dropdownupdate="setScalesLevel1" ></base-dropdown>
               <!-- scales -->
               <base-dropdown class="scaledropdown" :values="getScaleLevel2" :initialIndex="selector.scales.level2" @dropdownupdate="setScalesLevel2" ></base-dropdown>
               <!-- Modes -->
@@ -270,6 +270,10 @@ fieldset {
 .scaledropdown{
   margin-left: 3%;
 }
+#fretboardapp > div > section > fieldset:nth-child(2) > div.baseflex.dropdowns > div.scaledropdown.level1 > div.cursorpointer > div.placeholdervalue {
+  background: var(--color-2);
+  color: white;
+}
 .modedropdown {
   margin-left: 3%;
   margin-right: 3%;
@@ -283,3 +287,5 @@ fieldset {
   }
 }
 </style>
+
+#fretboardapp > div > section > fieldset:nth-child(2) > div.baseflex.dropdowns > div.scaledropdown.level1 > div.cursorpointer > div.placeholdervalue
