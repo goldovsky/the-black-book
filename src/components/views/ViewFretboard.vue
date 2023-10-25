@@ -68,11 +68,11 @@
             </div>
 
             <!-- number of notes in a scale -->
-            <base-dropdown :values="displayScaleLevel1" :initialIndex="selector.scales.level1" @dropdownupdate="setScalesLevel1" title="nb of notes types"></base-dropdown>
+            <base-dropdown :values="getScaleLevel1" :initialIndex="selector.scales.level1" @dropdownupdate="setScalesLevel1" title="nb of notes types"></base-dropdown>
             <!-- scales -->
-            <base-dropdown :values="displayScaleLevel2" :initialIndex="selector.scales.level2" @dropdownupdate="setScalesLevel2" title="scale name"></base-dropdown>
+            <base-dropdown :values="getScaleLevel2" :initialIndex="selector.scales.level2" @dropdownupdate="setScalesLevel2" title="scale name"></base-dropdown>
             <!-- Modes -->
-            <base-dropdown :values="displayScaleLevel3" :initialIndex="selector.scales.level3" @dropdownupdate="setScalesLevel3" title="mode"></base-dropdown>
+            <base-dropdown :values="getScaleLevel3" :initialIndex="selector.scales.level3" @dropdownupdate="setScalesLevel3" title="mode"></base-dropdown>
 
             <!-- "♭","♮","♯" -->
             <div class="accidental">
@@ -182,33 +182,34 @@ export default {
      * Handling of dropdowns concerning scale selection
      */
     setScalesLevel1(name) {
-      this.selector.scales.level1 = this.selector.scales.numberOfNotesInAScale.list.indexOf(name);
-      // reset level 2
-      this.setScalesLevel2(0);
+      this.selector.scales.level1 = Object.keys(this.selector.scales.database).indexOf(name);
+      // reset levels
+      this.selector.scales.level2 = 0;
+      this.selector.scales.level3 = 0;
     },
     setScalesLevel2(name) {
-      this.selector.scales.level2 = this.selector.scales.namesofAvailableScales.list.indexOf(name);
+      this.selector.scales.level2 = this.getScaleLevel2.indexOf(name);
       // reset level 3
-      this.setScalesLevel3(0);
+      this.selector.scales.level3 = 0;
     },
     setScalesLevel3(name) {
-      this.selector.scales.level3 = this.selector.scales.namesofAvailableScales.list.indexOf(name);
+      this.selector.scales.level3 = this.getScaleLevel3.indexOf(name);
     },
   },
   computed: {
     instrument() {
       return this.$store.getters.instrument;
     },
-    displayScaleLevel1() {
+    getScaleLevel1() {
       return Object.keys(this.selector.scales.database);
     },
-    displayScaleLevel2() {
-      let keyLevel1 = Object.keys(this.selector.scales.database)[this.selector.scales.level1];
+    getScaleLevel2() {
+      let keyLevel1 = this.getScaleLevel1[this.selector.scales.level1];
       return Object.keys(this.selector.scales.database[keyLevel1]);
     },
-    displayScaleLevel3() {
-      let keyLevel1 = Object.keys(this.selector.scales.database)[this.selector.scales.level1];
-      let keyLevel2 = Object.keys(this.selector.scales.database[keyLevel1])[this.selector.scales.level2];
+    getScaleLevel3() {
+      let keyLevel1 = this.getScaleLevel1[this.selector.scales.level1];
+      let keyLevel2 = this.getScaleLevel2[this.selector.scales.level2];
       return this.selector.scales.database[keyLevel1][keyLevel2]['modes'];
     }
   },
