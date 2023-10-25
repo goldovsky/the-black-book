@@ -54,37 +54,41 @@
             </div>
           </fieldset>
 
-          <hr />
-
           <fieldset class="form-group mt-4">
             <legend>Scale</legend>
-            <div class="scale">
-              <base-slider-array
-                 title="Tonal"
-                :values="selector.notes"
-                :indexInitialValue="0"
 
-              ></base-slider-array>
+            <div class="baseflex noteselection">
+              <!-- C, D, E, F, G, A, B -->
+              <div class="scale">
+                <base-slider-array
+                   title="Tonal"
+                  :values="selector.notes"
+                  :indexInitialValue="0"
+  
+                ></base-slider-array>
+              </div>
+  
+              <!-- ♭, ♮, ♯ -->
+              <div class="accidental">
+                <base-slider-array
+                   title="accidental"
+                  :values="selector.accidental"
+                  :indexInitialValue="1"
+                ></base-slider-array>
+              </div>
             </div>
 
-            <!-- number of notes in a scale -->
-            <base-dropdown :values="getScaleLevel1" :initialIndex="selector.scales.level1" @dropdownupdate="setScalesLevel1" title="nb of notes types"></base-dropdown>
-            <!-- scales -->
-            <base-dropdown :values="getScaleLevel2" :initialIndex="selector.scales.level2" @dropdownupdate="setScalesLevel2" title="scale name"></base-dropdown>
-            <!-- Modes -->
-            <base-dropdown :values="getScaleLevel3" :initialIndex="selector.scales.level3" @dropdownupdate="setScalesLevel3" title="mode"></base-dropdown>
-
-            <!-- "♭","♮","♯" -->
-            <div class="accidental">
-              <base-slider-array
-                 title="accidental"
-                :values="selector.accidental"
-                :indexInitialValue="1"
-              ></base-slider-array>
+            <div class="baseflex dropdowns">
+              <!-- ... Pentatonic ... -->
+              <base-dropdown class="scaledropdown" :values="getScaleLevel1" :initialIndex="selector.scales.level1" @dropdownupdate="setScalesLevel1" ></base-dropdown>
+              <!-- scales -->
+              <base-dropdown class="scaledropdown" :values="getScaleLevel2" :initialIndex="selector.scales.level2" @dropdownupdate="setScalesLevel2" ></base-dropdown>
+              <!-- Modes -->
+              <base-dropdown class="modedropdown" :values="getScaleLevel3" :initialIndex="selector.scales.level3" @dropdownupdate="setScalesLevel3" ></base-dropdown>
             </div>
           </fieldset>
 
-          <hr />
+
           <!-- Frets  -->
           <fieldset class="form-group">
             <legend>Frets</legend>
@@ -136,7 +140,7 @@ export default {
         scales: {
           database: scalesDatabase,
           /* For the level meaning -> cf scales.js */
-          level1: 0,
+          level1: 2,
           level2: 0,
           level3: 0
         }
@@ -233,6 +237,9 @@ export default {
   /* height: 100vh; */
   overflow-y: scroll;
 }
+fieldset {
+  border-radius: 12px; 
+}
 .controlfrets {
   display: flex;
   /* flex-direction: column; */
@@ -240,10 +247,39 @@ export default {
   justify-content: space-around;
   margin: auto;
 }
-.scale {
-  width: 80%;
+.baseflex {
+  display: flex;
+  align-items: top;
+  justify-content: center;
 }
-fieldset{
-  border-radius: 12px; 
+.noteselection {
+  margin-bottom: 3%;
+}
+.scale {
+  width: 70%;
+  margin-left: 3%;
+  margin-right: 3%;
+  .basesliderarray{
+    width: 100%;
+  }
+}
+.accidental {
+  width: 21%;
+  margin-right: 3%;
+}
+.scaledropdown{
+  margin-left: 3%;
+}
+.modedropdown {
+  margin-left: 3%;
+  margin-right: 3%;
+  display: flex;
+  width: -webkit-fill-available;
+  .cursorpointer {
+    width: -webkit-fill-available;
+  }
+  .placeholdervalue {
+    width: -webkit-fill-available;
+  }
 }
 </style>
