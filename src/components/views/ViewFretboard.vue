@@ -68,11 +68,11 @@
             </div>
 
             <!-- number of notes in a scale -->
-            <base-dropdown :values="selector.scales.numberOfNotesInAScale.list" :initialIndex="selector.scales.numberOfNotesInAScale.selected" @dropdownupdate="setScalesLevel1SelectedIndex" title="nb of notes types"></base-dropdown>
+            <base-dropdown :values="displayScaleLevel1" :initialIndex="selector.scales.level1" @dropdownupdate="setScalesLevel1" title="nb of notes types"></base-dropdown>
             <!-- scales -->
-            <base-dropdown :values="selector.scales.namesofAvailableScales.list" :initialIndex="selector.scales.namesofAvailableScales.selected" @dropdownupdate="setScalesLevel2SelectedIndex" title="scale name"></base-dropdown>
+            <base-dropdown :values="displayScaleLevel2" :initialIndex="selector.scales.level2" @dropdownupdate="setScalesLevel2" title="scale name"></base-dropdown>
             <!-- Modes -->
-            <base-dropdown :values="selector.scales.modes.list" :initialIndex="selector.scales.modes.selected" @dropdownupdate="setScalesLevel3SelectedIndex" title="mode"></base-dropdown>
+            <base-dropdown :values="displayScaleLevel3" :initialIndex="selector.scales.level3" @dropdownupdate="setScalesLevel3" title="mode"></base-dropdown>
 
             <!-- "♭","♮","♯" -->
             <div class="accidental">
@@ -134,22 +134,11 @@ export default {
         notes: ["C","D","E","F","G","A","B"],
         accidental: ["♭","♮","♯"],
         scales: {
-          database: null, // build from scales.js
-          // level 1
-          numberOfNotesInAScale: {
-            selected: 2, // default aiming to major scale -> heptatonic
-            list: null
-          },
-          // level 2
-          namesofAvailableScales: {
-            selected: 0, // default
-            list: null 
-          },
-          // level 3
-          modes: {
-            selected: 0, // default
-            list: null 
-          }
+          database: scalesDatabase,
+          /* For the level meaning -> cf scales.js */
+          level1: 0,
+          level2: 0,
+          level3: 0
         }
       },
       tuning: null, // build in created()
@@ -172,18 +161,6 @@ export default {
     for (let frt = 0; frt < 25; ++frt) {
       this.fretboard.range.push(frt);
     }
-
-    // load scale database
-    this.selector.scales.database = scalesDatabase;
-
-    // init scale level 1 list
-    this.selector.scales.numberOfNotesInAScale.list = Object.keys(scalesDatabase);
-
-    // init scale level 2 names
-    this.selector.scales.namesofAvailableScales.list = Object.keys(this.selector.scales.database[this.selector.scales.numberOfNotesInAScale.list[this.selector.scales.numberOfNotesInAScale.selected]]);
-
-    // init scale level 3 modes
-    this.selector.scales.modes.list = this.selector.scales.database[this.selector.scales.numberOfNotesInAScale.list[this.selector.scales.numberOfNotesInAScale.selected]][this.selector.scales.namesofAvailableScales.list[this.selector.scales.modes.selected]]['modes'];
   },
   methods: {
     updateStartingNumber(value) {
@@ -204,38 +181,36 @@ export default {
     /** 
      * Handling of dropdowns concerning scale selection
      */
-    setScalesLevel1SelectedIndex(index) {
-      this.selector.scales.numberOfNotesInAScale.selected = this.selector.scales.numberOfNotesInAScale.list.indexOf(index);
-
-      // reset level 2 - index
-      this.setScalesLevel2list(index);
+    setScalesLevel1(name) {
+      this.selector.scales.level1 = this.selector.scales.numberOfNotesInAScale.list.indexOf(name);
+      // reset level 2
+      this.setScalesLevel2(0);
     },
-
-    setScalesLevel2list(name) {
-      this.selector.scales.namesofAvailableScales.list = Object.keys(this.selector.scales.database[name.toLowerCase()]);
-
-      this.setScalesLevel2SelectedIndex(0);
+    setScalesLevel2(name) {
+      this.selector.scales.level2 = this.selector.scales.namesofAvailableScales.list.indexOf(name);
+      // reset level 3
+      this.setScalesLevel3(0);
     },
-    setScalesLevel2SelectedIndex(scale) {
-      this.selector.scales.namesofAvailableScales.selected = this.selector.scales.namesofAvailableScales.list.indexOf(scale);
-
-      this.setScalesLevel3List(scale);
+    setScalesLevel3(name) {
+      this.selector.scales.level3 = this.selector.scales.namesofAvailableScales.list.indexOf(name);
     },
-
-    setScalesLevel3List(name) {
-      console.log("level 3 list: " + name)
-      this.selector.scales.modes.list = this.selector.scales.database[
-        this.selector.scales.numberOfNotesInAScale.list[this.selector.scales.numberOfNotesInAScale.selected]
-      ][this.selector.scales.namesofAvailableScales.list[this.selector.scales.namesofAvailableScales.selected]]['modes'];
-    },
-    // setScalesLevel3SelectedIndex() {
-     
-    // }
   },
   computed: {
     instrument() {
       return this.$store.getters.instrument;
     },
+    displayScaleLevel1() {
+      return Object.keys(this.selector.scales.database);
+    },
+    displayScaleLevel2() {
+      let keyLevel1 = Object.keys(this.selector.scales.database)[this.selector.scales.level1];
+      return Object.keys(this.selector.scales.database[keyLevel1]);
+    },
+    displayScaleLevel3() {
+      let keyLevel1 = Object.keys(this.selector.scales.database)[this.selector.scales.level1];
+      let keyLevel2 = Object.keys(this.selector.scales.database[keyLevel1])[this.selector.scales.level2];
+      return this.selector.scales.database[keyLevel1][keyLevel2]['modes'];
+    }
   },
 };
 </script>
