@@ -30,6 +30,7 @@
           title="Test"
         ></the-fretboard>
       </section>
+      <div id="scaletitle">{{ displayScaleTitle }}</div>
 
       <base-card>
         <section class="col-3">
@@ -64,7 +65,7 @@
                    title="Tonality"
                   :values="selector.notes"
                   :indexInitialValue="0"
-  
+                  @valueupdate="setTonality"
                 ></base-slider-array>
               </div>
   
@@ -118,10 +119,10 @@
  * TODO
  *
  * info: frets start and # of frets can be used to display shapes (penta...)
- * - always display strings notes, in grey if not part of the scale, in shape and color if so
- * - switch b <-> # (bemol/sharp)
- * - last fret in dotted line if not the 21/22/24th fret
- * - add instrument head icon for the tuning
+ * - always display open strings notes, in grey if not part of the scale, in shape and color if so
+ * - CSS | last fret in dotted line if not the 21/22/24th fret
+ * - CSS | add instrument head icon for the tuning
+ * - CSS | Tonality Slider -> bigger and wider to take up the available space
  */
 import TheFretboard from "./../fretboard/TheFretboard.vue";
 import BaseCard from "./../ui/BaseCard.vue";
@@ -139,6 +140,7 @@ export default {
         accidental: ["♭","♮","♯"],
         scales: {
           database: scalesDatabase,
+          tonality: null,
           /* For the level meaning -> cf scales.js */
           level1: 2,
           level2: 0,
@@ -182,6 +184,9 @@ export default {
         this.fretboard.frets = this.fretboard.frets - (this.fretboard.startingFret + this.fretboard.frets - fretboardLimit);
       }
     },
+    setTonality(tonality) {
+      this.selector.scales.tonality = tonality;
+    },
     /** 
      * Handling of dropdowns concerning scale selection
      */
@@ -215,6 +220,20 @@ export default {
       let keyLevel1 = this.getScaleLevel1[this.selector.scales.level1];
       let keyLevel2 = this.getScaleLevel2[this.selector.scales.level2];
       return this.selector.scales.database[keyLevel1][keyLevel2]['modes'];
+    },
+    displayScaleTitle() {
+      let displaylevel2 = '';
+      let level2 = this.getScaleLevel2[[this.selector.scales.level2]].replace('_',' ');
+      let level3 = this.getScaleLevel3[[this.selector.scales.level3]].toLowerCase();
+
+      if (level3 != level2) {
+        displaylevel2 = '「' + level2 + '」';
+      }
+
+      return this.selector.scales.tonality 
+      + ' ' 
+      + this.getScaleLevel3[[this.selector.scales.level3]] 
+      + displaylevel2;
     }
   },
 };
@@ -236,6 +255,11 @@ export default {
   border-left: 5px solid #888;
   /* height: 100vh; */
   overflow-y: scroll;
+}
+#scaletitle{
+  margin-top: 1%;
+  font-weight: bold;
+  font-size: larger;
 }
 fieldset {
   border-radius: 12px; 
