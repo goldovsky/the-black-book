@@ -25,7 +25,7 @@
         <the-fretboard
           :scale="scale"
           :convertedIntervals="convertedIntervals"
-          :prop-tuning="tuning"
+          :prop-tuning="fretboard.tuning"
           :start="fretboard.startingFret"
           :frets="fretboard.frets + fretboard.startingFret - 1"
           title="Test"
@@ -60,7 +60,7 @@
             <legend>Scale</legend>
             <div class="currentnotes">
               <text class="currentnote"
-                v-for="n in getCurrentNotes"
+                v-for="n in getCurrentTonalityNotes"
                 :key="n"
               >{{n}}</text>
             </div>
@@ -70,9 +70,9 @@
               <div class="scale">
                 <base-slider-array
                    title="Tonality"
-                  :values="selector.tonality.available"
+                  :values="selector.tonic.available"
                   :indexInitialValue="0"
-                  @valueupdate="setTonality"
+                  @valueupdate="setTonic"
                 ></base-slider-array>
               </div>
   
@@ -106,13 +106,13 @@
                  title="# of Frets"
                 :values="fretboard.range"
                 :initialvalue="13"
-                @valueupdate="updateNumberOfFrets"
+                @valueupdate="setNumberOfFrets"
               ></base-slider-numerical>
               <base-slider-numerical
                  title="Starting Fret"
                 :values="fretboard.range"
                 :initialvalue="0"
-                @valueupdate="updateStartingNumber"
+                @valueupdate="setStartingNumber"
               ></base-slider-numerical>
                </div>
           </fieldset>
@@ -144,7 +144,7 @@ export default {
     return {
       scale: "C Major",
       selector: {
-        tonality: {
+        tonic: {
           available: ["C","D","E","F","G","A","B"],
           selected: null
         },
@@ -152,7 +152,7 @@ export default {
           available : ["♭","♮","♯"],
           selected: null
         },
-        notes: [
+        twelveTones: [
           {
             sharp: 'B♯',
             native: 'C'
@@ -206,14 +206,14 @@ export default {
         ],
         scales: {
           database: scalesDatabase,
-          /* For the level meaning -> cf scales.js */
+          /* Indexes, for the level meaning -> cf scales.js */
           level1: null,
           level2: null,
           level3: null
         }
       },
-      tuning: null, // build in created()
       fretboard: {
+        tuning: null, // build in created()
         orientation: "horizontal",
         startingFret: 0,
         range: [],
@@ -223,7 +223,7 @@ export default {
   },
   created() {
     // build tuning based on Store
-    this.tuning = this.getInstrument.tuning.stringsNotes
+    this.fretboard.tuning = this.getInstrument.tuning.stringsNotes
       .reverse()
       .join(" ")
       .replace(/[0-9]/g, "");
@@ -238,28 +238,31 @@ export default {
     this.selector.scales.level3 = 0;
 
     // init tonality -> C
-    this.setTonality("C"); // TODO check if needed
+    this.setTonic("C"); // TODO check if needed
     // init accidental -> ♮
     this.setAccidental('♮');
   },
   methods: {
-    updateStartingNumber(value) {
+    setStartingNumber(value) {
       this.fretboard.startingFret = value;
       this.verifyFretboardValidity();
     },
-    updateNumberOfFrets(value) {
+    setNumberOfFrets(value) {
       this.fretboard.frets = value;
       this.verifyFretboardValidity();
     },
     // So we don't go beyond 24th
+    // TODO clean that up
     verifyFretboardValidity() {
+      // TODO put at 24
       let fretboardLimit = 25;
       if (this.fretboard.startingFret + this.fretboard.frets > fretboardLimit) {
+        // TODO this.fretboard.frets minus itself? seriously? xD
         this.fretboard.frets = this.fretboard.frets - (this.fretboard.startingFret + this.fretboard.frets - fretboardLimit);
       }
     },
-    setTonality(tonality) {
-      this.selector.tonality.selected = tonality;
+    setTonic(tonic) {
+      this.selector.tonic.selected = tonic;
     },
     setAccidental(accidental) {
       this.selector.accidental.selected = accidental;
@@ -334,7 +337,7 @@ export default {
         displaylevel2 = '「' + level2 + '」';
       }
 
-      return this.selector.tonality.selected 
+      return this.selector.tonic.selected 
       + ' ' 
       + this.getScaleLevel3[[this.selector.scales.level3]] 
       + displaylevel2;
@@ -364,7 +367,7 @@ export default {
       }
       return convertedIntervals;
     },
-    getCurrentNotes() {
+    getCurrentTonalityNotes() {
       let scaleIntervals = this._getIntervals;
       let response = [];
 
@@ -390,12 +393,12 @@ export default {
     _getIntervals() {
       return this.selector.scales.database[this.getScaleLevel1[this.selector.scales.level1]][this.getScaleLevel2[this.selector.scales.level2]]['intervals'];
     },
-    _getIndexOfCurrentTonality() {
-      let noteWeAreLookingFor = (this.selector.tonality.selected + this.selector.accidental.selected).replace('♮','');
+    _getTwelvesNotesIndexOfCurrentTonic() {
+      let noteWeAreLookingFor = (this.selector.tonic.selected + this.selector.accidental.selected).replace('♮','');
       let self = this;
 
       // index of current note on the chromatic scale
-      let indexCurrentNote = this.selector.notes.map(function(n) {
+      let indexCurrentNote = this.selector.twelveTones.map(function(n) {
         switch (self.selector.accidental.selected) {
           case "♭":
           return n.flat;
@@ -412,9 +415,9 @@ export default {
     },
     _getNotesStartingFromCurrentIndex() {
       // get tonality index of this.selector.notes
-      let tonalityIndex = this._getIndexOfCurrentTonality;
+      let tonalityIndex = this._getTwelvesNotesIndexOfCurrentTonic;
 
-      let copyNotes = [...this.selector.notes];
+      let copyNotes = [...this.selector.twelveTones];
       // no modification needed for the first index
       if (tonalityIndex != 0) { 
         // First, we add notes to the octave before our starting point at the end of the array
