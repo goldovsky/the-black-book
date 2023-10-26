@@ -207,9 +207,9 @@ export default {
         scales: {
           database: scalesDatabase,
           /* For the level meaning -> cf scales.js */
-          level1: 2,
-          level2: 0,
-          level3: 0
+          level1: null,
+          level2: null,
+          level3: null
         }
       },
       tuning: null, // build in created()
@@ -232,6 +232,10 @@ export default {
     for (let frt = 0; frt < 25; ++frt) {
       this.fretboard.range.push(frt);
     }
+    // init scale levels
+    this.selector.scales.level1 = 2;
+    this.selector.scales.level2 = 0;
+    this.selector.scales.level3 = 0;
   },
   methods: {
     updateStartingNumber(value) {
@@ -251,6 +255,7 @@ export default {
     },
     setTonality(tonality) {
       this.selector.tonality.selected = tonality;
+      this.currentNotes();
     },
     setAccidental(accidental) {
       this.selector.accidental.selected = accidental;
@@ -278,7 +283,7 @@ export default {
      * IN : [0, 2, 4, 5, 7, 9, 11]
      * OUT : [0, 2, 3, 5, 7, 9, 10]
      */
-     applyModeToScale(intervals, modeIndex){
+     _applyModeToScale(intervals, modeIndex){
       // no modification needed for the first mode
       if (modeIndex == 0) { return intervals; }
       const octave = 12;
@@ -298,6 +303,42 @@ export default {
       }
 
       return intervals;
+    },
+    currentNotes() {
+      let scaleIntervals = this.getIntervals;
+      let notesNames = [];
+
+      // get tonality index of this.selector.notes
+      let tonalityIndex = this._getIndexOfCurrentTonality;
+
+      console.log(tonalityIndex);
+      
+
+      let copyNotes = [...this.selector.notes];
+      // no modification needed for the first index
+      if (tonalityIndex != 0) { 
+        // First, we add notes to the octave before our starting point at the end of the array
+        for (var i = 0; i < tonalityIndex; i++) {
+          copyNotes.push(copyNotes[i]);
+        }  
+        // Secondly we remove the unwanted values before our starting point based on the mode
+        copyNotes.splice(0, tonalityIndex);
+       }
+    
+
+      for (var j = 0; j < scaleIntervals.length; j++) {
+        let note = copyNotes[scaleIntervals[j]];
+        //console.log(note)
+        if (note.native == null) {
+          // TODO implement sharp or flat selector
+          // we go for sharp for now
+          notesNames.push(note.sharp);
+        } else {
+          notesNames.push(note.native);
+        }
+      }
+
+      return notesNames;
     }
   },
   computed: {
@@ -342,7 +383,7 @@ export default {
     convertedIntervals() {
       let intervals = this.getIntervals;
       // apply mode
-      intervals = this.applyModeToScale(intervals, this.selector.scales.level3);
+      intervals = this._applyModeToScale(intervals, this.selector.scales.level3);
 
       let convertedIntervals = [];
       for (var i = 0; i <= intervals.length; i++) {
@@ -358,38 +399,7 @@ export default {
       }
       return convertedIntervals;
     },
-    currentNotes() {
-      let scaleIntervals = this.getIntervals;
-      let notesNames = [];
-
-      // get tonality index of this.selector.notes
-      let tonalityIndex = this.getIndexOfCurrentTonality;
-      console.log(tonalityIndex);
-      
-      
-      //let copyNotes = this.selector.notes;
-      //  if (this.selector.notes[i].native != null) {
-
-      //  } else {
-      //   console.log()
-      //  }
-      //}
-
-
-      for (var j = 0; j < scaleIntervals.length; j++) {
-        let note = this.selector.notes[scaleIntervals[j]];
-        if (note.native == null) {
-          // TODO implement sharp or flat selector
-          // we go for sharp for now
-          notesNames.push(note.sharp);
-        } else {
-          notesNames.push(note.native);
-        }
-      }
-
-      return notesNames;
-    },
-    getIndexOfCurrentTonality() {
+    _getIndexOfCurrentTonality() {
       // index of current note on the chromatic scale
       return this.selector.notes.map(function(n) { return n.native; }).indexOf(this.selector.tonality.selected) 
       // application of the accidental
