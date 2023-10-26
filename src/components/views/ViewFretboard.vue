@@ -70,7 +70,7 @@
               <div class="scale">
                 <base-slider-array
                    title="Tonality"
-                  :values="selector.tonality"
+                  :values="selector.tonality.available"
                   :indexInitialValue="0"
                   @valueupdate="setTonality"
                 ></base-slider-array>
@@ -80,7 +80,7 @@
               <div class="accidental">
                 <base-slider-array
                    title="accidental"
-                  :values="selector.accidental"
+                  :values="selector.accidental.available"
                   :indexInitialValue="1"
                   @valueupdate="setAccidental"
                 ></base-slider-array>
@@ -144,7 +144,14 @@ export default {
     return {
       scale: "C Major",
       selector: {
-        tonality: ["C","D","E","F","G","A","B"],
+        tonality: {
+          available: ["C","D","E","F","G","A","B"],
+          selected: null
+        },
+        accidental: {
+          available : ["♭","♮","♯"],
+          selected: null
+        },
         notes: [
           {
             native: 'C'
@@ -193,11 +200,8 @@ export default {
             native: 'B'
           },
         ],
-        accidental: ["♭","♮","♯"],
         scales: {
           database: scalesDatabase,
-          tonality: null,
-          accidental: null,
           /* For the level meaning -> cf scales.js */
           level1: 2,
           level2: 0,
@@ -242,11 +246,11 @@ export default {
       }
     },
     setTonality(tonality) {
-      this.selector.scales.tonality = tonality;
+      this.selector.tonality.selected = tonality;
     },
-    // setaccidental(accidental) {
-    //   this.selector.scales.tonality = tonality;
-    // },
+    setaccidental(accidental) {
+      this.selector.accidental.selected = accidental;
+    },
     /** 
      * Handling of dropdowns concerning scale selection
      */
@@ -320,7 +324,7 @@ export default {
         displaylevel2 = '「' + level2 + '」';
       }
 
-      return this.selector.scales.tonality 
+      return this.selector.tonality.selected 
       + ' ' 
       + this.getScaleLevel3[[this.selector.scales.level3]] 
       + displaylevel2;
