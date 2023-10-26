@@ -310,6 +310,9 @@ export default {
       }
 
       return intervals;
+    },
+    _denominationAlreadyUsed(noteBefore, currentNote){
+      return noteBefore.substring(0,1) == currentNote.substring(0,1);
     }
   },
   computed: {
@@ -374,18 +377,32 @@ export default {
       let notes = this._getNotesStartingFromCurrentIndex;
 
       for (var j = 0; j < scaleIntervals.length; j++) {
+        // object from twelveNotes
         let note = notes[scaleIntervals[j]];
-        //console.log(note)
-        if (note.native == null) {
-          // TODO implement sharp or flat selector
-          // we go for sharp for now except if note before is already used
-          response.push(
-            (response[j-1].substring(0,1) == note.sharp.substring(0,1)) 
-            ? note.flat : note.sharp);
+        let noteName = null;
 
-        } else {
-          response.push(note.native);
+        switch (this.selector.accidental.selected) {
+          case "♭":
+            console.log('');
+            //return n.flat;
+            break;
+          case "♮":
+            if (note.native == null) {
+              // TODO implement sharp or flat selector
+              // we go for sharp for now except if note before is already used
+              noteName = (this._denominationAlreadyUsed(response[j-1], note.sharp)) 
+                ? note.flat : note.sharp;
+
+            } else {
+              noteName = note.native;
+            }
+            break;
+          case "♯":
+            console.log('');
+            //return n.sharp;
+            break;
         }
+        response.push(noteName);
       }
 
       return response;
@@ -406,8 +423,6 @@ export default {
             return n.native != null ? n.native : '';
           case "♯":
             return n.sharp;
-          default:
-            return n.native != null ? n.native : '';
         }
       }).indexOf(noteWeAreLookingFor);
 
