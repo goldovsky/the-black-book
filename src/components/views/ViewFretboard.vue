@@ -70,7 +70,7 @@
               <div class="scale">
                 <base-slider-array
                    title="Tonality"
-                  :values="selector.tonic.available"
+                  :values="selector.tonic.list"
                   :indexInitialValue="0"
                   @valueupdate="setTonic"
                 ></base-slider-array>
@@ -80,7 +80,7 @@
               <div class="accidental">
                 <base-slider-array
                    title="accidental"
-                  :values="selector.accidental.available"
+                  :values="selector.accidental.list"
                   :indexInitialValue="1"
                   @valueupdate="setAccidental"
                 ></base-slider-array>
@@ -145,11 +145,11 @@ export default {
       scale: "C Major",
       selector: {
         tonic: {
-          available: ["C","D","E","F","G","A","B"],
+          list: ["C","D","E","F","G","A","B"],
           selected: null
         },
         accidental: {
-          available : ["♭","♮","♯"],
+          list : ["♭","♮","♯"],
           selected: null
         },
         twelveTones: [
@@ -163,7 +163,9 @@ export default {
             flat: 'D♭',
           },
           {
-            native: 'D'
+            doubleSharp: 'C×',
+            native: 'D',
+            doubleFlat: 'E𝄫'
           },
           {
             sharp: 'D♯',
@@ -184,7 +186,9 @@ export default {
             flat: 'G♭',
           },
           {
-            native: 'G'
+            doubleSharp: 'F×',
+            native: 'G',
+            doubleFlat: 'A𝄫'
           },
           {
             sharp: 'G♯',
@@ -192,7 +196,9 @@ export default {
             flat: 'A♭',
           },
           {
-            native: 'A'
+            doubleSharp: 'G×',
+            native: 'A',
+            doubleFlat: 'B𝄫'
           },
           {
             sharp: 'A♯',
@@ -311,8 +317,8 @@ export default {
 
       return intervals;
     },
-    _denominationAlreadyUsed(noteBefore, currentNote){
-      return noteBefore.substring(0,1) == currentNote.substring(0,1);
+    _denominationAlreadyUsed(notes, currentNote){
+      return notes.some((str) => str.startsWith(currentNote));
     }
   },
   computed: {
@@ -379,27 +385,61 @@ export default {
       for (var j = 0; j < scaleIntervals.length; j++) {
         // object from twelveNotes
         let note = notes[scaleIntervals[j]];
+        let nextLogicalNoteDenomination = () => {
+          let tonicIndex = this.selector.tonic.list.indexOf(this.selector.tonic.selected);
+          let copyTonics = [...this.selector.tonic.list];
+          // no modification needed for the first index
+          if (tonicIndex != 0) { 
+            // First, we add notes to the octave before our starting point at the end of the array
+            for (var i = 0; i < tonicIndex; i++) {
+              copyTonics.push(copyTonics[i]);
+            }  
+            // Secondly we remove the unwanted values before our starting point based on the mode
+            copyTonics.splice(0, tonicIndex);
+          }
+
+          return copyTonics[j];
+        };
+        console.log(nextLogicalNoteDenomination());
         let noteName = null;
 
         switch (this.selector.accidental.selected) {
           case "♭":
-            console.log('');
-            //return n.flat;
+            if (note.flat != null) {
+              noteName = note.flat;
+            } else {
+              if(note.native != null) {
+                noteName = this._denominationAlreadyUsed(response, note.native) ? note.doubleFlat : note.native;
+              } else {
+                // TODO ? il faut quoi là ? je suis perdu xD
+                //noteName = note.
+              }
+            }
+            //noteName = note.flat != null ? note.flat : note.native;
             break;
           case "♮":
             if (note.native == null) {
               // TODO implement sharp or flat selector
               // we go for sharp for now except if note before is already used
-              noteName = (this._denominationAlreadyUsed(response[j-1], note.sharp)) 
+              noteName = (this._denominationAlreadyUsed(response, note.sharp.substring(0,1))) 
                 ? note.flat : note.sharp;
-
             } else {
               noteName = note.native;
             }
             break;
           case "♯":
-            console.log('');
-            //return n.sharp;
+            console.log(note);
+          if (note.sharp != null) {
+              noteName = note.sharp;
+            } else {
+              if(note.native != null) {
+                noteName = this._denominationAlreadyUsed(response, note.native) ? note.doubleSharp : note.native;
+              } else {
+                // TODO ? il faut quoi là ? je suis perdu xD
+                //noteName = note.
+              }
+            }
+            //noteName = note.flat != null ? note.flat : note.native;
             break;
         }
         response.push(noteName);
