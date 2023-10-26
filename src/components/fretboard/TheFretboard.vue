@@ -88,13 +88,6 @@ export default {
       /**
        * Design Values
        */
-      nutSize: null,
-      nutColor: null,
-      noteTextColor: null,
-      noteRadius: null,
-      noteColor: null,
-      rootTextColor: null,
-      rootColor: null,
       inlay: {
         radius: 5,
         color: "var(--fretboard-reference-color)",
@@ -112,14 +105,21 @@ export default {
         space: "40",
         color: "var(--fretboard-string-color)"
       },
-      stringSize: null,
-      stringSpace: "40",
-      stringColor: null,
+      nut: {
+        size: 10,
+        color: "var(--nut-color)"
+      },
+      note: {
+        radius: 12,
+        color: "var(--fretboard-note-color)",
+        textColor: "var(--fretboard-noteText-color)",
+        root: {
+          color: "var(--fretboard-root-color)",
+          textColor: "var(--fretboard-rootText-color)",
+        }
+      },
       orientation: null,
       tuning: null,
-      /**
-       *
-       */
       ariaUid: 0,
       noteNames: [
         "C",
@@ -168,17 +168,7 @@ export default {
      * Design Values
      */
     // @1
-    this.stringSize = 3;
-    this.noteRadius = 12;
-    this.nutSize = 10;
-    this.fretSize = 6; //2;
     this.orientation = "horizontal";
-    this.fretColor = "var(--fretboard-fret-color)";
-    this.nutColor = "var(--nut-color)";
-    this.noteColor = "var(--fretboard-note-color)";
-    this.rootColor = "var(--fretboard-root-color)";
-    this.noteTextColor = "var(--fretboard-noteText-color)";
-    this.rootTextColor = "var(--fretboard-rootText-color)";
     /**
      * Reverse string order to get the low string on top of the diagram
      */
@@ -225,7 +215,7 @@ export default {
       if (this.start != 0) {
         return stringX;
       }
-      return stringX + (this.instrument.leftDominantHand ? -(this.nutSize) : this.nutSize);
+      return stringX + (this.instrument.leftDominantHand ? -(this.nut.size) : this.nut.size);
     }
   },
   computed,
