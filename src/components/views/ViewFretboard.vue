@@ -60,7 +60,7 @@
             <legend>Scale</legend>
             <div class="currentnotes">
               <text class="currentnote"
-                v-for="n in selector.scales.currentNotes"
+                v-for="n in getCurrentNotes"
                 :key="n"
               >{{n}}</text>
             </div>
@@ -206,7 +206,6 @@ export default {
         ],
         scales: {
           database: scalesDatabase,
-          currentNotes:null,
           /* For the level meaning -> cf scales.js */
           level1: null,
           level2: null,
@@ -263,7 +262,6 @@ export default {
     },
     setTonality(tonality) {
       this.selector.tonality.selected = tonality;
-      this.currentNotes();
     },
     setAccidental(accidental) {
       this.selector.accidental.selected = accidental;
@@ -311,43 +309,6 @@ export default {
       }
 
       return intervals;
-    },
-    currentNotes() {
-      let scaleIntervals = this.getIntervals;
-      let notesNames = [];
-
-      // get tonality index of this.selector.notes
-      let tonalityIndex = this._getIndexOfCurrentTonality;
-
-      console.log(tonalityIndex);
-      
-
-      let copyNotes = [...this.selector.notes];
-      // no modification needed for the first index
-      if (tonalityIndex != 0) { 
-        // First, we add notes to the octave before our starting point at the end of the array
-        for (var i = 0; i < tonalityIndex; i++) {
-          copyNotes.push(copyNotes[i]);
-        }  
-        // Secondly we remove the unwanted values before our starting point based on the mode
-        copyNotes.splice(0, tonalityIndex);
-       }
-    
-
-      for (var j = 0; j < scaleIntervals.length; j++) {
-        let note = copyNotes[scaleIntervals[j]];
-        //console.log(note)
-        if (note.native == null) {
-          // TODO implement sharp or flat selector
-          // we go for sharp for now
-          notesNames.push(note.sharp);
-        } else {
-          notesNames.push(note.native);
-        }
-      }
-
-      console.log("currentNotes: " + notesNames);
-      return notesNames;
     }
   },
   computed: {
@@ -426,9 +387,41 @@ export default {
         }
       }).indexOf(noteWeAreLookingFor);
 
-      return indexCurrentNote 
-      // application of the accidental
-      + (this.selector.accidental.available.indexOf(this.selector.accidental.selected) - 1);
+      return indexCurrentNote;
+    },
+    getCurrentNotes() {
+      let scaleIntervals = this.getIntervals;
+      let notesNames = [];
+
+      // get tonality index of this.selector.notes
+      let tonalityIndex = this._getIndexOfCurrentTonality;
+
+      let copyNotes = [...this.selector.notes];
+      // no modification needed for the first index
+      if (tonalityIndex != 0) { 
+        // First, we add notes to the octave before our starting point at the end of the array
+        for (var i = 0; i < tonalityIndex; i++) {
+          copyNotes.push(copyNotes[i]);
+        }  
+        // Secondly we remove the unwanted values before our starting point based on the mode
+        copyNotes.splice(0, tonalityIndex);
+       }
+  
+
+      for (var j = 0; j < scaleIntervals.length; j++) {
+        let note = copyNotes[scaleIntervals[j]];
+        //console.log(note)
+        if (note.native == null) {
+          // TODO implement sharp or flat selector
+          // we go for sharp for now
+          notesNames.push(note.sharp);
+        } else {
+          notesNames.push(note.native);
+        }
+      }
+
+      //console.log("currentNotes: " + notesNames);
+      return notesNames;
     }
   }
 }
