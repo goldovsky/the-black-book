@@ -155,7 +155,8 @@ export default {
         twelveTones: [
           {
             sharp: 'B♯',
-            native: 'C'
+            native: 'C',
+            doubleFlat: 'D𝄫'
           },
           {
             sharp: 'C♯',
@@ -173,12 +174,14 @@ export default {
             flat: 'E♭',
           },
           {
+            doubleSharp: 'D×',
             native: 'E',
             flat: 'F♭',
           },
           {
             sharp: 'E♯',
-            native: 'F'
+            native: 'F',
+            doubleFlat: 'G𝄫'
           },
           {
             sharp: 'F♯',
@@ -206,6 +209,7 @@ export default {
             flat: 'B♭',
           },
           {
+            doubleSharp: 'A×',
             native: 'B',
             flat: 'C♭',
           },
@@ -382,6 +386,7 @@ export default {
 
       let notes = this._getNotesStartingFromCurrentIndex;
 
+      // Pour chaque note de la gamme
       for (var j = 0; j < scaleIntervals.length; j++) {
         // object from twelveNotes
         let note = notes[scaleIntervals[j]];
