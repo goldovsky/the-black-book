@@ -6,10 +6,10 @@
         <div>
           <span>Tuning: </span>
           <span
-            >{{ instrument.tuning.type }}
+            >{{ getInstrument.tuning.type }}
             {{
-              instrument.tuning.tonality.charAt(0).toUpperCase() +
-              instrument.tuning.tonality.slice(1).toLowerCase()
+              getInstrument.tuning.tonality.charAt(0).toUpperCase() +
+              getInstrument.tuning.tonality.slice(1).toLowerCase()
             }}</span
           >
         </div>
@@ -223,13 +223,13 @@ export default {
   },
   created() {
     // build tuning based on Store
-    this.tuning = this.instrument.tuning.stringsNotes
+    this.tuning = this.getInstrument.tuning.stringsNotes
       .reverse()
       .join(" ")
       .replace(/[0-9]/g, "");
 
     // Initialise Frets Range
-    for (let frt = 0; frt < 25; ++frt) {
+    for (let frt = 0; frt <= 24; ++frt) {
       this.fretboard.range.push(frt);
     }
     // init scale levels
@@ -238,11 +238,9 @@ export default {
     this.selector.scales.level3 = 0;
 
     // init tonality -> C
-    //this.selector.tonality.selected = this.selector.tonality.available[0];
-
+    this.setTonality("C"); // TODO check if needed
     // init accidental -> ♮
     this.setAccidental('♮');
-    //this.selector.accidental.selected = this.selector.accidental.available[1];
   },
   methods: {
     updateStartingNumber(value) {
@@ -312,7 +310,7 @@ export default {
     }
   },
   computed: {
-    instrument() {
+    getInstrument() {
       return this.$store.getters.instrument;
     },
     getScaleLevel1() {
@@ -326,9 +324,6 @@ export default {
       let keyLevel1 = this.getScaleLevel1[this.selector.scales.level1];
       let keyLevel2 = this.getScaleLevel2[this.selector.scales.level2];
       return this.selector.scales.database[keyLevel1][keyLevel2]['modes'];
-    },
-    getIntervals() {
-      return this.selector.scales.database[this.getScaleLevel1[this.selector.scales.level1]][this.getScaleLevel2[this.selector.scales.level2]]['intervals'];
     },
     displayScaleTitle() {
       let displaylevel2 = '';
@@ -351,7 +346,7 @@ export default {
      * OUT : [0, 2, 2, 1, 2, 2, 2, 1]
      */
     convertedIntervals() {
-      let intervals = this.getIntervals;
+      let intervals = this._getIntervals;
       // apply mode
       intervals = this._applyModeToScale(intervals, this.selector.scales.level3);
 
@@ -368,6 +363,32 @@ export default {
         convertedIntervals.push(interval);
       }
       return convertedIntervals;
+    },
+    getCurrentNotes() {
+      let scaleIntervals = this._getIntervals;
+      let response = [];
+
+      let notes = this._getNotesStartingFromCurrentIndex;
+
+      for (var j = 0; j < scaleIntervals.length; j++) {
+        let note = notes[scaleIntervals[j]];
+        //console.log(note)
+        if (note.native == null) {
+          // TODO implement sharp or flat selector
+          // we go for sharp for now except if note before is already used
+          response.push(
+            (response[j-1].substring(0,1) == note.sharp.substring(0,1)) 
+            ? note.flat : note.sharp);
+
+        } else {
+          response.push(note.native);
+        }
+      }
+
+      return response;
+    },
+    _getIntervals() {
+      return this.selector.scales.database[this.getScaleLevel1[this.selector.scales.level1]][this.getScaleLevel2[this.selector.scales.level2]]['intervals'];
     },
     _getIndexOfCurrentTonality() {
       let noteWeAreLookingFor = (this.selector.tonality.selected + this.selector.accidental.selected).replace('♮','');
@@ -389,10 +410,7 @@ export default {
 
       return indexCurrentNote;
     },
-    getCurrentNotes() {
-      let scaleIntervals = this.getIntervals;
-      let notesNames = [];
-
+    _getNotesStartingFromCurrentIndex() {
       // get tonality index of this.selector.notes
       let tonalityIndex = this._getIndexOfCurrentTonality;
 
@@ -406,22 +424,8 @@ export default {
         // Secondly we remove the unwanted values before our starting point based on the mode
         copyNotes.splice(0, tonalityIndex);
        }
-  
 
-      for (var j = 0; j < scaleIntervals.length; j++) {
-        let note = copyNotes[scaleIntervals[j]];
-        //console.log(note)
-        if (note.native == null) {
-          // TODO implement sharp or flat selector
-          // we go for sharp for now
-          notesNames.push(note.sharp);
-        } else {
-          notesNames.push(note.native);
-        }
-      }
-
-      //console.log("currentNotes: " + notesNames);
-      return notesNames;
+       return copyNotes;
     }
   }
 }
