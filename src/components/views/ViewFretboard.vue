@@ -154,6 +154,7 @@ export default {
         },
         notes: [
           {
+            sharp: 'B♯',
             native: 'C'
           },
           {
@@ -170,9 +171,11 @@ export default {
             flat: 'E♭',
           },
           {
-            native: 'E'
+            native: 'E',
+            flat: 'F♭',
           },
           {
+            sharp: 'E♯',
             native: 'F'
           },
           {
@@ -197,7 +200,8 @@ export default {
             flat: 'B♭',
           },
           {
-            native: 'B'
+            native: 'B',
+            flat: 'C♭',
           },
         ],
         scales: {
@@ -248,7 +252,7 @@ export default {
     setTonality(tonality) {
       this.selector.tonality.selected = tonality;
     },
-    setaccidental(accidental) {
+    setAccidental(accidental) {
       this.selector.accidental.selected = accidental;
     },
     /** 
@@ -359,29 +363,21 @@ export default {
       let notesNames = [];
 
       // get tonality index of this.selector.notes
-      // let tonalityIndex = null;
-      // let copyNotes = this.selector.notes;
+      let tonalityIndex = this.getIndexOfCurrentTonality;
+      console.log(tonalityIndex);
+      
+      
+      //let copyNotes = this.selector.notes;
+      //  if (this.selector.notes[i].native != null) {
 
-      // for (var i = 0; i < copyNotes.length; i++) {
-      //   switch (expr) {
-      //     case 'Oranges':
-      //       console.log('Oranges are $0.59 a pound.');
-      //       break;
-      //     case 'Mangoes':
-      //     case 'Papayas':
-      //       console.log('Mangoes and papayas are $2.79 a pound.');
-      //       // expected output: "Mangoes and papayas are $2.79 a pound."
-      //       break;
-      //     default:
-      //       console.log(`Sorry, we are out of ${expr}.`);
-      //   }
-      // }
+      //  } else {
+      //   console.log()
+      //  }
+      //}
 
 
-
-
-      for (var i = 0; i < scaleIntervals.length; i++) {
-        let note = this.selector.notes[scaleIntervals[i]];
+      for (var j = 0; j < scaleIntervals.length; j++) {
+        let note = this.selector.notes[scaleIntervals[j]];
         if (note.native == null) {
           // TODO implement sharp or flat selector
           // we go for sharp for now
@@ -392,9 +388,15 @@ export default {
       }
 
       return notesNames;
+    },
+    getIndexOfCurrentTonality() {
+      // index of current note on the chromatic scale
+      return this.selector.notes.map(function(n) { return n.native; }).indexOf(this.selector.tonality.selected) 
+      // application of the accidental
+      - (this.selector.accidental.available.indexOf(this.selector.accidental.selected) -1);
     }
-  },
-};
+  }
+}
 </script>
 
 <style>
