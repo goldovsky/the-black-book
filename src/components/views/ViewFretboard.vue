@@ -58,13 +58,19 @@
 
           <fieldset class="form-group mt-4">
             <legend>Scale</legend>
+            <div class="currentnotes">
+              <text class="currentnote"
+                v-for="n in currentNotes"
+                :key="n"
+              >{{n}}</text>
+            </div>
 
             <div class="baseflex noteselection">
               <!-- C, D, E, F, G, A, B -->
               <div class="scale">
                 <base-slider-array
                    title="Tonality"
-                  :values="selector.notes"
+                  :values="selector.tonality"
                   :indexInitialValue="0"
                   @valueupdate="setTonality"
                 ></base-slider-array>
@@ -76,6 +82,7 @@
                    title="accidental"
                   :values="selector.accidental"
                   :indexInitialValue="1"
+                  @valueupdate="setAccidental"
                 ></base-slider-array>
               </div>
             </div>
@@ -137,11 +144,60 @@ export default {
     return {
       scale: "C Major",
       selector: {
-        notes: ["C","D","E","F","G","A","B"],
+        tonality: ["C","D","E","F","G","A","B"],
+        notes: [
+          {
+            native: 'C'
+          },
+          {
+            sharp: 'C♯',
+            native: null,
+            flat: 'D♭',
+          },
+          {
+            native: 'D'
+          },
+          {
+            sharp: 'D♯',
+            native: null,
+            flat: 'E♭',
+          },
+          {
+            native: 'E'
+          },
+          {
+            native: 'F'
+          },
+          {
+            sharp: 'F♯',
+            native: null,
+            flat: 'G♭',
+          },
+          {
+            native: 'G'
+          },
+          {
+            sharp: 'G♯',
+            native: null,
+            flat: 'A♭',
+          },
+          {
+            native: 'A'
+          },
+          {
+            sharp: 'A♯',
+            native: null,
+            flat: 'B♭',
+          },
+          {
+            native: 'B'
+          },
+        ],
         accidental: ["♭","♮","♯"],
         scales: {
           database: scalesDatabase,
           tonality: null,
+          accidental: null,
           /* For the level meaning -> cf scales.js */
           level1: 2,
           level2: 0,
@@ -188,6 +244,9 @@ export default {
     setTonality(tonality) {
       this.selector.scales.tonality = tonality;
     },
+    // setaccidental(accidental) {
+    //   this.selector.scales.tonality = tonality;
+    // },
     /** 
      * Handling of dropdowns concerning scale selection
      */
@@ -249,6 +308,9 @@ export default {
       let keyLevel2 = this.getScaleLevel2[this.selector.scales.level2];
       return this.selector.scales.database[keyLevel1][keyLevel2]['modes'];
     },
+    getIntervals() {
+      return this.selector.scales.database[this.getScaleLevel1[this.selector.scales.level1]][this.getScaleLevel2[this.selector.scales.level2]]['intervals'];
+    },
     displayScaleTitle() {
       let displaylevel2 = '';
       let level2 = this.getScaleLevel2[[this.selector.scales.level2]].replace('_',' ');
@@ -270,7 +332,7 @@ export default {
      * OUT : [0, 2, 2, 1, 2, 2, 2, 1]
      */
     convertedIntervals() {
-      let intervals = this.selector.scales.database[this.getScaleLevel1[this.selector.scales.level1]][this.getScaleLevel2[this.selector.scales.level2]]['intervals'];
+      let intervals = this.getIntervals;
       // apply mode
       intervals = this.applyModeToScale(intervals, this.selector.scales.level3);
 
@@ -287,6 +349,45 @@ export default {
         convertedIntervals.push(interval);
       }
       return convertedIntervals;
+    },
+    currentNotes() {
+      let scaleIntervals = this.getIntervals;
+      let notesNames = [];
+
+      // get tonality index of this.selector.notes
+      // let tonalityIndex = null;
+      // let copyNotes = this.selector.notes;
+
+      // for (var i = 0; i < copyNotes.length; i++) {
+      //   switch (expr) {
+      //     case 'Oranges':
+      //       console.log('Oranges are $0.59 a pound.');
+      //       break;
+      //     case 'Mangoes':
+      //     case 'Papayas':
+      //       console.log('Mangoes and papayas are $2.79 a pound.');
+      //       // expected output: "Mangoes and papayas are $2.79 a pound."
+      //       break;
+      //     default:
+      //       console.log(`Sorry, we are out of ${expr}.`);
+      //   }
+      // }
+
+
+
+
+      for (var i = 0; i < scaleIntervals.length; i++) {
+        let note = this.selector.notes[scaleIntervals[i]];
+        if (note.native == null) {
+          // TODO implement sharp or flat selector
+          // we go for sharp for now
+          notesNames.push(note.sharp);
+        } else {
+          notesNames.push(note.native);
+        }
+      }
+
+      return notesNames;
     }
   },
 };
@@ -363,6 +464,14 @@ fieldset {
     width: -webkit-fill-available;
   }
 }
+.currentnotes{
+  display:flex;
+  margin-left: 3%;
+  margin-right: 3%;
+}
+.currentnote{
+  flex:auto;
+  font-weight: bold;
+  font-size: x-large;
+}
 </style>
-
-#fretboardapp > div > section > fieldset:nth-child(2) > div.baseflex.dropdowns > div.scaledropdown.level1 > div.cursorpointer > div.placeholdervalue
