@@ -60,7 +60,7 @@
             <legend>Scale</legend>
             <div class="currentnotes">
               <text class="currentnote"
-                v-for="n in currentNotes"
+                v-for="n in selector.scales.currentNotes"
                 :key="n"
               >{{n}}</text>
             </div>
@@ -206,6 +206,7 @@ export default {
         ],
         scales: {
           database: scalesDatabase,
+          currentNotes:null,
           /* For the level meaning -> cf scales.js */
           level1: null,
           level2: null,
@@ -236,6 +237,13 @@ export default {
     this.selector.scales.level1 = 2;
     this.selector.scales.level2 = 0;
     this.selector.scales.level3 = 0;
+
+    // init tonality -> C
+    //this.selector.tonality.selected = this.selector.tonality.available[0];
+
+    // init accidental -> ♮
+    this.setAccidental('♮');
+    //this.selector.accidental.selected = this.selector.accidental.available[1];
   },
   methods: {
     updateStartingNumber(value) {
@@ -338,6 +346,7 @@ export default {
         }
       }
 
+      console.log("currentNotes: " + notesNames);
       return notesNames;
     }
   },
@@ -400,10 +409,26 @@ export default {
       return convertedIntervals;
     },
     _getIndexOfCurrentTonality() {
+      let noteWeAreLookingFor = (this.selector.tonality.selected + this.selector.accidental.selected).replace('♮','');
+      let self = this;
+
       // index of current note on the chromatic scale
-      return this.selector.notes.map(function(n) { return n.native; }).indexOf(this.selector.tonality.selected) 
+      let indexCurrentNote = this.selector.notes.map(function(n) {
+        switch (self.selector.accidental.selected) {
+          case "♭":
+          return n.flat;
+          case "♮":
+            return n.native != null ? n.native : '';
+          case "♯":
+            return n.sharp;
+          default:
+            return n.native != null ? n.native : '';
+        }
+      }).indexOf(noteWeAreLookingFor);
+
+      return indexCurrentNote 
       // application of the accidental
-      - (this.selector.accidental.available.indexOf(this.selector.accidental.selected) -1);
+      + (this.selector.accidental.available.indexOf(this.selector.accidental.selected) - 1);
     }
   }
 }
