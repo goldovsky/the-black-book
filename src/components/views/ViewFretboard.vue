@@ -164,7 +164,7 @@ export default {
             flat: 'D♭',
           },
           {
-            doubleSharp: 'C×',
+            doubleSharp: 'C𝄪',
             native: 'D',
             doubleFlat: 'E𝄫'
           },
@@ -174,7 +174,7 @@ export default {
             flat: 'E♭',
           },
           {
-            doubleSharp: 'D×',
+            doubleSharp: 'D𝄪',
             native: 'E',
             flat: 'F♭',
           },
@@ -189,7 +189,7 @@ export default {
             flat: 'G♭',
           },
           {
-            doubleSharp: 'F×',
+            doubleSharp: 'F𝄪',
             native: 'G',
             doubleFlat: 'A𝄫'
           },
@@ -199,7 +199,7 @@ export default {
             flat: 'A♭',
           },
           {
-            doubleSharp: 'G×',
+            doubleSharp: 'G𝄪',
             native: 'A',
             doubleFlat: 'B𝄫'
           },
@@ -209,7 +209,7 @@ export default {
             flat: 'B♭',
           },
           {
-            doubleSharp: 'A×',
+            doubleSharp: 'A𝄪',
             native: 'B',
             flat: 'C♭',
           },
@@ -337,7 +337,16 @@ export default {
           copyTonics.splice(0, tonicIndex);
         }
 
-        return copyTonics[index];
+        // step1 get
+        switch (this.selector.scales.level1) {
+          // Pentatonic
+          case 0:
+
+            return copyTonics[index];
+          // Heptatonic
+          default:
+            return copyTonics[index];
+        }
       }
   },
   computed: {
@@ -377,22 +386,21 @@ export default {
      * OUT : [0, 2, 2, 1, 2, 2, 2, 1]
      */
     convertedIntervals() {
-      let intervals = this._getIntervals;
-      // apply mode
-      intervals = this._applyModeToScale(intervals, this.selector.scales.level3);
-
+      let intervals = this._applyModeToScale(this._getIntervals, this.selector.scales.level3);
       let convertedIntervals = [];
-      for (var i = 0; i <= intervals.length; i++) {
-        let interval = null;
-        if (i == 0) {
-          interval = i;
-        }else if (i == intervals.length) {
-          interval = 12 - intervals[i - 1]; // 12 -> octave
+      
+      for (let i = 0; i < intervals.length; i++) {
+        if (i === 0) {
+          convertedIntervals.push(intervals[i]);
         } else {
-          interval = intervals[i] - intervals[i - 1];
+          convertedIntervals.push(intervals[i] - intervals[i - 1]);
         }
-        convertedIntervals.push(interval);
       }
+      
+      // Calculate the octave interval
+      convertedIntervals.push(12 - intervals[intervals.length - 1]);
+
+      console.log(convertedIntervals);
       return convertedIntervals;
     },
     getCurrentTonalityNotes() {
@@ -407,7 +415,7 @@ export default {
         let objectNote = notes[scaleIntervals[j]];
         // key of the current note
         let key = Object.keys(objectNote).find(key => !!objectNote[key] && objectNote[key].startsWith(this._nextLogicalNoteDenomination(j)));
-        
+
         response.push(objectNote[key]);
       }
 
