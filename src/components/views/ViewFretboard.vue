@@ -321,11 +321,8 @@ export default {
 
       return intervals;
     },
-    _denominationAlreadyUsed(notes, currentNote){
-      return notes.some((str) => str.startsWith(currentNote));
-    },
-    _nextLogicalNoteDenomination(index) {
-        let tonicIndex = this.selector.tonic.list.indexOf(this.selector.tonic.selected);
+    _getTonicsOrderedStartingFromCurrentTonic() {
+      let tonicIndex = this.selector.tonic.list.indexOf(this.selector.tonic.selected);
         let copyTonics = [...this.selector.tonic.list];
         // no modification needed for the first index
         if (tonicIndex != 0) { 
@@ -337,16 +334,20 @@ export default {
           copyTonics.splice(0, tonicIndex);
         }
 
-        // step1 get
+        return copyTonics;
+    },
+    _nextLogicalNoteDenomination(index, TonicsFromContext) {
+      // For now, a switch is here even if only one case cause others will come later on
         switch (this.selector.scales.level1) {
           // Pentatonic
-          case 0:
-
-            return copyTonics[index];
-          // Heptatonic
-          default:
-            return copyTonics[index];
+          case 0: { 
+            if ((index > 0) && ((this._getIntervals[index] - this._getIntervals[index - 1]) > 2)) {
+              TonicsFromContext.splice(index, 1);
+            }
+          }
         }
+
+        return TonicsFromContext[index];
       }
   },
   computed: {
@@ -400,21 +401,21 @@ export default {
       // Calculate the octave interval
       convertedIntervals.push(12 - intervals[intervals.length - 1]);
 
-      console.log(convertedIntervals);
       return convertedIntervals;
     },
     getCurrentTonalityNotes() {
       let scaleIntervals = this._getIntervals;
-      let response = [];
-
+      let TonicsFromContext = this._getTonicsOrderedStartingFromCurrentTonic();
       let notes = this._getNotesStartingFromCurrentIndex;
+      let response = [];
 
       // Pour chaque note de la gamme
       for (var j = 0; j < scaleIntervals.length; j++) {
         // object from twelveNotes
         let objectNote = notes[scaleIntervals[j]];
+        let nextLogicalNoteDenomination = this._nextLogicalNoteDenomination(j, TonicsFromContext);
         // key of the current note
-        let key = Object.keys(objectNote).find(key => !!objectNote[key] && objectNote[key].startsWith(this._nextLogicalNoteDenomination(j)));
+        let key = Object.keys(objectNote).find(key => !!objectNote[key] && objectNote[key].startsWith(nextLogicalNoteDenomination));
 
         response.push(objectNote[key]);
       }
