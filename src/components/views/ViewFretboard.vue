@@ -60,7 +60,7 @@
             <legend>Scale</legend>
             <div class="currentnotes">
               <text class="currentnote"
-                v-for="n in getCurrentTonalityNotes"
+                v-for="n in getCurrentScaleNotesDenomination"
                 :key="n"
               >{{n}}</text>
             </div>
@@ -280,6 +280,7 @@ export default {
     /** 
      * Handling of dropdowns concerning scale selection
      */
+    // TODO write those 3 functions into 1 function
     setScalesLevel1(name) {
       this.selector.scales.level1 = Object.keys(this.selector.scales.database).indexOf(name);
       // reset levels
@@ -387,7 +388,7 @@ export default {
      * OUT : [0, 2, 2, 1, 2, 2, 2, 1]
      */
     convertedIntervals() {
-      let intervals = this._applyModeToScale(this._getIntervals, this.selector.scales.level3);
+      let intervals = this._applyModeToScale([...this._getIntervals], this.selector.scales.level3);
       let convertedIntervals = [];
       
       for (let i = 0; i < intervals.length; i++) {
@@ -403,7 +404,7 @@ export default {
 
       return convertedIntervals;
     },
-    getCurrentTonalityNotes() {
+    getCurrentScaleNotesDenomination() {
       let scaleIntervals = this._getIntervals;
       let TonicsFromContext = this._getTonicsOrderedStartingFromCurrentTonic();
       let notes = this._getNotesStartingFromCurrentIndex;
