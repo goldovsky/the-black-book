@@ -118,7 +118,7 @@ export default {
           textColor: "var(--fretboard-rootText-color)",
         }
       },
-      orientation: null,
+      isHorizontal: true,
       tuning: null,
       ariaUid: 0,
       noteNames: [
@@ -168,7 +168,6 @@ export default {
      * Design Values
      */
     // @1
-    this.orientation = "horizontal";
     /**
      * Reverse string order to get the low string on top of the diagram
      */

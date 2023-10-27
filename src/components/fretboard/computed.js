@@ -135,7 +135,6 @@ export default {
     });
     return renderings;
   },
-
   scaleInfo() {
     if (!this.intervals.length || !this.tuningNormalized.length) {
       return [];
@@ -303,8 +302,5 @@ export default {
   },
   hasNut() {
     return this.startNormalized <= 1;
-  },
-  isHorizontal() {
-    return this.orientation === "horizontal";
-  },
+  }
 };
