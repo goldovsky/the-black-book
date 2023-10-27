@@ -405,7 +405,7 @@ export default {
       return convertedIntervals;
     },
     getCurrentScaleNotesDenomination() {
-      let scaleIntervals = this._getIntervals;
+      let scaleIntervals = this._applyModeToScale([...this._getIntervals], this.selector.scales.level3);
       let TonicsFromContext = this._getTonicsOrderedStartingFromCurrentTonic();
       let notes = this._getNotesStartingFromCurrentIndex;
       let response = [];
