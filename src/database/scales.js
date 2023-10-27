@@ -155,7 +155,7 @@ export default {
         "Lydian ♯2",
         "Superlocrian double flat7/Altered diminished",
       ],
-      intervals: [0, 2, 3, 5, 6, 9, 11],
+      intervals: [0, 2, 3, 5, 7, 8, 11],
     },
   },
 };

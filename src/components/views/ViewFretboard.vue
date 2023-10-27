@@ -323,7 +323,22 @@ export default {
     },
     _denominationAlreadyUsed(notes, currentNote){
       return notes.some((str) => str.startsWith(currentNote));
-    }
+    },
+    _nextLogicalNoteDenomination(index) {
+        let tonicIndex = this.selector.tonic.list.indexOf(this.selector.tonic.selected);
+        let copyTonics = [...this.selector.tonic.list];
+        // no modification needed for the first index
+        if (tonicIndex != 0) { 
+          // First, we add notes to the octave before our starting point at the end of the array
+          for (var i = 0; i < tonicIndex; i++) {
+            copyTonics.push(copyTonics[i]);
+          }  
+          // Secondly we remove the unwanted values before our starting point based on the mode
+          copyTonics.splice(0, tonicIndex);
+        }
+
+        return copyTonics[index];
+      }
   },
   computed: {
     getInstrument() {
@@ -389,65 +404,11 @@ export default {
       // Pour chaque note de la gamme
       for (var j = 0; j < scaleIntervals.length; j++) {
         // object from twelveNotes
-        let note = notes[scaleIntervals[j]];
-        let nextLogicalNoteDenomination = () => {
-          let tonicIndex = this.selector.tonic.list.indexOf(this.selector.tonic.selected);
-          let copyTonics = [...this.selector.tonic.list];
-          // no modification needed for the first index
-          if (tonicIndex != 0) { 
-            // First, we add notes to the octave before our starting point at the end of the array
-            for (var i = 0; i < tonicIndex; i++) {
-              copyTonics.push(copyTonics[i]);
-            }  
-            // Secondly we remove the unwanted values before our starting point based on the mode
-            copyTonics.splice(0, tonicIndex);
-          }
-
-          return copyTonics[j];
-        };
-        console.log(nextLogicalNoteDenomination());
-        let noteName = null;
-
-        switch (this.selector.accidental.selected) {
-          case "♭":
-            if (note.flat != null) {
-              noteName = note.flat;
-            } else {
-              if(note.native != null) {
-                noteName = this._denominationAlreadyUsed(response, note.native) ? note.doubleFlat : note.native;
-              } else {
-                // TODO ? il faut quoi là ? je suis perdu xD
-                //noteName = note.
-              }
-            }
-            //noteName = note.flat != null ? note.flat : note.native;
-            break;
-          case "♮":
-            if (note.native == null) {
-              // TODO implement sharp or flat selector
-              // we go for sharp for now except if note before is already used
-              noteName = (this._denominationAlreadyUsed(response, note.sharp.substring(0,1))) 
-                ? note.flat : note.sharp;
-            } else {
-              noteName = note.native;
-            }
-            break;
-          case "♯":
-            console.log(note);
-          if (note.sharp != null) {
-              noteName = note.sharp;
-            } else {
-              if(note.native != null) {
-                noteName = this._denominationAlreadyUsed(response, note.native) ? note.doubleSharp : note.native;
-              } else {
-                // TODO ? il faut quoi là ? je suis perdu xD
-                //noteName = note.
-              }
-            }
-            //noteName = note.flat != null ? note.flat : note.native;
-            break;
-        }
-        response.push(noteName);
+        let objectNote = notes[scaleIntervals[j]];
+        // key of the current note
+        let key = Object.keys(objectNote).find(key => !!objectNote[key] && objectNote[key].startsWith(this._nextLogicalNoteDenomination(j)));
+        
+        response.push(objectNote[key]);
       }
 
       return response;
