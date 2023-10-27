@@ -142,13 +142,13 @@ export default {
       type: String,
       default: "",
     },
-    scale: {
-      type: String,
-      default: "C D E F G A B"
+    newscalenotename: {
+      type: Array[String],
+      default: ["C","D","E","F","G","A","B"]
     },
-    convertedIntervals: {
+    intervals: {
       type: Array[Number],
-      default: [0, 2, 2, 1, 2, 2, 2, 1] // Major scale
+      default: [0, 2, 4, 5, 7, 9, 11, 0] // Major scale
     },
     propTuning: {
       type: String,

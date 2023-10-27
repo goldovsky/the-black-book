@@ -23,8 +23,8 @@
         }"
       >
         <the-fretboard
-          :scale="scale"
-          :convertedIntervals="convertedIntervals"
+          :newscalenotename="getCurrentScaleNotesDenomination"
+          :intervals="computedIntervals"
           :prop-tuning="fretboard.tuning"
           :start="fretboard.startingFret"
           :frets="fretboard.frets + fretboard.startingFret - 1"
@@ -35,27 +35,6 @@
 
       <base-card>
         <section class="col-3">
-          <fieldset class="form-group mt-4">
-            <legend>General</legend>
-            <div class="form-group">
-              <label for="scale">Scale</label>
-              <input
-                id="scale"
-                class="form-control"
-                type="text"
-                v-model="scale"
-                list="scaleOptions"
-              />
-              <!-- <datalist id="scaleOptions">
-                <option></option>
-              </datalist> -->
-              <span class="form-text text-muted"
-                >1 or more space separated note names or a scale name (e.g. C
-                Major)</span
-              >
-            </div>
-          </fieldset>
-
           <fieldset class="form-group mt-4">
             <legend>Scale</legend>
             <div class="currentnotes">
@@ -142,7 +121,6 @@ export default {
   },
   data() {
     return {
-      scale: "C Major",
       selector: {
         tonic: {
           list: ["C","D","E","F","G","A","B"],
@@ -385,24 +363,29 @@ export default {
      * convert current interval system in scale.js to the system used in TheFretboard.vue/computed.js
      * Example for the Major scale:
      * IN : [0, 2, 4, 5, 7, 9, 11]
-     * OUT : [0, 2, 2, 1, 2, 2, 2, 1]
+     * OUT : [0, 2, 4, 5, 7, 9, 11, 0]
+     * 0 : C, each semitones = +1
      */
-    convertedIntervals() {
-      let intervals = this._applyModeToScale([...this._getIntervals], this.selector.scales.level3);
-      let convertedIntervals = [];
-      
-      for (let i = 0; i < intervals.length; i++) {
-        if (i === 0) {
-          convertedIntervals.push(intervals[i]);
-        } else {
-          convertedIntervals.push(intervals[i] - intervals[i - 1]);
-        }
-      }
-      
-      // Calculate the octave interval
-      convertedIntervals.push(12 - intervals[intervals.length - 1]);
+    computedIntervals() {
+      let notesArray = this.getCurrentScaleNotesDenomination;
 
-      return convertedIntervals;
+      const noteToIndex = {};
+
+      this.selector.twelveTones.forEach((tones, index) => {
+        for (const key in tones) {
+          const value = tones[key];
+          if (value && notesArray.includes(value)) {
+            noteToIndex[value] = index;
+          }
+        }
+      });
+
+      const indexesArray = notesArray.map(note => noteToIndex[note]);
+
+      indexesArray.push(indexesArray[0]);
+
+
+      return indexesArray;
     },
     getCurrentScaleNotesDenomination() {
       let scaleIntervals = this._applyModeToScale([...this._getIntervals], this.selector.scales.level3);

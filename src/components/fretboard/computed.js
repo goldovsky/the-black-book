@@ -6,7 +6,7 @@ export default {
     return "dt-fretboard-desc-" + this.ariaId;
   },
   ariaDescText() {
-    return "Scale: " + this.scale + "; Tuning: " + this.tuning;
+    return "Scale: " + 'this.scale' + "; Tuning: " + this.tuning;
   },
   ariaIds() {
     return this.ariaTitleId + " " + this.ariaDescId;
@@ -20,7 +20,6 @@ export default {
   fretsNormalized() {
     return Math.max(1, Math.min(30, this.frets));
   },
-
   fretRenderings() {
     let renderings = [];
     let fretMarkers = [3, 5, 7, 9, 12, 15, 17, 19, 21, 24]
@@ -138,7 +137,7 @@ export default {
   },
 
   scaleInfo() {
-    if (!this.scaleNormalized.length || !this.tuningNormalized.length) {
+    if (!this.intervals.length || !this.tuningNormalized.length) {
       return [];
     }
 
@@ -153,7 +152,7 @@ export default {
         rendering.x =
           ox + this.stringSizeNormalized[string] / 2 + this.note.radius * 1;
         let value = (fret + this.tuningNormalized[string]) % 12;
-        let index = this.scaleNormalized.indexOf(value);
+        let index = this.intervals.indexOf(value);
         if (~index) {
           let ny = fret === 0 ? this.note.radius * 1 : this.fret.space / 2;
           rendering.y = oy + ny;
@@ -182,55 +181,6 @@ export default {
     }
     return renderings;
   },
-
-  scaleNormalized() {
-    let noteValue = {
-      C: 0,
-      D: 2,
-      E: 4,
-      F: 5,
-      G: 7,
-      A: 9,
-      B: 11,
-    };
-    let accidental = {
-      B: -1,
-      "#": 1,
-      "": 0,
-    };
-    let v = this.scale.trim().toUpperCase();
-    let m = null;
-    if (
-      (m = v.match(
-        /^([a-g])([#b]?)\s*(major|minor|acoustic|aeolian|ionian|dorian|algerian|locrian|lydian|major pentatonic|minor pentatonic|mixolydian|phrygian)$/i
-      ))
-    ) {
-      let intervals = {
-        MAJOR: [0, 2, 2, 1, 2, 2, 2, 1],
-        MINOR: [0, 2, 1, 2, 2, 1, 2, 2],
-        ACOUSTIC: [0, 2, 2, 2, 1, 2, 1, 2],
-        AEOLIAN: [0, 2, 1, 2, 2, 1, 2, 2],
-        ALGERIAN: [0, 2, 1, 3, 1, 1, 3, 1, 2, 1, 2],
-        DORIAN: [0, 2, 1, 2, 2, 2, 1, 2],
-        IONIAN: [0, 2, 2, 1, 2, 2, 2, 1],
-        LOCRIAN: [0, 1, 2, 2, 1, 2, 2, 2],
-        LYDIAN: [0, 2, 2, 2, 1, 2, 2, 1],
-        "MAJOR PENTATONIC": [0, 2, 2, 3, 2, 3],
-        "MINOR PENTATONIC": [0, 3, 2, 2, 3, 2],
-        MIXOLYDIAN: [0, 2, 2, 1, 2, 2, 1, 2],
-        PHRYGIAN: [0, 1, 2, 2, 2, 1, 2, 2],
-      };
-      let notes = [];
-      for (let i = 0, k = 0, l = intervals[m[3]].length; i < l; ++i) {
-        k += intervals[m[3]][i];
-        notes.push((noteValue[m[1]] + accidental[m[2]] + k) % 12);
-      }
-      return notes;
-    } else {
-      return this.getValues(this.scale);
-    }
-  },
-
   scaleRendering() {
     return this.scaleInfo.map((rendering) => {
       return {
